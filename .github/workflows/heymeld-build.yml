@@ -94,12 +94,15 @@ jobs:
           done
 
       - name: Check signing secret
+        id: key
         env:
           HEYMELD_KEY_PASSWORD: ${{ secrets.HEYMELD_KEY_PASSWORD }}
         run: |
           if [ -z "$HEYMELD_KEY_PASSWORD" ]; then
-            echo "::error::Manca il secret HEYMELD_KEY_PASSWORD (Settings > Secrets and variables > Actions)."
-            exit 1
+            echo "::warning::Manca il secret HEYMELD_KEY_PASSWORD: compilo senza firmare e senza pubblicare."
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Set up JDK 21
@@ -112,6 +115,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
 
       - name: Signing key
+        if: steps.key.outputs.present == 'true'
         env:
           PASS: ${{ secrets.HEYMELD_KEY_PASSWORD }}
         run: |
@@ -164,6 +168,7 @@ jobs:
           ./gradlew --console=plain assembleGmsRelease --warning-mode summary 2>&1 | tee -a build.log
 
       - name: Sign APK
+        if: steps.key.outputs.present == 'true'
         env:
           PASS: ${{ secrets.HEYMELD_KEY_PASSWORD }}
         run: |
@@ -177,6 +182,7 @@ jobs:
           ls -la out
 
       - name: Publish release
+        if: steps.key.outputs.present == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.version.outputs.version }}
