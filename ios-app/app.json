@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "Meld",
+    "slug": "meld-ios",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#121110",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.nortambria.meld",
+      "buildNumber": "1",
+      "infoPlist": {
+        "UIBackgroundModes": ["audio"],
+        "NSMicrophoneUsageDescription": "Il microfono serve per sentire «Hey Meld» e i comandi vocali.",
+        "NSSpeechRecognitionUsageDescription": "Il riconoscimento vocale trasforma in testo il comando che dici dopo «Hey Meld».",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "plugins": [
+      ["expo-audio", { "microphonePermission": "Il microfono serve per sentire «Hey Meld» e i comandi vocali.", "enableBackgroundPlayback": true }],
+      ["expo-speech-recognition", {
+        "microphonePermission": "Il microfono serve per sentire «Hey Meld» e i comandi vocali.",
+        "speechRecognitionPermission": "Il riconoscimento vocale trasforma in testo il comando che dici dopo «Hey Meld»."
+      }],
+      "react-native-fast-tflite",
+      ["expo-build-properties", { "ios": { "deploymentTarget": "16.4" } }]
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+# Builds the iPhone app (ios-app/) without a signature and publishes the .ipa as a pre-release,
+# to install with SideStore. Pre-release so Meld's Android updater keeps seeing only the APKs.
+name: Meld iPhone - compila IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["ios-app/**", ".github/workflows/meld-ios.yml"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: meld-ios
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: ios-app/package-lock.json
+
+      - name: Install
+        working-directory: ios-app
+        run: npm ci
+
+      - name: Tests
+        working-directory: ios-app
+        run: |
+          npm test
+          npx tsc --noEmit
+
+      - name: Generate the iOS project
+        working-directory: ios-app
+        run: npx expo prebuild --platform ios --no-install
+
+      - name: Pods
+        working-directory: ios-app/ios
+        run: pod install
+
+      - name: Build (unsigned)
+        working-directory: ios-app/ios
+        run: |
+          set -o pipefail
+          WS=$(ls -d *.xcworkspace | head -1)
+          SCHEME="${WS%.xcworkspace}"
+          xcodebuild -workspace "$WS" -scheme "$SCHEME" -configuration Release \
+            -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build 2>&1 | tee ../../ios-build.log | grep -E "error:|warning: .*deprecated|BUILD" | head -200
+          mkdir -p ../Payload
+          cp -R "build/Build/Products/Release-iphoneos/$SCHEME.app" ../Payload/
+          cd .. && zip -qry Meld.ipa Payload
+
+      - name: Publish
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ios-v1.0.${{ github.run_number }}
+          name: Meld per iPhone 1.0.${{ github.run_number }}
+          body: File .ipa non firmato, da installare con SideStore usando un ID Apple gratuito.
+          files: ios-app/Meld.ipa
+          prerelease: true
+          make_latest: false
+
+      - name: Save log for debugging
+        if: failure()
+        run: |
+          [ -f ios-build.log ] || echo "no xcode log" > ios-build.log
+          grep -E "error:|Error|failed" -B2 -A3 ios-build.log | head -300 > ios-errors.log || true
+          cat ios-errors.log >> ios-build.log
+          bash heymeld/ci/push-log.sh ios-build.log "ios-${{ github.run_number }}"
