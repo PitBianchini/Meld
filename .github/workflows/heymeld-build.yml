@@ -9,6 +9,8 @@ on:
     branches: [main, hey-meld]
     paths-ignore:
       - "heymeld/training/**"
+      - ".github/workflows/heymeld-train.yml"
+      - "heymeld/ci/**"
       - "**.md"
   workflow_dispatch:
     inputs:

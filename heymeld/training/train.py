@@ -331,30 +331,47 @@ def build_model(layer=48, blocks=1):
     return nn.Sequential(*mods)
 
 
-def train(model, pos, neg, hard_neg, steps, rng_seed=0):
+def train(model, pos, neg, hard_neg, steps, evaluate=None, rng_seed=0):
+    """openWakeWord-style training: negative weight ramps up strongly, easy negatives are ignored,
+    and the checkpoint with the best validation score is kept."""
+    import copy
     import torch
     torch.manual_seed(rng_seed)
-    opt = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-2)
-    sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=2e-3, total_steps=steps)
+    opt = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=1e-2)
+    sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=1e-3, total_steps=steps, pct_start=0.15)
     bce = torch.nn.BCEWithLogitsLoss(reduction="none")
-    P, N, H = torch.from_numpy(pos), torch.from_numpy(neg), torch.from_numpy(hard_neg)
+    P, H = torch.from_numpy(pos), torch.from_numpy(hard_neg)
+    rng = np.random.default_rng(rng_seed)
     g = torch.Generator().manual_seed(rng_seed)
+    best, best_score = copy.deepcopy(model.state_dict()), -1e9
     for step in range(steps):
-        bp, bn, bh = 128, 320, 64
+        bp, bn, bh = 256, 1024, 128
         xp = P[torch.randint(len(P), (bp,), generator=g)]
-        xn = N[torch.randint(len(N), (bn,), generator=g)]
         xh = H[torch.randint(len(H), (bh,), generator=g)]
+        xn = torch.from_numpy(np.asarray(neg[np.sort(rng.integers(0, len(neg), bn))], np.float32))
         x = torch.cat([xp, xn, xh])
         y = torch.cat([torch.ones(bp), torch.zeros(bn + bh)])
-        w = torch.cat([torch.ones(bp), torch.full((bn,), 1.0 + 9.0 * step / steps), torch.full((bh,), 3.0)])
+        ramp = min(1.0, step / (0.5 * steps))
+        w = torch.cat([torch.ones(bp), torch.full((bn,), 1.0 + 299.0 * ramp), torch.full((bh,), 1.0 + 49.0 * ramp)])
+        model.train()
         logits = model(x).squeeze(1)
-        loss = (bce(logits, y) * w).mean()
+        with torch.no_grad():
+            p = torch.sigmoid(logits)
+            # ignore examples that are already clearly right (hard-example mining)
+            keep = torch.where(y > 0.5, p < 0.99, p > 0.001).float()
+        loss = (bce(logits, y) * w * keep).sum() / (w * keep).sum().clamp(min=1.0)
         opt.zero_grad()
         loss.backward()
         opt.step()
         sched.step()
         if step % 1000 == 0:
             log(f"step {step}/{steps} loss {loss.item():.4f}")
+        if evaluate and step >= steps // 3 and (step % 2500 == 0 or step == steps - 1):
+            score, info = evaluate(model)
+            log(f"  eval step {step}: {info}")
+            if score > best_score:
+                best_score, best = score, copy.deepcopy(model.state_dict())
+    model.load_state_dict(best)
     return model
 
 
@@ -438,60 +455,73 @@ def main():
     ap.add_argument("--validation", default="", help="openWakeWord validation_set_features.npy")
     ap.add_argument("--positives", type=int, default=12000)
     ap.add_argument("--confusables", type=int, default=9000)
-    ap.add_argument("--steps", type=int, default=25000)
+    ap.add_argument("--steps", type=int, default=60000)
+    ap.add_argument("--acav-windows", type=int, default=2_000_000)
+    ap.add_argument("--cache", default="", help="npz with clip features, reused between runs")
     ap.add_argument("--smoke", action="store_true")
     a = ap.parse_args()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     if a.smoke:
-        a.positives, a.confusables, a.steps = 300, 300, 300
+        a.positives, a.confusables, a.steps = 300, 300, 900
 
     from openwakeword.utils import AudioFeatures
     features = AudioFeatures(inference_framework="onnx", ncpu=os.cpu_count() or 2)
     py = random.Random(1)
     rng = np.random.default_rng(1)
-    tts = SmokeTts() if a.smoke else Tts(Path(a.voices))
+    cache = Path(a.cache) if a.cache else None
+    if cache and cache.exists():
+        log("using cached clip features", cache)
+        z = np.load(cache)
+        pos, hard, neg_local = z["pos"], z["hard"], z["neg"]
+    else:
+        tts = SmokeTts() if a.smoke else Tts(Path(a.voices))
+        music = load_music(out, 3 * 3600, a.smoke)
+        rirs = load_rirs(a.smoke)
 
-    music = load_music(out, 3 * 3600, a.smoke)
-    rirs = load_rirs(a.smoke)
+        log("synthesizing speech backgrounds")
+        babble = []
+        for _ in range(60 if a.smoke else 400):
+            babble.append(np.concatenate([tts.say(py.choice(SENTENCES_IT + SENTENCES_EN), py) for _ in range(3)]))
 
-    log("synthesizing speech backgrounds")
-    babble = []
-    for _ in range(60 if a.smoke else 400):
-        s = [tts.say(py.choice(SENTENCES_IT + SENTENCES_EN), py) for _ in range(3)]
-        babble.append(np.concatenate(s))
+        def make(n, texts_en, texts_it, tail):
+            clips = np.zeros((n, CLIP), np.int16)
+            for i in range(n):
+                italian = py.random() < 0.35
+                text = py.choice(texts_it if italian else texts_en)
+                clips[i] = augment(place(tts.say(text, py, italian), rng, tail), rng, music, babble, rirs)
+                if i % 2000 == 0:
+                    log(f"  {i}/{n}")
+            return clips
 
-    def make(n, texts_en, texts_it, tail):
-        clips = np.zeros((n, CLIP), np.int16)
-        for i in range(n):
-            italian = py.random() < 0.35
-            text = py.choice(texts_it if italian else texts_en)
-            clips[i] = augment(place(tts.say(text, py, italian), rng, tail), rng, music, babble, rirs)
-            if i % 2000 == 0:
-                log(f"  {i}/{n}")
-        return clips
-
-    log("positive clips")
-    pos_clips = make(a.positives, POSITIVE_EN, POSITIVE_IT, tail=True)
-    log("confusable negative clips")
-    conf_clips = make(a.confusables, CONFUSABLE_EN, CONFUSABLE_IT, tail=True)
-    log("sentence negatives")
-    sent_clips = make(a.confusables // 2, SENTENCES_EN, SENTENCES_IT, tail=False)
-    log("pure background negatives")
-    bg_clips = np.stack([augment(np.zeros(CLIP, np.float32) + 1e-4 * rng.normal(0, 1, CLIP).astype(np.float32), rng, music, babble, rirs)
-                         for _ in range(a.confusables // 2)])
-
-    log("embedding")
-    pos = embed(features, pos_clips)
-    hard = embed(features, conf_clips)
-    neg_local = np.concatenate([embed(features, sent_clips), embed(features, bg_clips)])
+        log("positive clips")
+        pos = embed(features, make(a.positives, POSITIVE_EN, POSITIVE_IT, tail=True))
+        log("confusable negative clips")
+        hard = embed(features, make(a.confusables, CONFUSABLE_EN, CONFUSABLE_IT, tail=True))
+        log("sentence negatives")
+        sent = embed(features, make(a.confusables // 2, SENTENCES_EN, SENTENCES_IT, tail=False))
+        log("pure background negatives")
+        bg = np.stack([augment(rng.normal(0, 1e-4, CLIP).astype(np.float32), rng, music, babble, rirs)
+                       for _ in range(a.confusables // 2)])
+        neg_local = np.concatenate([sent, embed(features, bg)])
+        if cache:
+            np.savez(cache, pos=pos, hard=hard, neg=neg_local)
 
     if a.negatives and Path(a.negatives).exists():
         acav = np.load(a.negatives, mmap_mode="r")
         log("ACAV negatives", acav.shape, acav.dtype)
-        neg = np.concatenate([windows_from(acav, 400_000, rng), neg_local])
+        n = min(acav.shape[0] if acav.ndim == 3 else acav.shape[0] - FRAMES, a.acav_windows)
+        neg = np.empty((n + len(neg_local), FRAMES, DIM), np.float16)
+        if acav.ndim == 3:
+            idx = np.sort(rng.choice(acav.shape[0], size=n, replace=False))
+            for k in range(0, n, 100_000):
+                neg[k:k + 100_000] = acav[idx[k:k + 100_000]]
+        else:
+            neg[:n] = windows_from(acav, n, rng)
+        neg[n:] = neg_local
     else:
-        neg = neg_local
+        neg = neg_local.astype(np.float16)
+    log("negatives in memory:", neg.shape, f"{neg.nbytes / 1e9:.1f} GB")
 
     # hold out 10 % of positives and confusables for evaluation
     def split(x):
@@ -500,19 +530,31 @@ def main():
     pos_tr, pos_te = split(pos)
     hard_tr, hard_te = split(hard)
 
-    import torch
-    model = build_model()
-    log(f"training on {len(pos_tr)} positives, {len(neg)} negatives, {len(hard_tr)} confusables")
-    train(model, pos_tr, neg, hard_tr, a.steps)
-
-    p_pos = predict(model, pos_te)
-    p_hard = predict(model, hard_te)
     if a.validation and Path(a.validation).exists():
-        val = streaming_windows(np.load(a.validation, mmap_mode="r"), 600_000)
+        raw_val = np.load(a.validation, mmap_mode="r")
+        log("validation features", raw_val.shape, raw_val.dtype)
+        val = streaming_windows(raw_val, 1_000_000)
         hours = len(val) * 0.08 / 3600
     else:
         val = neg_local[: max(1, len(neg_local) // 5)]
         hours = len(val) * 2.0 / 3600
+    log(f"validation: {len(val)} windows = {hours:.1f} h")
+
+    def evaluate(m):
+        pp, ph, pv = predict(m, pos_te), predict(m, hard_te), predict(m, val)
+        thr = 0.5
+        fa = false_accepts(pv, thr) / max(hours, 1e-6)
+        rec = float((pp >= thr).mean())
+        conf = float((ph >= thr).mean())
+        return rec - 0.15 * fa - 0.5 * conf, {"recall": round(rec, 3), "fa_per_h": round(fa, 2), "confusable": round(conf, 3)}
+
+    import torch
+    model = build_model()
+    log(f"training on {len(pos_tr)} positives, {len(neg)} negatives, {len(hard_tr)} confusables")
+    train(model, pos_tr, neg, hard_tr, a.steps, evaluate)
+
+    p_pos = predict(model, pos_te)
+    p_hard = predict(model, hard_te)
     p_val = predict(model, val)
 
     report = {"hours_validation": hours, "candidates": []}

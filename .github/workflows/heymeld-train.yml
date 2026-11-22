@@ -9,7 +9,7 @@ on:
         default: "12000"
       steps:
         description: "Passi di addestramento"
-        default: "25000"
+        default: "60000"
   push:
     branches: [main, hey-meld]
     paths:
@@ -77,27 +77,40 @@ jobs:
             df -h /
           } 2>&1 | tee -a train.log
 
+      - name: Restore cached clip features
+        uses: actions/cache@v4
+        with:
+          path: clipfeats.npz
+          key: heymeld-clipfeats-v1-${{ inputs.positives || '12000' }}
+
       - name: Train
         run: |
           set -o pipefail
           python heymeld/training/train.py --out out --voices voices \
             --negatives feats/openwakeword_features_ACAV100M_2000_hrs_16bit.npy \
             --validation feats/validation_set_features.npy \
-            --positives "${{ inputs.positives || '12000' }}" --steps "${{ inputs.steps || '25000' }}" 2>&1 | tee -a train.log
+            --cache clipfeats.npz \
+            --positives "${{ inputs.positives || '12000' }}" --steps "${{ inputs.steps || '60000' }}" 2>&1 | tee -a train.log
 
       - name: Commit model
         run: |
-          mkdir -p app/src/main/assets/heymeld app/src/test/resources/heymeld
-          cp out/hey_meld.bin app/src/main/assets/heymeld/hey_meld.bin
-          cp out/vectors.txt app/src/test/resources/heymeld/vectors.txt
-          cp out/report.json heymeld/training/last_report.json
-          cat out/report.json
-          git config user.name "hey-meld-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add app/src/main/assets/heymeld/hey_meld.bin app/src/test/resources/heymeld/vectors.txt heymeld/training/last_report.json
-          git commit -m "chore(heymeld): train wake word model (run ${{ github.run_number }})"
-          git pull --rebase origin "${{ github.ref_name }}"
-          git push origin HEAD:"${{ github.ref_name }}"
+          set -x
+          {
+            mkdir -p app/src/main/assets/heymeld app/src/test/resources/heymeld
+            cp out/hey_meld.bin app/src/main/assets/heymeld/hey_meld.bin
+            cp out/vectors.txt app/src/test/resources/heymeld/vectors.txt
+            cp out/report.json heymeld/training/last_report.json
+            cat out/report.json
+            git config user.name "hey-meld-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git status --short | head -20
+            git add app/src/main/assets/heymeld/hey_meld.bin app/src/test/resources/heymeld/vectors.txt heymeld/training/last_report.json
+            git commit -m "chore(heymeld): train wake word model (run ${{ github.run_number }})"
+            git fetch origin "${{ github.ref_name }}"
+            git rebase "origin/${{ github.ref_name }}"
+            git push origin HEAD:"${{ github.ref_name }}"
+          } 2>&1 | tee -a train.log
+          test "${PIPESTATUS[0]}" = 0
 
       - name: Build the app with the new model
         env:
