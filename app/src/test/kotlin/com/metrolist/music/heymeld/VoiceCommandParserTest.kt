@@ -69,6 +69,22 @@ class VoiceCommandParserTest {
         "ehi meld riproduci i Coldplay" to VoiceCommand.Play("coldplay", PlayKind.AUTO, shuffle = false),
         "riproduci la canzone di Marinella" to VoiceCommand.Play("di marinella", PlayKind.SONG, shuffle = false),
         "ciao come stai" to VoiceCommand.Unknown,
+        "schippa la canzone" to VoiceCommand.Next,
+        "skippa" to VoiceCommand.Next,
+        "skippa questa canzone" to VoiceCommand.Next,
+        "vai avanti" to VoiceCommand.Next,
+        "passa questa" to VoiceCommand.Next,
+        "torna indietro" to VoiceCommand.Previous,
+        "torna indietro di una" to VoiceCommand.Previous,
+        "torna alla canzone di prima" to VoiceCommand.Previous,
+        "rimetti quella di prima" to VoiceCommand.Previous,
+        "torna alla precedente" to VoiceCommand.Previous,
+        "metti quelli che ho scaricato" to VoiceCommand.Play("", PlayKind.DOWNLOADED, shuffle = false),
+        "riproduci le canzoni scaricate" to VoiceCommand.Play("", PlayKind.DOWNLOADED, shuffle = false),
+        "metti la playlist dei download" to VoiceCommand.Play("", PlayKind.DOWNLOADED, shuffle = false),
+        "riproduci i miei migliori 50" to VoiceCommand.Play("miei migliori 50", PlayKind.AUTO, shuffle = false),
+        "metti la playlist i miei migliori 50" to VoiceCommand.Play("i miei migliori 50", PlayKind.PLAYLIST, shuffle = false),
+        "riproduci la mia playlist estate 2024" to VoiceCommand.Play("estate 2024", PlayKind.PLAYLIST, shuffle = false),
     )
 
     @Test

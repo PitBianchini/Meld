@@ -2,7 +2,7 @@ package com.metrolist.music.heymeld
 
 import java.text.Normalizer
 
-enum class PlayKind { AUTO, SONG, ARTIST, ALBUM, PLAYLIST, LIKED }
+enum class PlayKind { AUTO, SONG, ARTIST, ALBUM, PLAYLIST, LIKED, DOWNLOADED }
 
 sealed interface VoiceCommand {
     data object Next : VoiceCommand
@@ -61,8 +61,8 @@ object VoiceCommandParser {
         if (t.matches(SHUFFLE_ON)) return VoiceCommand.Shuffle(true)
         if (t.matches(SHUFFLE_TOGGLE)) return VoiceCommand.Shuffle(null)
 
-        if (t.matches(PREVIOUS)) return VoiceCommand.Previous
-        if (t.matches(NEXT)) return VoiceCommand.Next
+        if (t.matches(PREVIOUS) || t.matches(PREVIOUS_EXTRA)) return VoiceCommand.Previous
+        if (t.matches(NEXT) || t.matches(NEXT_EXTRA)) return VoiceCommand.Next
         if (t.matches(RESTART)) return VoiceCommand.Restart
         if (t.matches(PAUSE)) return VoiceCommand.Pause
         if (t.matches(RESUME)) return VoiceCommand.Resume
@@ -80,6 +80,7 @@ object VoiceCommandParser {
         }
         if (q.isBlank()) return VoiceCommand.Resume
         if (q.matches(LIKED)) return VoiceCommand.Play("", PlayKind.LIKED, shuffle)
+        if (q.matches(DOWNLOADED)) return VoiceCommand.Play("", PlayKind.DOWNLOADED, shuffle)
 
         for ((regex, kind) in KIND_PREFIXES) {
             regex.matchEntire(q)?.let { m ->
@@ -151,6 +152,8 @@ object VoiceCommandParser {
     private const val SONG = "(?:canzone|brano|pezzo|traccia|musica)"
     private val NEXT = r("^(?:(?:passa|vai|salta|metti|cambia|manda)(?: (?:a|al|alla|la|il))? )?(?:(?:la |il )?$SONG )?(?:successiv[ao]|prossim[ao](?: $SONG)?|dopo|avanti|next|skip|skippa|salta(?: questa)?(?: $SONG)?|cambia(?: $SONG)?|un'altra(?: $SONG)?|passa(?: $SONG)?)$")
     private val PREVIOUS = r("^(?:(?:torna|vai|passa|metti|rimetti|riproduci)(?: (?:a|al|alla|la|il|indietro))?(?: (?:a|al|alla))? )?(?:(?:la |il )?$SONG )?(?:precedente|prima|di prima|indietro|quella (?:di )?prima)$")
+    private val NEXT_EXTRA = r("^(?:skippa|schippa|skipa|scippa|skip|salta|passa|cambia|vai avanti|avanti|vai alla prossima|metti la prossima)(?: (?:questa|questo|la|il|sta))?(?: $SONG)?$")
+    private val PREVIOUS_EXTRA = r("^(?:torna|ritorna|vai|rimetti|metti|riproduci|fammi risentire)(?: (?:alla|a|al|quella|la|il))*(?: $SONG)? (?:di prima|precedente|prima|indietro(?: di (?:una|uno|un brano|una canzone))?)$")
     private val RESTART = r("^(?:ricomincia|riavvolgi|rimetti|riparti|riproduci|fai ripartire)(?: (?:la|il|questa|questo))?(?: $SONG)? (?:da capo|daccapo|dall'inizio|dall inizio|dal principio)$|^(?:ricomincia|riavvolgi)(?: (?:la|il|questa|questo))?(?: $SONG)?$|^(?:da capo|daccapo|dall'inizio)$")
     private val PAUSE = r("^(?:metti in pausa|metti pausa|pausa|stop|stoppa|ferma|fermati|fermala|basta|silenzio|zitto|spegni|interrompi|blocca)(?: (?:la|il|questa|questo|tutto))?(?: (?:la |il )?$SONG)?$")
     private val RESUME = r("^(?:riprendi|continua|play|riparti|fai ripartire|rimetti|riattiva|vai|fai partire|accendi|ricomincia a suonare|togli (?:la )?pausa)(?: (?:la|il))?(?: $SONG)?$")
@@ -188,6 +191,7 @@ object VoiceCommandParser {
     private val PLAY = r("^(?:riproduci|riproducimi|metti|mettimi|suona|suonami|fammi sentire|fammi ascoltare|voglio sentire|voglio ascoltare|ascolta|ascoltiamo|sentiamo|play|cerca e riproduci|cerca|fai partire|parti con|vai con|spara)(?:\\s+(.*))?$")
     private val SHUFFLE_SUFFIX = r("\\s*(?:in|a) (?:modalità |modalita )?(?:casuale|shuffle|ordine sparso)$")
     private val LIKED = r("^(?:le |i )?(?:mie |miei )?(?:canzoni|brani|pezzi)? ?(?:che mi piacciono|preferit[ie]|mi piace|piaciut[ie])$|^(?:la )?(?:playlist )?(?:dei |delle )?(?:mi piace|preferiti)$")
+    private val DOWNLOADED = r("^(?:(?:le|i|la|il) )?(?:mie |miei |mia )?(?:canzoni |brani |pezzi |musica |playlist )?(?:che ho scaricat[oaie]|scaricat[ieao]|offline|dei download|del download|download|in download|salvat[ie] sul telefono)$|^quell[ie] (?:che ho )?scaricat[ieao]$")
     private val SONG_BY = r("^(?:$SONG )?(.+?) (?:di|dei|degli|delle|del|della|dello) (.+)$")
 
     private val KIND_PREFIXES = listOf(

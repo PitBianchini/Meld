@@ -9,12 +9,9 @@ import com.metrolist.innertube.models.PlaylistItem
 import com.metrolist.innertube.models.SongItem
 import com.metrolist.innertube.models.WatchEndpoint
 import com.metrolist.innertube.models.YTItem
-import com.metrolist.music.constants.SongSortType
 import com.metrolist.music.extensions.toMediaItem
 import com.metrolist.music.models.toMediaMetadata
 import com.metrolist.music.playback.MusicService
-import com.metrolist.music.playback.VoiceSearchMatcher
-import com.metrolist.music.playback.queues.ListQueue
 import com.metrolist.music.playback.queues.Queue
 import com.metrolist.music.playback.queues.YouTubeAlbumRadio
 import com.metrolist.music.playback.queues.YouTubeQueue
@@ -28,6 +25,7 @@ import kotlin.math.roundToInt
 class CommandExecutor(private val context: Context) {
 
     private val audioManager = context.getSystemService(AudioManager::class.java)
+    private val playlists = PlaylistResolver()
 
     suspend fun execute(service: MusicService, command: VoiceCommand): String = withContext(Dispatchers.Main) {
         if (!service.isPlayerReady.value) return@withContext "Meld non è pronto, riprova tra un attimo"
@@ -109,7 +107,11 @@ class CommandExecutor(private val context: Context) {
 
     private suspend fun play(service: MusicService, command: VoiceCommand.Play): String {
         val resolved = withContext(Dispatchers.IO) { resolve(service, command) }
-            ?: return "Non ho trovato ${command.query}"
+            ?: return when (command.kind) {
+                PlayKind.LIKED -> "Non hai ancora brani tra i mi piace"
+                PlayKind.DOWNLOADED -> "Non hai brani scaricati"
+                else -> "Non ho trovato ${command.query}"
+            }
         service.playQueue(resolved.queue)
         if (command.shuffle) service.player.shuffleModeEnabled = true
         return resolved.speech
@@ -120,22 +122,33 @@ class CommandExecutor(private val context: Context) {
     private suspend fun resolve(service: MusicService, command: VoiceCommand.Play): Resolved? {
         val q = command.query
         return when (command.kind) {
-            PlayKind.LIKED -> {
-                val songs = service.database.likedSongs(SongSortType.CREATE_DATE, true).first()
-                if (songs.isEmpty()) null
-                else Resolved(ListQueue("Mi piace", songs.map { it.toMediaItem() }), "Metto i tuoi mi piace")
-            }
-            PlayKind.PLAYLIST -> localPlaylist(service, q)
+            PlayKind.LIKED -> playlists.liked(service)?.let { (name, queue) -> Resolved(queue, "Metto $name") }
+            PlayKind.DOWNLOADED -> playlists.downloaded(service)?.let { (name, queue) -> Resolved(queue, "Metto $name") }
+            PlayKind.PLAYLIST -> myPlaylist(service, q, 0.6)
+                ?: topIfAsked(service, q)
                 ?: searchFirst<PlaylistItem>(q, YouTube.SearchFilter.FILTER_FEATURED_PLAYLIST)?.let(::playlistQueue)
                 ?: searchFirst<PlaylistItem>(q, YouTube.SearchFilter.FILTER_COMMUNITY_PLAYLIST)?.let(::playlistQueue)
             PlayKind.ALBUM -> searchFirst<AlbumItem>(q, YouTube.SearchFilter.FILTER_ALBUM)?.let(::albumQueue)
             PlayKind.ARTIST -> searchFirst<ArtistItem>(q, YouTube.SearchFilter.FILTER_ARTIST)?.let(::artistQueue)
                 ?: searchFirst<SongItem>(q, YouTube.SearchFilter.FILTER_SONG)?.let(::songQueue)
             PlayKind.SONG -> searchFirst<SongItem>(q, YouTube.SearchFilter.FILTER_SONG)?.let(::songQueue)
-            PlayKind.AUTO -> localPlaylist(service, q, exactOnly = true)
+            PlayKind.AUTO -> myPlaylist(service, q, 0.85)
+                ?: topIfAsked(service, q)
                 ?: topResult(q)?.let(::queueFor)
                 ?: searchFirst<SongItem>(q, YouTube.SearchFilter.FILTER_SONG)?.let(::songQueue)
         }
+    }
+
+    private suspend fun myPlaylist(service: MusicService, query: String, minScore: Double): Resolved? {
+        val match = playlists.find(service, query, minScore) ?: return null
+        val queue = match.queue() ?: return null
+        return Resolved(queue, "Metto la playlist ${match.name}")
+    }
+
+    /** "i miei migliori 50", "le più ascoltate"... without a playlist of that name: Spotify top tracks. */
+    private suspend fun topIfAsked(service: MusicService, query: String): Resolved? {
+        if (!TOP_WORDS.containsMatchIn(query.lowercase())) return null
+        return playlists.topTracks(service)?.let { (name, queue) -> Resolved(queue, "Metto $name") }
     }
 
     private suspend fun topResult(query: String): YTItem? =
@@ -174,26 +187,6 @@ class CommandExecutor(private val context: Context) {
         return Resolved(YouTubeQueue(endpoint), "Metto la playlist ${playlist.title}")
     }
 
-    private suspend fun localPlaylist(service: MusicService, query: String, exactOnly: Boolean = false): Resolved? {
-        val wanted = VoiceSearchMatcher.tokenize(query)
-        if (wanted.isEmpty()) return null
-        val best = service.database.playlistsByNameAsc().first()
-            .map { it to similarity(wanted, VoiceSearchMatcher.tokenize(it.playlist.name)) }
-            .maxByOrNull { it.second }
-            ?.takeIf { it.second >= if (exactOnly) 0.99 else 0.8 }
-            ?.first ?: return null
-        val songs = service.database.playlistSongs(best.playlist.id).first().map { it.song.toMediaItem() }
-        if (songs.isEmpty()) return null
-        return Resolved(ListQueue(best.playlist.name, songs), "Metto la playlist ${best.playlist.name}")
-    }
-
-    private fun similarity(a: Set<String>, b: Set<String>): Double {
-        if (a.isEmpty() || b.isEmpty()) return 0.0
-        val hits = a.count { x -> b.any { y -> x == y || VoiceSearchMatcher.jaroWinkler(x, y) >= 0.9 } }
-        val back = b.count { y -> a.any { x -> x == y || VoiceSearchMatcher.jaroWinkler(x, y) >= 0.9 } }
-        return minOf(hits.toDouble() / a.size, back.toDouble() / b.size)
-    }
-
     private suspend inline fun <reified T : YTItem> searchFirst(query: String, filter: YouTube.SearchFilter): T? =
         YouTube.search(query, filter)
             .onFailure { Timber.tag(TAG).w(it, "search failed for %s", query) }
@@ -206,5 +199,6 @@ class CommandExecutor(private val context: Context) {
 
     private companion object {
         const val TAG = "HeyMeld"
+        val TOP_WORDS = Regex("migliori|top|più ascoltat|piu ascoltat|ascolto di più|ascolto di piu")
     }
 }
