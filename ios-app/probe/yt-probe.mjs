@@ -8,7 +8,7 @@ Platform.shim.eval = async (data, env) => {
   return new Function(`${data.output}\nreturn { ${props.join(', ')} }`)();
 };
 
-const VIDEO = process.argv[2] || 'fJ9rUzIMcZQ'; // Queen - Bohemian Rhapsody (official audio)
+const VIDEO = process.argv[2] || 'BSTsnWoslP4'; // Queen - Bohemian Rhapsody (official audio)
 const yt = await Innertube.create({ generate_session_locally: true });
 
 const search = await yt.music.search('bohemian rhapsody queen', { type: 'song' });
@@ -17,7 +17,8 @@ console.log('music search ok:', search.contents?.[0]?.contents?.slice(0, 2).map(
 for (const client of ['IOS', 'ANDROID_VR', 'TV', 'TV_SIMPLY', 'WEB_EMBEDDED', 'MWEB', 'YTMUSIC', 'WEB', 'VISIONOS', 'ANDROID']) {
   try {
     const info = await yt.getBasicInfo(VIDEO, { client });
-    const ps = info.playability_status?.status;
+    const ps = info.playability_status?.status + ' ' + (info.playability_status?.reason || '');
+    if (!info.streaming_data) { console.log(`RESULT ${client}: no streaming data, playability=${ps}`); continue; }
     const fmt = info.chooseFormat({ type: 'audio', quality: 'best' });
     const url = await fmt.decipher(yt.session.player);
     const r = await fetch(url, { headers: { Range: 'bytes=0-65535' } });
