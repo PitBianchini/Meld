@@ -1,0 +1,224 @@
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.0-bin.zip
+..............10%..............20%..............30%...............40%..............50%..............60%...............70%..............80%...............90%..............100%
+
+Welcome to Gradle 9.7.0!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.0/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+Calculating task graph as no cached configuration is available for tasks: :app:testGmsDebugUnitTest --tests com.metrolist.music.heymeld.*
+> Task :app:protobufDummy UP-TO-DATE
+> Task :innertube:preBuild UP-TO-DATE
+> Task :app:cleanLegacyProtoSources UP-TO-DATE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preGmsDebugBuild UP-TO-DATE
+> Task :app:extractGmsProto
+> Task :innertube:preDebugBuild UP-TO-DATE
+> Task :app:extractGmsDebugProto
+> Task :app:extractDebugProto
+> Task :app:generateGmsDebugBuildConfig
+> Task :app:extractProto
+> Task :innertube:processDebugNavigationResources
+> Task :innertube:generateDebugResources
+> Task :innertube:extractDebugSupportedLocales
+> Task :app:generateGmsDebugResValues
+> Task :innertube:packageDebugResources
+> Task :innertube:javaPreCompileDebug
+> Task :app:mapGmsDebugSourceSetPaths
+> Task :app:generateGmsDebugResources
+> Task :app:extractGmsDebugSupportedLocales
+> Task :app:generateGmsDebugLocaleConfig
+> Task :innertube:parseDebugLocalResources
+> Task :app:javaPreCompileGmsDebug
+> Task :innertube:writeDebugAarMetadata
+> Task :innertube:generateDebugRFile
+> Task :app:packageGmsDebugResources
+> Task :app:processGmsDebugNavigationResources
+> Task :app:checkGmsDebugAarMetadata
+> Task :app:compileGmsDebugNavigationResources
+> Task :app:createGmsDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksGmsDebug
+> Task :innertube:extractDeepLinksDebug
+> Task :app:parseGmsDebugLocalResources
+> Task :innertube:processDebugManifest
+> Task :app:generateGmsDebugRFile
+> Task :innertube:mapDebugSourceSetPaths
+> Task :innertube:compileDebugLibraryResources
+> Task :app:preGmsDebugUnitTestBuild UP-TO-DATE
+> Task :app:extractTestProto
+> Task :app:javaPreCompileGmsDebugUnitTest FROM-CACHE
+> Task :app:processGmsDebugMainManifest
+> Task :app:processGmsDebugManifest
+> Task :app:processGmsDebugManifestForPackage
+> Task :app:mergeGmsDebugResources
+warn: removing resource com.meld.app.debug:plurals/n_element without required default value.
+warn: removing resource com.meld.app.debug:string/audio_quality_max without required default value.
+warn: removing resource com.meld.app.debug:string/button_text without required default value.
+warn: removing resource com.meld.app.debug:string/button_visible without required default value.
+warn: removing resource com.meld.app.debug:string/configure_app_language without required default value.
+warn: removing resource com.meld.app.debug:string/configure_supported_links without required default value.
+warn: removing resource com.meld.app.debug:string/copy_error without required default value.
+warn: removing resource com.meld.app.debug:string/csv_import_failed without required default value.
+warn: removing resource com.meld.app.debug:string/csv_preview_failed without required default value.
+warn: removing resource com.meld.app.debug:string/decryption_library without required default value.
+warn: removing resource com.meld.app.debug:string/decryption_library_newpipe without required default value.
+warn: removing resource com.meld.app.debug:string/decryption_library_newpipe_desc without required default value.
+warn: removing resource com.meld.app.debug:string/decryption_library_pipepipe_api without required default value.
+warn: removing resource com.meld.app.debug:string/decryption_library_pipepipe_api_desc without required default value.
+warn: removing resource com.meld.app.debug:string/discord without required default value.
+warn: removing resource com.meld.app.debug:string/discord_customization without required default value.
+warn: removing resource com.meld.app.debug:string/discord_integration_settings without required default value.
+warn: removing resource com.meld.app.debug:string/elements_selected without required default value.
+warn: removing resource com.meld.app.debug:string/empty_playlist without required default value.
+warn: removing resource com.meld.app.debug:string/empty_playlist_desc without required default value.
+warn: removing resource com.meld.app.debug:string/enable_wavy_slider without required default value.
+warn: removing resource com.meld.app.debug:string/error_copied without required default value.
+warn: removing resource com.meld.app.debug:string/error_copy_hint without required default value.
+warn: removing resource com.meld.app.debug:string/explore without required default value.
+warn: removing resource com.meld.app.debug:string/general_settings without required default value.
+warn: removing resource com.meld.app.debug:string/google without required default value.
+warn: removing resource com.meld.app.debug:string/intent_app_language_not_found without required default value.
+warn: removing resource com.meld.app.debug:string/intent_supported_links_not_found without required default value.
+warn: removing resource com.meld.app.debug:string/line_by_line_dialog_enable without required default value.
+warn: removing resource com.meld.app.debug:string/listen_together_desc without required default value.
+warn: removing resource com.meld.app.debug:string/listen_together_leave_room without required default value.
+warn: removing resource com.meld.app.debug:string/listen_together_users without required default value.
+warn: removing resource com.meld.app.debug:string/loading_charts without required default value.
+warn: removing resource com.meld.app.debug:string/login_settings without required default value.
+warn: removing resource com.meld.app.debug:string/maximum_volume without required default value.
+warn: removing resource com.meld.app.debug:string/min_playback_duration_description without required default value.
+warn: removing resource com.meld.app.debug:string/min_playback_duration_title without required default value.
+warn: removing resource com.meld.app.debug:string/mini_player_outline without required default value.
+warn: removing resource com.meld.app.debug:string/minimum_playback_duration without required default value.
+warn: removing resource com.meld.app.debug:string/minimum_volume without required default value.
+warn: removing resource com.meld.app.debug:string/no_title without required default value.
+warn: removing resource com.meld.app.debug:string/numbers without required default value.
+warn: removing resource com.meld.app.debug:string/open_supported_links without required default value.
+warn: removing resource com.meld.app.debug:string/other_results without required default value.
+warn: removing resource com.meld.app.debug:string/pause_remote_listen_history without required default value.
+warn: removing resource com.meld.app.debug:string/player_client without required default value.
+warn: removing resource com.meld.app.debug:string/player_client_android_vr without required default value.
+warn: removing resource com.meld.app.debug:string/player_client_android_vr_desc without required default value.
+warn: removing resource com.meld.app.debug:string/player_client_web_remix without required default value.
+warn: removing resource com.meld.app.debug:string/player_client_web_remix_desc without required default value.
+warn: removing resource com.meld.app.debug:string/playlist_not_found without required default value.
+warn: removing resource com.meld.app.debug:string/playlist_not_found_desc without required default value.
+warn: removing resource com.meld.app.debug:string/queue_widget_description without required default value.
+warn: removing resource com.meld.app.debug:string/recognition without required default value.
+warn: removing resource com.meld.app.debug:string/reconnect without required default value.
+warn: removing resource com.meld.app.debug:string/romanization without required default value.
+warn: removing resource com.meld.app.debug:string/secondary_color_style without required default value.
+warn: removing resource com.meld.app.debug:string/seek_backward without required default value.
+warn: removing resource com.meld.app.debug:string/seek_forward without required default value.
+warn: removing resource com.meld.app.debug:string/set_first_lyrics_provider without required default value.
+warn: removing resource com.meld.app.debug:string/settings_section_player without required default value.
+warn: removing resource com.meld.app.debug:string/subscribers without required default value.
+warn: removing resource com.meld.app.debug:string/swipe_sensitivity_desc without required default value.
+warn: removing resource com.meld.app.debug:string/top_result without required default value.
+warn: removing resource com.meld.app.debug:string/transfer_host without required default value.
+warn: removing resource com.meld.app.debug:string/unknown_artist without required default value.
+warn: removing resource com.meld.app.debug:string/unknown_item_type without required default value.
+warn: removing resource com.meld.app.debug:string/wrapped_artist_image_content_description without required default value.
+warn: removing resource com.meld.app.debug:string/ytm_sync without required default value.
+
+> Task :app:processGmsDebugResources
+> Task :innertube:compileDebugKotlin
+> Task :innertube:compileDebugJavaWithJavac NO-SOURCE
+> Task :innertube:processDebugJavaRes
+> Task :innertube:bundleLibCompileToJarDebug
+> Task :innertube:bundleLibRuntimeToJarDebug
+> Task :innertube:createFullJarDebug
+> Task :app:extractIncludeGmsDebugProto
+> Task :app:generateGmsDebugProto
+> Task :app:kspGmsDebugKotlin
+> Task :app:compileGmsDebugKotlin
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/api/DeepLService.kt:82:49 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/eq/data/GitHubAutoEqSearch.kt:178:41 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/eq/data/GitHubAutoEqSearch.kt:214:41 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/heymeld/HeyMeld.kt:55:30 'constructor(): CommandButton.Builder' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/heymeld/HeyMeld.kt:57:14 'fun setIconResId(p0: Int): CommandButton.Builder' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/playback/MusicService.kt:3076:38 Elvis operator (?:) always returns the left operand of non-nullable type 'Queue'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/playback/MusicService.kt:4566:67 Elvis operator (?:) always returns the left operand of non-nullable type 'Long'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/qobuz/QobuzAudioProvider.kt:495:44 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/qobuz/QobuzAudioProvider.kt:558:44 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/qobuz/QobuzAudioProvider.kt:800:44 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/qobuz/QobuzAudioProvider.kt:882:44 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/qobuz/QobuzAudioProvider.kt:964:44 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/qobuz/QobuzAudioProvider.kt:1046:44 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/component/Preference.kt:116:5 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/menu/SpotifyTrackMenu.kt:180:5 'fun ListItem(headlineContent: ComposableFunction0<Unit>, modifier: Modifier = ..., overlineContent: ComposableFunction0<Unit>? = ..., supportingContent: ComposableFunction0<Unit>? = ..., leadingContent: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., colors: ListItemColors = ..., tonalElevation: Dp = ..., shadowElevation: Dp = ...): Unit' is deprecated. Use the overload where `headlineContent` is now a trailing `content` lambda.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/SpotifyLoginScreen.kt:134:34 'var databaseEnabled: Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/album/SpotifyAlbumScreen.kt:72:40 'fun <reified VM : ViewModel> hiltViewModel(viewModelStoreOwner: ViewModelStoreOwner = ..., key: String? = ...): VM' is deprecated. Moved to package: androidx.hilt.lifecycle.viewmodel.compose.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/library/LibraryMixScreen.kt:309:21 'when' is exhaustive so 'else' is redundant here.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/library/LibraryMixScreen.kt:886:29 'when' is exhaustive so 'else' is redundant here.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/library/LibraryMixScreen.kt:1287:29 'when' is exhaustive so 'else' is redundant here.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/AboutScreen.kt:465:25 'fun ListItem(headlineContent: ComposableFunction0<Unit>, modifier: Modifier = ..., overlineContent: ComposableFunction0<Unit>? = ..., supportingContent: ComposableFunction0<Unit>? = ..., leadingContent: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., colors: ListItemColors = ..., tonalElevation: Dp = ..., shadowElevation: Dp = ...): Unit' is deprecated. Use the overload where `headlineContent` is now a trailing `content` lambda.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/AboutScreen.kt:527:25 'fun ListItem(headlineContent: ComposableFunction0<Unit>, modifier: Modifier = ..., overlineContent: ComposableFunction0<Unit>? = ..., supportingContent: ComposableFunction0<Unit>? = ..., leadingContent: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., colors: ListItemColors = ..., tonalElevation: Dp = ..., shadowElevation: Dp = ...): Unit' is deprecated. Use the overload where `headlineContent` is now a trailing `content` lambda.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifyPreloadScreen.kt:49:42 'fun <reified VM : ViewModel> hiltViewModel(viewModelStoreOwner: ViewModelStoreOwner = ..., key: String? = ...): VM' is deprecated. Moved to package: androidx.hilt.lifecycle.viewmodel.compose.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:147:9 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:188:9 'fun SwitchPreference(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., icon: ComposableFunction0<Unit>? = ..., checked: Boolean, onCheckedChange: (Boolean) -> Unit, isEnabled: Boolean = ...): Unit' is deprecated. Use the Switch component instead.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:210:13 'fun SwitchPreference(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., icon: ComposableFunction0<Unit>? = ..., checked: Boolean, onCheckedChange: (Boolean) -> Unit, isEnabled: Boolean = ...): Unit' is deprecated. Use the Switch component instead.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:217:13 'fun SwitchPreference(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., icon: ComposableFunction0<Unit>? = ..., checked: Boolean, onCheckedChange: (Boolean) -> Unit, isEnabled: Boolean = ...): Unit' is deprecated. Use the Switch component instead.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:225:17 'fun SwitchPreference(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., icon: ComposableFunction0<Unit>? = ..., checked: Boolean, onCheckedChange: (Boolean) -> Unit, isEnabled: Boolean = ...): Unit' is deprecated. Use the Switch component instead.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:242:13 'fun SwitchPreference(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., icon: ComposableFunction0<Unit>? = ..., checked: Boolean, onCheckedChange: (Boolean) -> Unit, isEnabled: Boolean = ...): Unit' is deprecated. Use the Switch component instead.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:274:17 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:302:17 'fun SwitchPreference(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., icon: ComposableFunction0<Unit>? = ..., checked: Boolean, onCheckedChange: (Boolean) -> Unit, isEnabled: Boolean = ...): Unit' is deprecated. Use the Switch component instead.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:314:13 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:341:13 'fun SwitchPreference(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., icon: ComposableFunction0<Unit>? = ..., checked: Boolean, onCheckedChange: (Boolean) -> Unit, isEnabled: Boolean = ...): Unit' is deprecated. Use the Switch component instead.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:390:17 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:421:17 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:461:17 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:468:17 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:490:13 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:551:5 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:584:5 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:618:9 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/ui/screens/settings/integrations/SpotifySettings.kt:640:13 'fun PreferenceEntry(modifier: Modifier = ..., title: ComposableFunction0<Unit>, description: String? = ..., content: ComposableFunction0<Unit>? = ..., icon: ComposableFunction0<Unit>? = ..., trailingContent: ComposableFunction0<Unit>? = ..., onClick: (() -> Unit)? = ..., isEnabled: Boolean = ...): Unit' is deprecated. Use Material3SettingsGroup instead :).
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/utils/SpotifyHashSync.kt:139:78 Unnecessary non-null assertion (!!) on a non-null receiver of type 'String'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/utils/potoken/PoTokenWebView.kt:389:77 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+w: file:///home/runner/work/Meld/Meld/app/src/main/kotlin/com/metrolist/music/viewmodels/BackupRestoreViewModel.kt:462:45 Unnecessary safe call on a non-null receiver of type 'ResponseBody'.
+
+> Task :app:processGmsDebugJavaRes
+> Task :app:compileGmsDebugJavaWithJavac
+> Task :app:hiltCollectClassesGmsDebug
+> Task :app:hiltAggregateDepsGmsDebug
+> Task :app:hiltJavaCompileGmsDebug
+> Task :app:bundleGmsDebugClassesToCompileJar
+> Task :app:extractIncludeGmsDebugUnitTestProto
+> Task :app:generateGmsDebugUnitTestProto NO-SOURCE
+> Task :app:kspGmsDebugUnitTestKotlin
+> Task :app:transformGmsDebugClassesWithAsm
+> Task :app:bundleGmsDebugClassesToRuntimeJar
+> Task :app:compileGmsDebugUnitTestKotlin
+> Task :app:compileGmsDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:hiltCollectClassesGmsDebugUnitTest
+> Task :app:processGmsDebugUnitTestJavaRes
+> Task :app:hiltAggregateDepsGmsDebugUnitTest FAILED
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1795355785661.json
+
+[Incubating] Problems report is available at: file:///home/runner/work/Meld/Meld/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:hiltAggregateDepsGmsDebugUnitTest' (registered by plugin 'com.android.internal.application').
+> Could not resolve all files for configuration ':app:gmsDebugUnitTestRuntimeClasspath'.
+   > Could not download nativeruntime-dist-compat-1.0.18.jar (org.robolectric:nativeruntime-dist-compat:1.0.18)
+      > Could not get resource 'https://repo.maven.apache.org/maven2/org/robolectric/nativeruntime-dist-compat/1.0.18/nativeruntime-dist-compat-1.0.18.jar'.
+         > Could not GET 'https://repo.maven.apache.org/maven2/org/robolectric/nativeruntime-dist-compat/1.0.18/nativeruntime-dist-compat-1.0.18.jar'. Received status code 429 from server: Too Many Requests
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 4m 6s
+60 actionable tasks: 58 executed, 1 from cache, 1 up-to-date
+Configuration cache entry stored.
