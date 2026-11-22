@@ -1,0 +1,45 @@
+music search ok: [ 'Bohemian Rhapsody / BSTsnWoslP4', 'Killer Queen / cC_9nc4QOgQ' ]
+RESULT IOS: ERROR Streaming data not available
+RESULT ANDROID_VR: ERROR Streaming data not available
+[YOUTUBEJS][Parser]: InnertubeError: PlayerErrorCommand not found!
+This is a bug, want to help us fix it? Follow the instructions at https://github.com/LuanRT/YouTube.js/blob/main/docs/updating-the-parser.md or report it at https://github.com/LuanRT/YouTube.js/issues!
+Introspected and JIT generated this class in the meantime:
+class PlayerErrorCommand extends YTNode {
+  static type = 'PlayerErrorCommand';
+
+  command: {
+    click_tracking_params: string,
+    auth_required_command: NavigationEndpoint
+  };
+
+  constructor(data: RawNode) {
+    super();
+    this.command = {
+      click_tracking_params: data.command.clickTrackingParams,
+      auth_required_command: new NavigationEndpoint(data.command.authRequiredCommand)
+    };
+  }
+}
+
+    at ERROR_HANDLER (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/parser.js:71:27)
+    at createRuntimeClass (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/generator.js:320:5)
+    at generateRuntimeClass (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/generator.js:371:21)
+    at parseItem (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/parser.js:427:17)
+    at Module.parseResponse (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/parser.js:277:27)
+    at new MediaInfo (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/core/mixins/MediaInfo.js:25:29)
+    at new VideoInfo (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/youtube/VideoInfo.js:46:9)
+    at Innertube.getBasicInfo (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/Innertube.js:102:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async file:///Users/runner/work/Meld/Meld/ios-app/probe/yt-probe.mjs:19:18 {
+  date: 2026-11-22T16:27:46.776Z,
+  version: '18.3.0',
+  info: undefined
+}
+RESULT TV: ERROR Streaming data not available
+RESULT TV_SIMPLY: ERROR Streaming data not available
+RESULT WEB_EMBEDDED: ERROR This video is unavailable
+RESULT MWEB: ERROR Streaming data not available
+RESULT YTMUSIC: ERROR Streaming data not available
+RESULT WEB: ERROR Streaming data not available
+RESULT VISIONOS: ERROR Streaming data not available
+RESULT ANDROID: ERROR Streaming data not available

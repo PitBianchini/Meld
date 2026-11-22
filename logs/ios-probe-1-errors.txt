@@ -1,0 +1,9 @@
+4:[YOUTUBEJS][Parser]: InnertubeError: PlayerErrorCommand not found!
+5-This is a bug, want to help us fix it? Follow the instructions at https://github.com/LuanRT/YouTube.js/blob/main/docs/updating-the-parser.md or report it at https://github.com/LuanRT/YouTube.js/issues!
+6-Introspected and JIT generated this class in the meantime:
+7:class PlayerErrorCommand extends YTNode {
+8:  static type = 'PlayerErrorCommand';
+9-
+10-  command: {
+11-    click_tracking_params: string,
+12-    auth_required_command: NavigationEndpoint
