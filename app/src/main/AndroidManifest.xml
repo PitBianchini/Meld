@@ -378,6 +378,17 @@
             android:exported="false"
             android:foregroundServiceType="microphone" />
 
+        <service
+            android:name=".heymeld.HeyMeldService"
+            android:exported="false"
+            android:foregroundServiceType="microphone"
+            android:stopWithTask="false" />
+
+        <provider
+            android:name=".heymeld.HeyMeldStarter"
+            android:authorities="${applicationId}.heymeld"
+            android:exported="false" />
+
         <!-- Music Recognizer Quick Settings Tile -->
         <service
             android:name=".quicksettings.MusicRecognizerTileService"

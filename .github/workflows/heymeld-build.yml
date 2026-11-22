@@ -1,0 +1,195 @@
+# Fork-only workflow (PitBianchini/meld): keeps this copy of Meld in sync with
+# FrancescoGrazioso/Meld every night, builds the APK with the "Hey Meld" voice control,
+# signs it with this repository's own key and publishes it as a GitHub release,
+# which Meld's built-in updater picks up.
+name: Hey Meld - build e aggiornamenti
+
+on:
+  push:
+    branches: [main, hey-meld]
+    paths-ignore:
+      - "heymeld/training/**"
+      - "**.md"
+  workflow_dispatch:
+    inputs:
+      sync:
+        description: "Prima scarica gli aggiornamenti del Meld originale"
+        type: boolean
+        default: false
+  schedule:
+    - cron: "17 2 * * *"
+
+permissions:
+  contents: write
+  actions: write
+  issues: write
+
+concurrency:
+  group: heymeld-build-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  UPSTREAM: https://github.com/FrancescoGrazioso/Meld.git
+
+jobs:
+  sync:
+    name: Sync with upstream Meld
+    if: github.event_name == 'schedule' || inputs.sync
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      changed: ${{ steps.merge.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Merge upstream main
+        id: merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "hey-meld-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream "$UPSTREAM"
+          git fetch --no-tags upstream main
+          if git merge-base --is-ancestor upstream/main HEAD; then
+            echo "Already up to date"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if git merge --no-edit upstream/main; then
+            git push origin HEAD:main
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            CONFLICTS=$(git diff --name-only --diff-filter=U)
+            git merge --abort
+            BODY=$(printf 'Gli aggiornamenti di Meld del %s toccano gli stessi punti modificati per "Hey Meld".\n\nFile in conflitto:\n```\n%s\n```\n\nLa versione installata continua a funzionare; serve sistemare a mano il merge.' "$(date -u +%F)" "$CONFLICTS")
+            gh issue create --title "Sync con Meld non riuscito ($(date -u +%F))" --body "$BODY" || true
+            exit 1
+          fi
+
+  build:
+    name: Build and release
+    needs: sync
+    if: >-
+      always() &&
+      (needs.sync.result == 'success' || needs.sync.result == 'skipped') &&
+      (github.event_name != 'schedule' || needs.sync.outputs.changed == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ (github.event_name == 'schedule' || inputs.sync) && 'main' || github.ref }}
+          fetch-depth: 1
+
+      - name: Turn off upstream-only workflows in this fork
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for wf in build.yml build_pr.yml build_quick.yml release.yml spotify-hash-check.yml pr_title_prefix.yml; do
+            gh api -X PUT "repos/${{ github.repository }}/actions/workflows/$wf/disable" >/dev/null 2>&1 && echo "disabled $wf" || true
+          done
+
+      - name: Check signing secret
+        env:
+          HEYMELD_KEY_PASSWORD: ${{ secrets.HEYMELD_KEY_PASSWORD }}
+        run: |
+          if [ -z "$HEYMELD_KEY_PASSWORD" ]; then
+            echo "::error::Manca il secret HEYMELD_KEY_PASSWORD (Settings > Secrets and variables > Actions)."
+            exit 1
+          fi
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Signing key
+        env:
+          PASS: ${{ secrets.HEYMELD_KEY_PASSWORD }}
+        run: |
+          mkdir -p heymeld/keystore
+          if [ ! -f heymeld/keystore/heymeld.jks.enc ]; then
+            echo "First build: creating this repository's signing key"
+            keytool -genkeypair -v -keystore /tmp/heymeld.jks -alias heymeld -keyalg RSA -keysize 4096 \
+              -validity 36500 -storepass "$PASS" -keypass "$PASS" -dname "CN=Hey Meld, O=PitBianchini, C=IT"
+            openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in /tmp/heymeld.jks \
+              -out heymeld/keystore/heymeld.jks.enc -pass env:PASS
+            git config user.name "hey-meld-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add heymeld/keystore/heymeld.jks.enc
+            git commit -m "chore(heymeld): add encrypted signing key"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
+          openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in heymeld/keystore/heymeld.jks.enc \
+            -out "$RUNNER_TEMP/heymeld.jks" -pass env:PASS
+
+      - name: Fork-specific build settings
+        id: version
+        run: |
+          BASE=$(grep -oP 'versionName = "\K[^"]+' app/build.gradle.kts | head -1)
+          CODE=$(grep -oP 'versionCode = \K[0-9]+' app/build.gradle.kts | head -1)
+          N=${{ github.run_number }}
+          VERSION="$BASE.$N"
+          sed -i "s/versionName = \"$BASE\"/versionName = \"$VERSION\"/" app/build.gradle.kts
+          sed -i "s/versionCode = $CODE\$/versionCode = $((CODE * 10000 + N))/" app/build.gradle.kts
+          sed -i 's#https://api.github.com/repos/FrancescoGrazioso/Meld"#https://api.github.com/repos/${{ github.repository }}"#' \
+            app/src/main/kotlin/com/metrolist/music/utils/Updater.kt
+          grep -n 'versionName = \|versionCode = ' app/build.gradle.kts | head -2
+          grep -n 'GITHUB_API_BASE =' app/src/main/kotlin/com/metrolist/music/utils/Updater.kt
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Unit tests (Hey Meld)
+        run: |
+          set -o pipefail
+          ./gradlew --console=plain :app:testGmsDebugUnitTest --tests 'com.metrolist.music.heymeld.*' 2>&1 | tee -a build.log
+
+      - name: Build release APK
+        env:
+          METROLIST_APPLICATION_ID: com.meld.app
+          METROLIST_BUILD_COMMIT: ${{ github.sha }}
+          PULL_REQUEST: "false"
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
+          LASTFM_SECRET: ${{ secrets.LASTFM_SECRET }}
+        run: |
+          set -o pipefail
+          ./gradlew --console=plain assembleGmsRelease --warning-mode summary 2>&1 | tee -a build.log
+
+      - name: Sign APK
+        env:
+          PASS: ${{ secrets.HEYMELD_KEY_PASSWORD }}
+        run: |
+          BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
+          IN=$(find app/build/outputs/apk/gms/release -name "*.apk" | head -1)
+          mkdir -p out
+          "$BT/zipalign" -f -p 4 "$IN" /tmp/aligned.apk
+          "$BT/apksigner" sign --ks "$RUNNER_TEMP/heymeld.jks" --ks-key-alias heymeld \
+            --ks-pass env:PASS --key-pass env:PASS --out out/Meld-with-Google-Cast.apk /tmp/aligned.apk
+          "$BT/apksigner" verify --print-certs out/Meld-with-Google-Cast.apk | head -3
+          ls -la out
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          COMMIT=$(git rev-parse --short HEAD)
+          if [ "${{ github.ref_name }}" = "main" ] || [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.sync }}" = "true" ]; then
+            gh release create "v$VERSION" out/Meld-with-Google-Cast.apk --target "$(git rev-parse HEAD)" \
+              --title "$VERSION" --notes "Meld $VERSION con «Hey Meld» (commit $COMMIT)." --latest
+          else
+            gh release create "test-$VERSION" out/Meld-with-Google-Cast.apk --target "$(git rev-parse HEAD)" \
+              --title "$VERSION" --notes "Build di prova dal ramo ${{ github.ref_name }} (commit $COMMIT)." --prerelease
+          fi
+
+      - name: Save log for debugging
+        if: failure()
+        run: bash heymeld/ci/push-log.sh build.log "build-${{ github.run_number }}"

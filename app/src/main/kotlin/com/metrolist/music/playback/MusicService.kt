@@ -162,6 +162,7 @@ import com.metrolist.music.constants.LastFMUseNowPlaying
 import com.metrolist.music.constants.MediaSessionConstants
 import com.metrolist.music.constants.MediaSessionConstants.CommandAddToTargetPlaylist
 import com.metrolist.music.constants.MediaSessionConstants.CommandToggleLike
+import com.metrolist.music.heymeld.HeyMeld
 import com.metrolist.music.constants.MediaSessionConstants.CommandToggleRepeatMode
 import com.metrolist.music.constants.MediaSessionConstants.CommandToggleShuffle
 import com.metrolist.music.constants.MediaSessionConstants.CommandToggleStartRadio
@@ -987,6 +988,10 @@ class MusicService :
             updateWidgetUI(player.isPlaying)
         }
 
+        combine(HeyMeld.running, HeyMeld.muted) { _, _ -> }.collect(scope) {
+            if (::player.isInitialized) updateNotification()
+        }
+
         combine(
             currentMediaMetadata.distinctUntilChangedBy { it?.id },
             dataStore.data.map { it[ShowLyricsKey] ?: false }.distinctUntilChanged(),
@@ -1722,7 +1727,8 @@ class MusicService :
 
     private fun updateNotification(isLiked: Boolean? = currentSong.value?.song?.let { if (it.isEpisode) it.inLibrary != null else it.liked }) {
         mediaSession?.setCustomLayout(
-            listOf(
+            listOfNotNull(
+                HeyMeld.notificationButton(),
                 CommandButton
                     .Builder()
                     .setDisplayName(

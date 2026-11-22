@@ -334,6 +334,9 @@ dependencies {
 
     implementation(libs.timber)
 
+    // Hey Meld wake word (openWakeWord feature models)
+    implementation("com.google.ai.edge.litert:litert:1.4.0")
+
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.core)

@@ -1,0 +1,4 @@
+melspectrogram.tflite and embedding_model.tflite come from openWakeWord v0.5.1
+(https://github.com/dscripka/openWakeWord), Apache License 2.0.
+The embedding model is derived from Google's speech_embedding model (Apache License 2.0).
+hey_meld.bin is trained by .github/workflows/heymeld-train.yml in this repository.
