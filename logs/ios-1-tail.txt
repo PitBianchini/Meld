@@ -1,0 +1,400 @@
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/React-cxxreact/React-cxxreact_privacy.bundle
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/React-timing/React-timing_privacy.bundle
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/TensorFlowLiteC/TensorFlowLiteC.bundle
+Transfer starting: 17 files
+EXConstants.bundle/
+EXConstants.bundle/Info.plist
+EXConstants.bundle/app.config
+ExpoConstants_privacy.bundle/
+ExpoConstants_privacy.bundle/Info.plist
+ExpoConstants_privacy.bundle/PrivacyInfo.xcprivacy
+ExpoFileSystem_privacy.bundle/
+ExpoFileSystem_privacy.bundle/Info.plist
+React-cxxreact_privacy.bundle/
+React-cxxreact_privacy.bundle/Info.plist
+React-cxxreact_privacy.bundle/PrivacyInfo.xcprivacy
+React-timing_privacy.bundle/
+React-timing_privacy.bundle/Info.plist
+React-timing_privacy.bundle/PrivacyInfo.xcprivacy
+TensorFlowLiteC.bundle/
+TensorFlowLiteC.bundle/Info.plist
+TensorFlowLiteC.bundle/PrivacyInfo.xcprivacy
+
+sent 9916 bytes  received 298 bytes  1260987 bytes/sec
+total size is 8304  speedup is 0.81
+
+PhaseScriptExecution [CP]\ Embed\ Pods\ Frameworks /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Meld.build/Release-iphoneos/Meld.build/Script-BF7AF262BA09182F990E00F7.sh (in target 'Meld' from project 'Meld')
+    cd /Users/runner/work/Meld/Meld/ios-app/ios
+    /bin/sh -c /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Meld.build/Release-iphoneos/Meld.build/Script-BF7AF262BA09182F990E00F7.sh
+mkdir -p /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Frameworks
+rsync --delete -av --filter P .*.?????? --links --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/ExpoFileSystem/ExpoFileSystem.framework" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Frameworks"
+Transfer starting: 6 files
+ExpoFileSystem.framework/
+ExpoFileSystem.framework/ExpoFileSystem
+ExpoFileSystem.framework/Info.plist
+ExpoFileSystem.framework/expo-file-system_ExpoFileSystem.bundle/
+ExpoFileSystem.framework/expo-file-system_ExpoFileSystem.bundle/Info.plist
+ExpoFileSystem.framework/expo-file-system_ExpoFileSystem.bundle/PrivacyInfo.xcprivacy
+
+sent 1327253 bytes  received 120 bytes  55077717 bytes/sec
+total size is 1326270  speedup is 1.00
+rsync --delete -av --filter P .*.?????? --links --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/ExpoFont/ExpoFont.framework" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Frameworks"
+Transfer starting: 3 files
+ExpoFont.framework/
+ExpoFont.framework/ExpoFont
+ExpoFont.framework/Info.plist
+
+sent 275489 bytes  received 70 bytes  19543191 bytes/sec
+total size is 275053  speedup is 1.00
+rsync --delete -av --filter P .*.?????? --links --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/ExpoModulesCore/ExpoModulesCore.framework" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Frameworks"
+Transfer starting: 3 files
+ExpoModulesCore.framework/
+ExpoModulesCore.framework/ExpoModulesCore
+ExpoModulesCore.framework/Info.plist
+
+sent 4072852 bytes  received 70 bytes  75285064 bytes/sec
+total size is 4071924  speedup is 1.00
+rsync --delete -av --filter P .*.?????? --links --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/ExpoModulesJSI/ExpoModulesJSI.framework" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Frameworks"
+Transfer starting: 3 files
+ExpoModulesJSI.framework/
+ExpoModulesJSI.framework/ExpoModulesJSI
+ExpoModulesJSI.framework/Info.plist
+
+sent 1424182 bytes  received 70 bytes  54569042 bytes/sec
+total size is 1423582  speedup is 1.00
+rsync --delete -av --filter P .*.?????? --links --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/ExpoModulesWorklets/ExpoModulesWorklets.framework" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Frameworks"
+Transfer starting: 3 files
+ExpoModulesWorklets.framework/
+ExpoModulesWorklets.framework/ExpoModulesWorklets
+ExpoModulesWorklets.framework/Info.plist
+
+sent 162440 bytes  received 70 bytes  16090099 bytes/sec
+total size is 161976  speedup is 1.00
+rsync --delete -av --filter P .*.?????? --links --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Frameworks"
+Transfer starting: 116 files
+React.framework/
+React.framework/Info.plist
+React.framework/PrivacyInfo.xcprivacy
+React.framework/React
+React.framework/RCTI18nStrings.bundle/
+React.framework/RCTI18nStrings.bundle/Info.plist
+React.framework/RCTI18nStrings.bundle/ar.lproj/
+React.framework/RCTI18nStrings.bundle/ar.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/ar.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/cs.lproj/
+React.framework/RCTI18nStrings.bundle/cs.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/cs.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/da.lproj/
+React.framework/RCTI18nStrings.bundle/da.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/da.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/de.lproj/
+React.framework/RCTI18nStrings.bundle/de.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/de.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/el.lproj/
+React.framework/RCTI18nStrings.bundle/el.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/el.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/en-GB.lproj/
+React.framework/RCTI18nStrings.bundle/en-GB.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/en-GB.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/en.lproj/
+React.framework/RCTI18nStrings.bundle/en.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/es-ES.lproj/
+React.framework/RCTI18nStrings.bundle/es-ES.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/es-ES.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/es.lproj/
+React.framework/RCTI18nStrings.bundle/es.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/es.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/fi.lproj/
+React.framework/RCTI18nStrings.bundle/fi.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/fi.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/fr.lproj/
+React.framework/RCTI18nStrings.bundle/fr.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/fr.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/he.lproj/
+React.framework/RCTI18nStrings.bundle/he.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/he.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/hi.lproj/
+React.framework/RCTI18nStrings.bundle/hi.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/hi.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/hr.lproj/
+React.framework/RCTI18nStrings.bundle/hr.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/hr.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/hu.lproj/
+React.framework/RCTI18nStrings.bundle/hu.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/hu.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/id.lproj/
+React.framework/RCTI18nStrings.bundle/id.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/id.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/it.lproj/
+React.framework/RCTI18nStrings.bundle/it.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/it.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/ja.lproj/
+React.framework/RCTI18nStrings.bundle/ja.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/ja.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/ko.lproj/
+React.framework/RCTI18nStrings.bundle/ko.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/ko.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/ms.lproj/
+React.framework/RCTI18nStrings.bundle/ms.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/ms.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/nb.lproj/
+React.framework/RCTI18nStrings.bundle/nb.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/nb.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/nl.lproj/
+React.framework/RCTI18nStrings.bundle/nl.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/nl.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/pl.lproj/
+React.framework/RCTI18nStrings.bundle/pl.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/pl.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/pt-PT.lproj/
+React.framework/RCTI18nStrings.bundle/pt-PT.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/pt-PT.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/pt.lproj/
+React.framework/RCTI18nStrings.bundle/pt.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/pt.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/ro.lproj/
+React.framework/RCTI18nStrings.bundle/ro.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/ro.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/ru.lproj/
+React.framework/RCTI18nStrings.bundle/ru.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/ru.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/sk.lproj/
+React.framework/RCTI18nStrings.bundle/sk.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/sk.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/sv.lproj/
+React.framework/RCTI18nStrings.bundle/sv.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/sv.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/th.lproj/
+React.framework/RCTI18nStrings.bundle/th.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/th.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/tr.lproj/
+React.framework/RCTI18nStrings.bundle/tr.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/tr.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/uk.lproj/
+React.framework/RCTI18nStrings.bundle/uk.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/uk.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/vi.lproj/
+React.framework/RCTI18nStrings.bundle/vi.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/vi.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/zh-Hans.lproj/
+React.framework/RCTI18nStrings.bundle/zh-Hans.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/zh-Hans.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/zh-Hant-HK.lproj/
+React.framework/RCTI18nStrings.bundle/zh-Hant-HK.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/zh-Hant-HK.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/zh-Hant.lproj/
+React.framework/RCTI18nStrings.bundle/zh-Hant.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/zh-Hant.lproj/fbt_language_pack.bin
+React.framework/RCTI18nStrings.bundle/zu.lproj/
+React.framework/RCTI18nStrings.bundle/zu.lproj/Localizable.strings
+React.framework/RCTI18nStrings.bundle/zu.lproj/fbt_language_pack.bin
+
+sent 11982159 bytes  received 1948 bytes  70041537 bytes/sec
+total size is 11967021  speedup is 1.00
+rsync --delete -av --filter P .*.?????? --links --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/ReactNativeDependencies/ReactNativeDependencies.framework" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Frameworks"
+Transfer starting: 15 files
+ReactNativeDependencies.framework/
+ReactNativeDependencies.framework/Info.plist
+ReactNativeDependencies.framework/ReactNativeDependencies
+ReactNativeDependencies.framework/ReactNativeDependencies_SocketRocket.bundle/
+ReactNativeDependencies.framework/ReactNativeDependencies_SocketRocket.bundle/Info.plist
+ReactNativeDependencies.framework/ReactNativeDependencies_SocketRocket.bundle/PrivacyInfo.xcprivacy
+ReactNativeDependencies.framework/ReactNativeDependencies_boost.bundle/
+ReactNativeDependencies.framework/ReactNativeDependencies_boost.bundle/Info.plist
+ReactNativeDependencies.framework/ReactNativeDependencies_boost.bundle/PrivacyInfo.xcprivacy
+ReactNativeDependencies.framework/ReactNativeDependencies_folly.bundle/
+ReactNativeDependencies.framework/ReactNativeDependencies_folly.bundle/Info.plist
+ReactNativeDependencies.framework/ReactNativeDependencies_folly.bundle/PrivacyInfo.xcprivacy
+ReactNativeDependencies.framework/ReactNativeDependencies_glog.bundle/
+ReactNativeDependencies.framework/ReactNativeDependencies_glog.bundle/Info.plist
+ReactNativeDependencies.framework/ReactNativeDependencies_glog.bundle/PrivacyInfo.xcprivacy
+
+sent 1266597 bytes  received 270 bytes  54842727 bytes/sec
+total size is 1264299  speedup is 1.00
+rsync --delete -av --filter P .*.?????? --links --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/hermes-engine/Pre-built/hermesvm.framework" "/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Frameworks"
+Transfer starting: 3 files
+hermesvm.framework/
+hermesvm.framework/Info.plist
+hermesvm.framework/hermesvm
+
+sent 6362087 bytes  received 70 bytes  85859068 bytes/sec
+total size is 6360907  speedup is 1.00
+
+CopySwiftLibs /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app (in target 'Meld' from project 'Meld')
+    cd /Users/runner/work/Meld/Meld/ios-app/ios
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Meld --scan-folder /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Frameworks --scan-folder /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/PlugIns --scan-folder /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/SystemExtensions --scan-folder /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Extensions --platform iphoneos --toolchain /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.6.109.0.0dygNP/Metal.xctoolchain --toolchain /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Meld.build/Release-iphoneos/Meld.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+Ignoring --strip-bitcode because --sign was not passed
+
+ExtractAppIntentsMetadata (in target 'Meld' from project 'Meld')
+    cd /Users/runner/work/Meld/Meld/ios-app/ios
+    /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.6.109.0.0dygNP/Metal.xctoolchain --module-name Meld --sdk-root /Applications/Xcode_26.6.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.5.sdk --xcode-version 17F113 --platform-family iOS --deployment-target 16.4 --bundle-identifier com.nortambria.meld --output /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app --target-triple arm64-apple-ios16.4 --binary-file /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Meld --dependency-file /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Meld.build/Release-iphoneos/Meld.build/Objects-normal/arm64/Meld_dependency_info.dat --stringsdata-file /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Meld.build/Release-iphoneos/Meld.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Meld.build/Release-iphoneos/Meld.build/Objects-normal/arm64/Meld.SwiftFileList --metadata-file-list /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Meld.build/Release-iphoneos/Meld.build/Meld.DependencyMetadataFileList --static-metadata-file-list /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Meld.build/Release-iphoneos/Meld.build/Meld.DependencyStaticMetadataFileList --swift-const-vals-list /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Meld.build/Release-iphoneos/Meld.build/Objects-normal/arm64/Meld.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-11-22 16:56:20.541 appintentsmetadataprocessor[15879:48917] Starting appintentsmetadataprocessor export
+2026-11-22 16:56:20.553 appintentsmetadataprocessor[15879:48917] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+AppIntentsSSUTraining (in target 'Meld' from project 'Meld')
+    cd /Users/runner/work/Meld/Meld/ios-app/ios
+    /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsnltrainingprocessor --infoplist-path /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Info.plist --temp-dir-path /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Meld.build/Release-iphoneos/Meld.build/ssu --bundle-id com.nortambria.meld --product-path /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app --extracted-metadata-path /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Metadata.appintents --metadata-file-list /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Meld.build/Release-iphoneos/Meld.build/Meld.DependencyMetadataFileList --source-file /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app/Info.plist --archive-ssu-assets
+2026-11-22 16:56:20.603 appintentsnltrainingprocessor[15880:48919] Parsing options for appintentsnltrainingprocessor
+2026-11-22 16:56:20.604 appintentsnltrainingprocessor[15880:48919] Starting AppIntents SSU YAML Generation
+2026-11-22 16:56:20.613 appintentsnltrainingprocessor[15880:48919] No AppShortcuts found - Skipping.
+
+RegisterExecutionPolicyException /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app (in target 'Meld' from project 'Meld')
+    cd /Users/runner/work/Meld/Meld/ios-app/ios
+    builtin-RegisterExecutionPolicyException /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app
+
+Validate /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app (in target 'Meld' from project 'Meld')
+    cd /Users/runner/work/Meld/Meld/ios-app/ios
+    builtin-validationUtility /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app -validate-for-store -shallow-bundle -infoplist-subpath Info.plist
+
+Touch /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app (in target 'Meld' from project 'Meld')
+    cd /Users/runner/work/Meld/Meld/ios-app/ios
+    /usr/bin/touch -c /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/Meld.app
+
+note: Run script build phase '[CP-User] [Hermes] Replace Hermes for the right configuration, if needed' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'hermes-engine' from project 'Pods')
+note: Run script build phase '[CP-User] [RNDeps] Replace React Native Dependencies for the right configuration, if needed' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'ReactNativeDependencies' from project 'Pods')
+note: Run script build phase '[CP-User] [RN]Check FBReactNativeSpec' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'React-RCTFBReactNativeSpec' from project 'Pods')
+note: Run script build phase '[CP-User] [RNCore] Replace React Native Core for the right configuration, if needed' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'React-Core-prebuilt' from project 'Pods')
+note: Run script build phase '[CP-User] [Expo] Switch ExpoModulesWorklets XCFramework for build configuration' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'ExpoModulesWorklets' from project 'Pods')
+note: Run script build phase '[CP-User] Build ExpoModulesJSI xcframework' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'ExpoModulesJSI' from project 'Pods')
+note: Run script build phase '[CP-User] [Expo] Switch ExpoModulesCore XCFramework for build configuration' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'ExpoModulesCore' from project 'Pods')
+note: Run script build phase '[CP-User] [Expo] Switch ExpoFont XCFramework for build configuration' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'ExpoFont' from project 'Pods')
+note: Run script build phase '[CP-User] [Expo] Switch ExpoFileSystem XCFramework for build configuration' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'ExpoFileSystem' from project 'Pods')
+note: Run script build phase 'Bundle React Native code and images' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'Meld' from project 'Meld')
+note: Run script build phase '[Expo] Configure project' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'Meld' from project 'Meld')
+note: Run script build phase '[CP-User] Generate app.config for prebuilt Constants.manifest' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'EXConstants' from project 'Pods')
+** BUILD SUCCEEDED **
+
+React.framework/Headers/RCTDynamicTypeRamp.h
+React.framework/Headers/RCTEnhancedScrollView.h
+React.framework/Headers/RCTErrorCustomizer.h
+React.framework/Headers/RCTErrorInfo.h
+React.framework/Headers/RCTEventAnimation.h
+React.framework/Headers/RCTEventDispatcher.h
+React.framework/Headers/RCTEventDispatcherProtocol.h
+--
+React.framework/Headers/RCTRedBox2AnsiParser+Internal.h
+React.framework/Headers/RCTRedBox2Controller+Internal.h
+React.framework/Headers/RCTRedBox2ErrorParser+Internal.h
+React.framework/Headers/RCTRedBoxController+Internal.h
+React.framework/Headers/RCTRedBoxExtraDataViewController.h
+React.framework/Headers/RCTRedBoxHMRClient+Internal.h
+--
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTCxxInspectorWebSocketAdapter.h' [-Wincomplete-umbrella]
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTTextInputComponentView.h' [-Wincomplete-umbrella]
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTRedBox2ErrorParser+Internal.h' [-Wincomplete-umbrella]
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTComponentViewDescriptor.h' [-Wincomplete-umbrella]
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTPullToRefreshViewComponentView.h' [-Wincomplete-umbrella]
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTConvert+Transform.h' [-Wincomplete-umbrella]
+--
+    /bin/sh -c /Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Intermediates.noindex/Pods.build/Release-iphoneos/ExpoLogBox.build/Script-46EB2E00011440.sh
+
+SwiftCompile normal arm64 Compiling\ AnyMap.swift,\ ArrayBuffer.swift,\ Date+fromChrono.swift,\ HybridObject.swift,\ HybridView.swift,\ MemoryHelper.swift,\ Null.swift,\ Promise.swift,\ RecyclableView.swift,\ RuntimeError.swift,\ SwiftClosure.swift /Users/runner/work/Meld/Meld/ios-app/node_modules/react-native-nitro-modules/apple/core/core/AnyMap.swift /Users/runner/work/Meld/Meld/ios-app/node_modules/react-native-nitro-modules/apple/core/core/ArrayBuffer.swift /Users/runner/work/Meld/Meld/ios-app/node_modules/react-native-nitro-modules/apple/core/utils/Date+fromChrono.swift /Users/runner/work/Meld/Meld/ios-app/node_modules/react-native-nitro-modules/apple/core/core/HybridObject.swift /Users/runner/work/Meld/Meld/ios-app/node_modules/react-native-nitro-modules/apple/views/HybridView.swift /Users/runner/work/Meld/Meld/ios-app/node_modules/react-native-nitro-modules/apple/core/utils/MemoryHelper.swift /Users/runner/work/Meld/Meld/ios-app/node_modules/react-native-nitro-modules/apple/core/core/Null.swift /Users/runner/work/Meld/Meld/ios-app/node_modules/react-native-nitro-modules/apple/core/core/Promise.swift /Users/runner/work/Meld/Meld/ios-app/node_modules/react-native-nitro-modules/apple/views/RecyclableView.swift /Users/runner/work/Meld/Meld/ios-app/node_modules/react-native-nitro-modules/apple/core/core/RuntimeError.swift /Users/runner/work/Meld/Meld/ios-app/node_modules/react-native-nitro-modules/apple/core/utils/SwiftClosure.swift (in target 'NitroModules' from project 'Pods')
+CompileSwift normal arm64 (in target 'NitroModules' from project 'Pods')
+    cd /Users/runner/work/Meld/Meld/ios-app/ios/Pods
+    
+--
+   |                  `- note: insert '_Nonnull' if the pointer should never be null
+16 |     NSData *content,
+17 |     NSError *error,
+
+<module-includes>:1:9: note: in file included from <module-includes>:1:
+1 | #import "Headers/React-umbrella.h"
+--
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/work/Meld/Meld/ios-app/ios/build/ModuleCache.noindex/os_object-53LPT3JQ9970JCW8UVWS8V2NT.pcm
+
+SwiftDriverJobDiscovery normal arm64 Compiling AnyMap.swift, ArrayBuffer.swift, Date+fromChrono.swift, HybridObject.swift, HybridView.swift, MemoryHelper.swift, Null.swift, Promise.swift, RecyclableView.swift, RuntimeError.swift, SwiftClosure.swift (in target 'NitroModules' from project 'Pods')
+
+SwiftDriver\ Compilation\ Requirements NitroModules normal arm64 com.apple.xcode.tools.swift.compiler (in target 'NitroModules' from project 'Pods')
+    cd /Users/runner/work/Meld/Meld/ios-app/ios/Pods
+--
+   |                  `- note: insert '_Nonnull' if the pointer should never be null
+16 |     NSData *content,
+17 |     NSError *error,
+
+<module-includes>:1:9: note: in file included from <module-includes>:1:
+1 | #import "Headers/React-umbrella.h"
+--
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTCxxInspectorWebSocketAdapter.h' [-Wincomplete-umbrella]
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTTextInputComponentView.h' [-Wincomplete-umbrella]
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTRedBox2ErrorParser+Internal.h' [-Wincomplete-umbrella]
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTComponentViewDescriptor.h' [-Wincomplete-umbrella]
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTPullToRefreshViewComponentView.h' [-Wincomplete-umbrella]
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/React-Core-prebuilt/React.framework/Headers/React-umbrella.h:227:1: warning: umbrella header for module 'React' does not include header 'RCTConvert+Transform.h' [-Wincomplete-umbrella]
+--
+   |                  `- note: insert '_Nonnull' if the pointer should never be null
+16 |     NSData *content,
+17 |     NSError *error,
+
+<module-includes>:1:9: note: in file included from <module-includes>:1:
+1 | #import "Headers/React-umbrella.h"
+--
+   |                                  `- note: insert '_Nonnull' if the pointer should never be null
+15 | 
+16 | - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error;
+
+<module-includes>:1:9: note: in file included from <module-includes>:1:
+1 | #import "Headers/ExpoFileSystem_umbrella.h"
+--
+   |                                                                                   `- note: insert '_Nonnull' if the pointer should never be null
+15 | 
+16 | - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error;
+
+<module-includes>:1:9: note: in file included from <module-includes>:1:
+1 | #import "Headers/ExpoFileSystem_umbrella.h"
+--
+   |                                                                                                                                   `- note: insert '_Nonnull' if the pointer should never be null
+15 | 
+16 | - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error;
+
+<module-includes>:1:9: note: in file included from <module-includes>:1:
+1 | #import "Headers/ExpoFileSystem_umbrella.h"
+--
+14 | - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location;
+15 | 
+16 | - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error;
+   |                                  |- warning: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified)
+   |                                  |- note: insert '_Nullable' if the pointer may be null
+   |                                  `- note: insert '_Nonnull' if the pointer should never be null
+--
+14 | - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location;
+15 | 
+16 | - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error;
+   |                                                                   |- warning: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified)
+   |                                                                   |- note: insert '_Nullable' if the pointer may be null
+   |                                                                   `- note: insert '_Nonnull' if the pointer should never be null
+--
+14 | - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location;
+15 | 
+16 | - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error;
+   |                                                                                                        |- warning: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified)
+   |                                                                                                        |- note: insert '_Nullable' if the pointer may be null
+   |                                                                                                        `- note: insert '_Nonnull' if the pointer should never be null
+--
+
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/ExpoFileSystem/ExpoFileSystem.framework/Headers/EXSessionTaskDelegate.h:18:34: warning: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified)
+16 | - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error;
+17 | 
+18 | - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+   |                                  |- warning: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified)
+--
+
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/XCFrameworkIntermediates/ExpoFileSystem/ExpoFileSystem.framework/Headers/EXSessionTaskDelegate.h:18:83: warning: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified)
+16 | - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error;
+17 | 
+18 | - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask
+   |                                                                                   |- warning: pointer is missing a nullability type specifier (_Nonnull, _Nullable, or _Null_unspecified)
+--
+        if (signal !== undefined && !(signal instanceof AbortSignal)) {
+                                                        ^~~~~~~~~~~
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/main.jsbundle:15275:5: warning: the variable "setTimeout" was not declared in function "reportListenerError"
+    setTimeout(() => {
+    ^~~~~~~~~~
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/main.jsbundle:22903:21: warning: the variable "clearTimeout" was not declared in anonymous function
+--
+        e = URL.createObjectURL(f);
+            ^~~
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/main.jsbundle:56267:25: warning: the variable "ErrorUtils" was not declared in anonymous function
+    var globalHandler = ErrorUtils.getGlobalHandler();
+                        ^~~~~~~~~~
+/Users/runner/work/Meld/Meld/ios-app/ios/build/Build/Products/Release-iphoneos/main.jsbundle:56602:35: warning: the variable "TransformStream" was not declared in anonymous function
+  class TextDecoderStream extends TransformStream {
