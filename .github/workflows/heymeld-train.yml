@@ -46,7 +46,7 @@ jobs:
           {
             pip install --upgrade pip
             pip install torch --index-url https://download.pytorch.org/whl/cpu
-            pip install piper-tts==1.8.0 onnxruntime numpy scipy "datasets<4" soundfile huggingface_hub tqdm scikit-learn requests
+            pip install piper-tts==1.8.0 onnxruntime numpy scipy "datasets<4" soundfile librosa huggingface_hub tqdm scikit-learn requests
             pip install --no-deps openwakeword==0.5.1
           } 2>&1 | tee -a train.log
 

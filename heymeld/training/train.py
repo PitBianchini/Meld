@@ -206,7 +206,7 @@ def load_music(out_dir: Path, limit_seconds: float, smoke: bool) -> list[np.ndar
     if not smoke:
         try:
             from datasets import Audio, load_dataset
-            ds = load_dataset("rudraml/fma", name="small", split="train", streaming=True)
+            ds = load_dataset("lewtun/music_genres_small", split="train", streaming=True, trust_remote_code=False)
             ds = ds.cast_column("audio", Audio(sampling_rate=SR))
             total = 0.0
             for row in ds:
@@ -217,7 +217,7 @@ def load_music(out_dir: Path, limit_seconds: float, smoke: bool) -> list[np.ndar
                 total += len(a) / SR
                 if total >= limit_seconds:
                     break
-            log(f"music: {len(clips)} FMA clips, {total / 60:.0f} min")
+            log(f"music: {len(clips)} real clips, {total / 60:.0f} min")
         except Exception as e:  # noqa
             log("music dataset unavailable, using synthetic music:", repr(e)[:200])
     while sum(len(c) for c in clips) / SR < min(limit_seconds, 600):
@@ -230,7 +230,7 @@ def load_rirs(smoke: bool) -> list[np.ndarray]:
     if not smoke:
         try:
             from datasets import Audio, load_dataset
-            ds = load_dataset("davidscripka/MIT_environmental_impulse_responses", split="train", streaming=True)
+            ds = load_dataset("davidscripka/MIT_environmental_impulse_responses", split="train", streaming=True, trust_remote_code=False)
             ds = ds.cast_column("audio", Audio(sampling_rate=SR))
             for row in ds:
                 rirs.append(np.asarray(row["audio"]["array"], np.float32))
