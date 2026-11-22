@@ -96,12 +96,16 @@ class PlaylistResolver {
             VoiceSearchMatcher.tokenize(text.replace("'", " ")).filter { it !in STOP_WORDS }.toSet()
                 .ifEmpty { VoiceSearchMatcher.tokenize(text) }
 
-        /** 1.0 when both names have the same meaningful words, allowing small mishearings. */
+        /**
+         * 1.0 when both names have the same meaningful words (small mishearings allowed);
+         * saying only part of a long name ("rock italiano" for "Rock italiano anni 90") still scores 0.7+.
+         */
         internal fun similarity(a: Set<String>, b: Set<String>): Double {
             if (a.isEmpty() || b.isEmpty()) return 0.0
             fun close(x: String, y: String) = x == y || (x.length > 3 && y.length > 3 && VoiceSearchMatcher.jaroWinkler(x, y) >= 0.88)
             val hits = a.count { x -> b.any { y -> close(x, y) } }
             val back = b.count { y -> a.any { x -> close(x, y) } }
+            if (hits == a.size) return 0.7 + 0.3 * back / b.size
             return minOf(hits.toDouble() / a.size, back.toDouble() / b.size)
         }
     }
