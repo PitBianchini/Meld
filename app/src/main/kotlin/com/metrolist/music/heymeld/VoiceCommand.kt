@@ -27,9 +27,22 @@ sealed interface VoiceCommand {
  */
 object VoiceCommandParser {
 
-    fun parseBest(alternatives: List<String>): VoiceCommand =
-        alternatives.asSequence().map(::parse).firstOrNull { it != VoiceCommand.Unknown }
-            ?: VoiceCommand.Unknown
+    /**
+     * Tries every alternative as is, then with the first 1-3 words dropped: when the
+     * transcript includes a misheard "Hey Meld" ("a mild", "hey man"...) the command follows it.
+     */
+    fun parseBest(alternatives: List<String>): VoiceCommand {
+        alternatives.forEach { alt -> parse(alt).takeIf { it != VoiceCommand.Unknown }?.let { return it } }
+        for (drop in 1..3) {
+            alternatives.forEach { alt ->
+                val words = alt.trim().split(Regex("\\s+"))
+                if (words.size > drop) {
+                    parse(words.drop(drop).joinToString(" ")).takeIf { it != VoiceCommand.Unknown }?.let { return it }
+                }
+            }
+        }
+        return VoiceCommand.Unknown
+    }
 
     fun parse(raw: String): VoiceCommand {
         val t = clean(raw)

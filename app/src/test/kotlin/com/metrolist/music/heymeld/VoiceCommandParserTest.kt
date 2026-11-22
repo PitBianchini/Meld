@@ -91,6 +91,17 @@ class VoiceCommandParserTest {
     }
 
     @Test
+    fun skipsMisheardWakeWord() {
+        assertEquals(VoiceCommand.Next, VoiceCommandParser.parseBest(listOf("a mild passa la canzone successiva")))
+        assertEquals(VoiceCommand.Pause, VoiceCommandParser.parseBest(listOf("hey man stoppa la musica")))
+        assertEquals(
+            VoiceCommand.Play("blinding lights", PlayKind.AUTO),
+            VoiceCommandParser.parseBest(listOf("Emil riproduci Blinding Lights")),
+        )
+        assertEquals(VoiceCommand.Unknown, VoiceCommandParser.parseBest(listOf("ciao come stai oggi")))
+    }
+
+    @Test
     fun picksFirstUnderstoodAlternative() {
         assertEquals(
             VoiceCommand.Next,

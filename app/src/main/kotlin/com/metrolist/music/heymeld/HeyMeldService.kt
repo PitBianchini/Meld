@@ -73,6 +73,7 @@ class HeyMeldService : Service() {
     @Volatile private var cooldownUntil = 0L
     private var audioThread: Thread? = null
     private var duckedFrom: Float? = null
+    private var silentStreamAttempts = 0
 
     private val deviceCallback = object : AudioDeviceCallback() {
         override fun onAudioDevicesAdded(addedDevices: Array<out AudioDeviceInfo>?) { restartRecord = true }
@@ -236,6 +237,10 @@ class HeyMeldService : Service() {
                 Mode.COMMAND -> commandSink?.let { sink ->
                     try {
                         sink.write(toBytes(chunk))
+                        if (endOfCommand(chunk)) {
+                            // End of stream lets the recognizer finish right away instead of waiting
+                            closeSink()
+                        }
                     } catch (e: IOException) {
                         closeSink()
                     }
@@ -298,11 +303,30 @@ class HeyMeldService : Service() {
             val out = ParcelFileDescriptor.AutoCloseOutputStream(write)
             // include "Hey Meld" itself, so the transcript can confirm it was really said
             history.forEach { out.write(toBytes(it)) }
+            commandChunks = 0
+            peakRms = 0.0
+            quietChunks = 0
             commandSink = out
             read
         } catch (e: IOException) {
             null
         }
+    }
+
+    private var commandChunks = 0
+    private var peakRms = 0.0
+    private var quietChunks = 0
+
+    /** Simple end-of-speech detection on the stream we feed to the recognizer (audio thread only). */
+    private fun endOfCommand(chunk: ShortArray): Boolean {
+        var sum = 0.0
+        for (s in chunk) sum += s.toDouble() * s
+        val rms = kotlin.math.sqrt(sum / chunk.size)
+        commandChunks++
+        peakRms = maxOf(peakRms, rms)
+        quietChunks = if (rms < peakRms * 0.3) quietChunks + 1 else 0
+        val spoke = commandChunks >= 8 && peakRms > 400
+        return commandChunks >= MAX_COMMAND_CHUNKS || (spoke && quietChunks >= END_SILENCE_CHUNKS)
     }
 
     private fun closeSink() {
@@ -368,8 +392,21 @@ class HeyMeldService : Service() {
         }
         mode = Mode.BUSY
 
+        if (transcriptHasWakeWord) {
+            if (outcome is CommandRecognizer.Outcome.NothingHeard) {
+                silentStreamAttempts++
+                if (silentStreamAttempts >= 2) {
+                    // the recognizer accepts our stream but never transcribes it: let it use the mic
+                    Timber.tag(TAG).w("Recognizer returns nothing from our audio stream, switching to its own microphone")
+                    HeyMeld.markAudioSourceBroken(this)
+                }
+            } else {
+                silentStreamAttempts = 0
+            }
+        }
+
         when (outcome) {
-            CommandRecognizer.Outcome.NothingHeard -> Unit
+            CommandRecognizer.Outcome.NothingHeard -> speaker.say("Non ho sentito il comando, riprova")
             is CommandRecognizer.Outcome.Failed -> speaker.say(
                 if (outcome.error == SpeechRecognizer.ERROR_NETWORK || outcome.error == SpeechRecognizer.ERROR_NETWORK_TIMEOUT) {
                     "Non riesco a collegarmi a internet"
@@ -384,6 +421,10 @@ class HeyMeldService : Service() {
                     !outcome.alternatives.any(VoiceCommandParser::startsWithWakeWord)
                 ) {
                     // most likely a false trigger (a song lyric, the TV...): stay quiet
+                    return
+                }
+                if (command == VoiceCommand.Unknown) {
+                    speaker.say("Non ho capito. Ho sentito: ${outcome.alternatives.first()}")
                     return
                 }
                 val service = musicService?.takeIf { it.isPlayerReady.value }
@@ -488,6 +529,8 @@ class HeyMeldService : Service() {
         private const val CHANNEL_ID = "hey_meld"
         private const val NOTIFICATION_ID = 0x4D45
         private const val PREBUFFER_CHUNKS = 15
+        private const val MAX_COMMAND_CHUNKS = 75 // 6 s
+        private const val END_SILENCE_CHUNKS = 11 // ~0.9 s
         private const val DUCK_FACTOR = 0.15f
         const val ACTION_TOGGLE_MUTE = "com.metrolist.music.heymeld.TOGGLE_MUTE"
     }
