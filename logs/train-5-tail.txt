@@ -1,0 +1,400 @@
+-rw-r--r--  1 runner runner      4161 Nov 22 14:24 it_IT-riccardo-x_low.onnx.json
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/home/runner/work/Meld/Meld/feats/validation_set_features.npy
+/home/runner/work/Meld/Meld/feats/openwakeword_features_ACAV100M_2000_hrs_16bit.npy
+total 17055528
+drwxr-xr-x  3 runner runner        4096 Nov 22 14:26 .
+drwxr-xr-x 15 runner runner        4096 Nov 22 14:25 ..
+drwxr-xr-x  3 runner runner        4096 Nov 22 14:25 .cache
+-rw-r--r--  1 runner runner 17280000128 Nov 22 14:26 openwakeword_features_ACAV100M_2000_hrs_16bit.npy
+-rw-r--r--  1 runner runner   184836608 Nov 22 14:25 validation_set_features.npy
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       145G   55G   91G  38% /
+[0;93m2026-11-22 14:26:36.816700210 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+14:26:40 TTS voices: en_US-libritts_r-medium, en_GB-vctk-medium, en_US-lessac-medium, en_US-ryan-high, en_GB-alan-medium, it_IT-paola-medium, it_IT-riccardo-x_low, es_ES-davefx-medium, de_DE-thorsten-medium, fr_FR-siwis-medium
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+14:27:16 music: 361 real clips, 180 min
+14:27:49 room impulse responses: 270
+14:27:49 synthesizing speech backgrounds
+14:29:18 positive clips
+14:29:18   0/16000
+14:30:33   2000/16000
+14:31:47   4000/16000
+14:33:01   6000/16000
+14:34:15   8000/16000
+14:35:30   10000/16000
+14:36:44   12000/16000
+14:37:55   14000/16000
+14:41:29 confusable negative clips
+14:41:29   0/9000
+14:42:40   2000/9000
+14:43:51   4000/9000
+14:45:00   6000/9000
+14:46:12   8000/9000
+14:48:09 sentence negatives
+14:48:09   0/4500
+14:50:25   2000/4500
+14:52:33   4000/4500
+14:53:45 pure background negatives
+14:54:58 ACAV negatives (5625000, 16, 96) float16
+14:55:59 negatives in memory: (2036000, 16, 96) 6.3 GB
+14:55:59 validation features (481345, 96) float32
+14:56:08 validation: 481329 windows = 10.7 h
+14:56:08 training on 57600 positives, 2036000 negatives, 32400 confusables
+14:56:09 step 0/60000 loss 0.7376
+14:56:20 step 1000/60000 loss 0.0721
+14:56:28 step 2000/60000 loss 0.0289
+14:56:36 step 3000/60000 loss 0.0132
+14:56:43 step 4000/60000 loss 0.0331
+14:56:51 step 5000/60000 loss 0.0517
+14:56:58 step 6000/60000 loss 0.0804
+14:57:05 step 7000/60000 loss 0.0827
+14:57:12 step 8000/60000 loss 0.0513
+14:57:20 step 9000/60000 loss 0.0380
+14:57:27 step 10000/60000 loss 0.0672
+14:57:34 step 11000/60000 loss 0.0726
+14:57:42 step 12000/60000 loss 0.0580
+14:57:49 step 13000/60000 loss 0.0587
+14:57:56 step 14000/60000 loss 0.0608
+14:58:03 step 15000/60000 loss 0.0567
+14:58:11 step 16000/60000 loss 0.0716
+14:58:18 step 17000/60000 loss 0.0522
+14:58:25 step 18000/60000 loss 0.0549
+14:58:32 step 19000/60000 loss 0.0481
+14:58:40 step 20000/60000 loss 0.0340
+14:58:40   eval step 20000: {'recall': 0.736, 'fa_per_h': 7.57, 'confusable': 0.063}
+14:58:47 step 21000/60000 loss 0.0219
+14:58:55 step 22000/60000 loss 0.0252
+14:58:59   eval step 22500: {'recall': 0.789, 'fa_per_h': 16.73, 'confusable': 0.069}
+14:59:02 step 23000/60000 loss 0.0623
+14:59:09 step 24000/60000 loss 0.0321
+14:59:17 step 25000/60000 loss 0.0292
+14:59:17   eval step 25000: {'recall': 0.674, 'fa_per_h': 3.55, 'confusable': 0.04}
+14:59:24 step 26000/60000 loss 0.0403
+14:59:31 step 27000/60000 loss 0.0365
+14:59:35   eval step 27500: {'recall': 0.807, 'fa_per_h': 13.28, 'confusable': 0.079}
+14:59:39 step 28000/60000 loss 0.0539
+14:59:46 step 29000/60000 loss 0.0569
+14:59:54 step 30000/60000 loss 0.0311
+14:59:54   eval step 30000: {'recall': 0.644, 'fa_per_h': 11.13, 'confusable': 0.048}
+15:00:01 step 31000/60000 loss 0.0551
+15:00:09 step 32000/60000 loss 0.0407
+15:00:13   eval step 32500: {'recall': 0.64, 'fa_per_h': 6.17, 'confusable': 0.038}
+15:00:16 step 33000/60000 loss 0.0128
+15:00:24 step 34000/60000 loss 0.0376
+15:00:32 step 35000/60000 loss 0.0375
+15:00:32   eval step 35000: {'recall': 0.759, 'fa_per_h': 8.41, 'confusable': 0.056}
+15:00:40 step 36000/60000 loss 0.0459
+15:00:47 step 37000/60000 loss 0.0454
+15:00:51   eval step 37500: {'recall': 0.814, 'fa_per_h': 11.87, 'confusable': 0.081}
+15:00:55 step 38000/60000 loss 0.0524
+15:01:02 step 39000/60000 loss 0.0513
+15:01:10 step 40000/60000 loss 0.0352
+15:01:10   eval step 40000: {'recall': 0.833, 'fa_per_h': 18.79, 'confusable': 0.096}
+15:01:18 step 41000/60000 loss 0.0604
+15:01:25 step 42000/60000 loss 0.0160
+15:01:29   eval step 42500: {'recall': 0.853, 'fa_per_h': 24.21, 'confusable': 0.114}
+15:01:33 step 43000/60000 loss 0.0336
+15:01:40 step 44000/60000 loss 0.0207
+15:01:48 step 45000/60000 loss 0.0268
+15:01:48   eval step 45000: {'recall': 0.851, 'fa_per_h': 22.44, 'confusable': 0.118}
+15:01:56 step 46000/60000 loss 0.0423
+15:02:03 step 47000/60000 loss 0.0313
+15:02:07   eval step 47500: {'recall': 0.858, 'fa_per_h': 24.96, 'confusable': 0.126}
+15:02:11 step 48000/60000 loss 0.0214
+15:02:18 step 49000/60000 loss 0.0275
+15:02:25 step 50000/60000 loss 0.0212
+15:02:26   eval step 50000: {'recall': 0.857, 'fa_per_h': 25.52, 'confusable': 0.119}
+15:02:33 step 51000/60000 loss 0.0420
+15:02:41 step 52000/60000 loss 0.0316
+15:02:45   eval step 52500: {'recall': 0.879, 'fa_per_h': 33.28, 'confusable': 0.136}
+15:02:48 step 53000/60000 loss 0.0314
+15:02:56 step 54000/60000 loss 0.0175
+15:03:03 step 55000/60000 loss 0.0118
+15:03:03   eval step 55000: {'recall': 0.876, 'fa_per_h': 29.92, 'confusable': 0.134}
+15:03:11 step 56000/60000 loss 0.0247
+15:03:18 step 57000/60000 loss 0.0262
+15:03:22   eval step 57500: {'recall': 0.874, 'fa_per_h': 30.2, 'confusable': 0.136}
+15:03:25 step 58000/60000 loss 0.0261
+15:03:33 step 59000/60000 loss 0.0284
+15:03:40   eval step 59999: {'recall': 0.875, 'fa_per_h': 30.2, 'confusable': 0.136}
+15:03:41 {'consecutive': 1, 'threshold': 0.2, 'recall': 0.878125, 'confusable_accept': 0.13, 'false_accepts_per_hour': 22.25089284044801}
+15:03:41 {'consecutive': 1, 'threshold': 0.3, 'recall': 0.8625, 'confusable_accept': 0.1111111111111111, 'false_accepts_per_hour': 16.08047717881117}
+15:03:41 {'consecutive': 1, 'threshold': 0.4, 'recall': 0.839375, 'confusable_accept': 0.09666666666666666, 'false_accepts_per_hour': 12.340831323273687}
+15:03:41 {'consecutive': 1, 'threshold': 0.5, 'recall': 0.82125, 'confusable_accept': 0.08222222222222222, 'false_accepts_per_hour': 10.37751724911651}
+15:03:41 {'consecutive': 1, 'threshold': 0.6, 'recall': 0.80125, 'confusable_accept': 0.07555555555555556, 'false_accepts_per_hour': 8.694676614124644}
+15:03:41 {'consecutive': 1, 'threshold': 0.7, 'recall': 0.7775, 'confusable_accept': 0.06555555555555556, 'false_accepts_per_hour': 7.292309418298088}
+15:03:41 {'consecutive': 1, 'threshold': 0.8, 'recall': 0.75625, 'confusable_accept': 0.05555555555555555, 'false_accepts_per_hour': 5.702959929694658}
+15:03:41 {'consecutive': 1, 'threshold': 0.9, 'recall': 0.71125, 'confusable_accept': 0.044444444444444446, 'false_accepts_per_hour': 3.833137001925918}
+15:03:41 {'consecutive': 1, 'threshold': 0.95, 'recall': 0.665, 'confusable_accept': 0.03666666666666667, 'false_accepts_per_hour': 2.6177520988762364}
+15:03:41 {'consecutive': 1, 'threshold': 0.98, 'recall': 0.599375, 'confusable_accept': 0.027777777777777776, 'false_accepts_per_hour': 1.4958583422149923}
+15:03:41 {'consecutive': 2, 'threshold': 0.2, 'recall': 0.769375, 'confusable_accept': 0.06555555555555556, 'false_accepts_per_hour': 7.572782857463399}
+15:03:41 {'consecutive': 2, 'threshold': 0.3, 'recall': 0.72625, 'confusable_accept': 0.05333333333333334, 'false_accepts_per_hour': 5.235504197752473}
+15:03:41 {'consecutive': 2, 'threshold': 0.4, 'recall': 0.6975, 'confusable_accept': 0.04666666666666667, 'false_accepts_per_hour': 4.207101587479666}
+15:03:41 {'consecutive': 2, 'threshold': 0.5, 'recall': 0.674375, 'confusable_accept': 0.04, 'false_accepts_per_hour': 3.552663562760607}
+15:03:41 {'consecutive': 2, 'threshold': 0.6, 'recall': 0.64375, 'confusable_accept': 0.035555555555555556, 'false_accepts_per_hour': 2.898225538041548}
+15:03:41 {'consecutive': 2, 'threshold': 0.7, 'recall': 0.611875, 'confusable_accept': 0.03222222222222222, 'false_accepts_per_hour': 2.1502963669340516}
+15:03:41 {'consecutive': 2, 'threshold': 0.8, 'recall': 0.573125, 'confusable_accept': 0.023333333333333334, 'false_accepts_per_hour': 1.6828406349918663}
+15:03:41 {'consecutive': 2, 'threshold': 0.9, 'recall': 0.524375, 'confusable_accept': 0.02, 'false_accepts_per_hour': 1.2153849030496813}
+15:03:41 {'consecutive': 2, 'threshold': 0.95, 'recall': 0.476875, 'confusable_accept': 0.017777777777777778, 'false_accepts_per_hour': 0.9349114638843702}
+15:03:41 {'consecutive': 2, 'threshold': 0.98, 'recall': 0.415, 'confusable_accept': 0.013333333333333334, 'false_accepts_per_hour': 0.5609468783306222}
+15:03:41 {'consecutive': 3, 'threshold': 0.2, 'recall': 0.575, 'confusable_accept': 0.02666666666666667, 'false_accepts_per_hour': 1.9633140741571775}
+15:03:41 {'consecutive': 3, 'threshold': 0.3, 'recall': 0.52125, 'confusable_accept': 0.021111111111111112, 'false_accepts_per_hour': 1.5893494886034294}
+15:03:41 {'consecutive': 3, 'threshold': 0.4, 'recall': 0.4875, 'confusable_accept': 0.014444444444444444, 'false_accepts_per_hour': 1.4023671958265553}
+15:03:41 {'consecutive': 3, 'threshold': 0.5, 'recall': 0.455625, 'confusable_accept': 0.012222222222222223, 'false_accepts_per_hour': 1.4023671958265553}
+15:03:41 {'consecutive': 3, 'threshold': 0.6, 'recall': 0.425625, 'confusable_accept': 0.012222222222222223, 'false_accepts_per_hour': 1.2153849030496813}
+15:03:41 {'consecutive': 3, 'threshold': 0.7, 'recall': 0.399375, 'confusable_accept': 0.011111111111111112, 'false_accepts_per_hour': 0.8414203174959332}
+15:03:41 {'consecutive': 3, 'threshold': 0.8, 'recall': 0.364375, 'confusable_accept': 0.011111111111111112, 'false_accepts_per_hour': 0.6544380247190591}
+15:03:41 {'consecutive': 3, 'threshold': 0.9, 'recall': 0.309375, 'confusable_accept': 0.008888888888888889, 'false_accepts_per_hour': 0.37396458555374806}
+15:03:41 {'consecutive': 3, 'threshold': 0.95, 'recall': 0.263125, 'confusable_accept': 0.006666666666666667, 'false_accepts_per_hour': 0.18698229277687403}
+15:03:41 {'consecutive': 3, 'threshold': 0.98, 'recall': 0.209375, 'confusable_accept': 0.0033333333333333335, 'false_accepts_per_hour': 0.18698229277687403}
+15:03:41 done: {"consecutive": 1, "threshold": 0.95, "recall": 0.665, "confusable_accept": 0.03666666666666667, "false_accepts_per_hour": 2.6177520988762364}
++ mkdir -p app/src/main/assets/heymeld app/src/test/resources/heymeld
++ cp out/hey_meld.bin app/src/main/assets/heymeld/hey_meld.bin
++ cp out/vectors.txt app/src/test/resources/heymeld/vectors.txt
++ cp out/report.json heymeld/training/last_report.json
++ cat out/report.json
+{
+  "hours_validation": 10.6962,
+  "candidates": [
+    {
+      "consecutive": 1,
+      "threshold": 0.2,
+      "recall": 0.878125,
+      "confusable_accept": 0.13,
+      "false_accepts_per_hour": 22.25089284044801
+    },
+    {
+      "consecutive": 1,
+      "threshold": 0.3,
+      "recall": 0.8625,
+      "confusable_accept": 0.1111111111111111,
+      "false_accepts_per_hour": 16.08047717881117
+    },
+    {
+      "consecutive": 1,
+      "threshold": 0.4,
+      "recall": 0.839375,
+      "confusable_accept": 0.09666666666666666,
+      "false_accepts_per_hour": 12.340831323273687
+    },
+    {
+      "consecutive": 1,
+      "threshold": 0.5,
+      "recall": 0.82125,
+      "confusable_accept": 0.08222222222222222,
+      "false_accepts_per_hour": 10.37751724911651
+    },
+    {
+      "consecutive": 1,
+      "threshold": 0.6,
+      "recall": 0.80125,
+      "confusable_accept": 0.07555555555555556,
+      "false_accepts_per_hour": 8.694676614124644
+    },
+    {
+      "consecutive": 1,
+      "threshold": 0.7,
+      "recall": 0.7775,
+      "confusable_accept": 0.06555555555555556,
+      "false_accepts_per_hour": 7.292309418298088
+    },
+    {
+      "consecutive": 1,
+      "threshold": 0.8,
+      "recall": 0.75625,
+      "confusable_accept": 0.05555555555555555,
+      "false_accepts_per_hour": 5.702959929694658
+    },
+    {
+      "consecutive": 1,
+      "threshold": 0.9,
+      "recall": 0.71125,
+      "confusable_accept": 0.044444444444444446,
+      "false_accepts_per_hour": 3.833137001925918
+    },
+    {
+      "consecutive": 1,
+      "threshold": 0.95,
+      "recall": 0.665,
+      "confusable_accept": 0.03666666666666667,
+      "false_accepts_per_hour": 2.6177520988762364
+    },
+    {
+      "consecutive": 1,
+      "threshold": 0.98,
+      "recall": 0.599375,
+      "confusable_accept": 0.027777777777777776,
+      "false_accepts_per_hour": 1.4958583422149923
+    },
+    {
+      "consecutive": 2,
+      "threshold": 0.2,
+      "recall": 0.769375,
+      "confusable_accept": 0.06555555555555556,
+      "false_accepts_per_hour": 7.572782857463399
+    },
+    {
+      "consecutive": 2,
+      "threshold": 0.3,
+      "recall": 0.72625,
+      "confusable_accept": 0.05333333333333334,
+      "false_accepts_per_hour": 5.235504197752473
+    },
+    {
+      "consecutive": 2,
+      "threshold": 0.4,
+      "recall": 0.6975,
+      "confusable_accept": 0.04666666666666667,
+      "false_accepts_per_hour": 4.207101587479666
+    },
+    {
+      "consecutive": 2,
+      "threshold": 0.5,
+      "recall": 0.674375,
+      "confusable_accept": 0.04,
+      "false_accepts_per_hour": 3.552663562760607
+    },
+    {
+      "consecutive": 2,
+      "threshold": 0.6,
+      "recall": 0.64375,
+      "confusable_accept": 0.035555555555555556,
+      "false_accepts_per_hour": 2.898225538041548
+    },
+    {
+      "consecutive": 2,
+      "threshold": 0.7,
+      "recall": 0.611875,
+      "confusable_accept": 0.03222222222222222,
+      "false_accepts_per_hour": 2.1502963669340516
+    },
+    {
+      "consecutive": 2,
+      "threshold": 0.8,
+      "recall": 0.573125,
+      "confusable_accept": 0.023333333333333334,
+      "false_accepts_per_hour": 1.6828406349918663
+    },
+    {
+      "consecutive": 2,
+      "threshold": 0.9,
+      "recall": 0.524375,
+      "confusable_accept": 0.02,
+      "false_accepts_per_hour": 1.2153849030496813
+    },
+    {
+      "consecutive": 2,
+      "threshold": 0.95,
+      "recall": 0.476875,
+      "confusable_accept": 0.017777777777777778,
+      "false_accepts_per_hour": 0.9349114638843702
+    },
+    {
+      "consecutive": 2,
+      "threshold": 0.98,
+      "recall": 0.415,
+      "confusable_accept": 0.013333333333333334,
+      "false_accepts_per_hour": 0.5609468783306222
+    },
+    {
+      "consecutive": 3,
+      "threshold": 0.2,
+      "recall": 0.575,
+      "confusable_accept": 0.02666666666666667,
+      "false_accepts_per_hour": 1.9633140741571775
+    },
+    {
+      "consecutive": 3,
+      "threshold": 0.3,
+      "recall": 0.52125,
+      "confusable_accept": 0.021111111111111112,
+      "false_accepts_per_hour": 1.5893494886034294
+    },
+    {
+      "consecutive": 3,
+      "threshold": 0.4,
+      "recall": 0.4875,
+      "confusable_accept": 0.014444444444444444,
+      "false_accepts_per_hour": 1.4023671958265553
+    },
+    {
+      "consecutive": 3,
+      "threshold": 0.5,
+      "recall": 0.455625,
+      "confusable_accept": 0.012222222222222223,
+      "false_accepts_per_hour": 1.4023671958265553
+    },
+    {
+      "consecutive": 3,
+      "threshold": 0.6,
+      "recall": 0.425625,
+      "confusable_accept": 0.012222222222222223,
+      "false_accepts_per_hour": 1.2153849030496813
+    },
+    {
+      "consecutive": 3,
+      "threshold": 0.7,
+      "recall": 0.399375,
+      "confusable_accept": 0.011111111111111112,
+      "false_accepts_per_hour": 0.8414203174959332
+    },
+    {
+      "consecutive": 3,
+      "threshold": 0.8,
+      "recall": 0.364375,
+      "confusable_accept": 0.011111111111111112,
+      "false_accepts_per_hour": 0.6544380247190591
+    },
+    {
+      "consecutive": 3,
+      "threshold": 0.9,
+      "recall": 0.309375,
+      "confusable_accept": 0.008888888888888889,
+      "false_accepts_per_hour": 0.37396458555374806
+    },
+    {
+      "consecutive": 3,
+      "threshold": 0.95,
+      "recall": 0.263125,
+      "confusable_accept": 0.006666666666666667,
+      "false_accepts_per_hour": 0.18698229277687403
+    },
+    {
+      "consecutive": 3,
+      "threshold": 0.98,
+      "recall": 0.209375,
+      "confusable_accept": 0.0033333333333333335,
+      "false_accepts_per_hour": 0.18698229277687403
+    }
+  ],
+  "chosen": {
+    "consecutive": 1,
+    "threshold": 0.95,
+    "recall": 0.665,
+    "confusable_accept": 0.03666666666666667,
+    "false_accepts_per_hour": 2.6177520988762364
+  },
+  "export_max_abs_diff": 1.2516975402832031e-06
+}+ git config user.name hey-meld-bot
++ git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
++ git status --short
++ head -20
+ M app/src/main/assets/heymeld/hey_meld.bin
+ M app/src/test/resources/heymeld/vectors.txt
+ M heymeld/training/last_report.json
+?? clipfeats.npz
+?? feats/
+?? voices/
++ git add -f app/src/main/assets/heymeld/hey_meld.bin app/src/test/resources/heymeld/vectors.txt heymeld/training/last_report.json
++ git commit -m 'chore(heymeld): train wake word model (run 5)'
+[main 9746c2b] chore(heymeld): train wake word model (run 5)
+ 3 files changed, 102 insertions(+), 102 deletions(-)
++ git fetch origin main
+From https://github.com/PitBianchini/Meld
+ * branch            main       -> FETCH_HEAD
++ git rebase origin/main
+Current branch main is up to date.
++ git push origin HEAD:main
+To https://github.com/PitBianchini/Meld
+   bad083d..9746c2b  HEAD -> main
