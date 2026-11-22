@@ -169,6 +169,7 @@ class HeyMeldService : Service() {
         var lastModeCheck = 0L
         var inCall = false
         var lastPeriodicCheck = System.currentTimeMillis()
+        var above = 0
 
         fun release() {
             effects.forEach { runCatching { it.release() } }
@@ -223,7 +224,9 @@ class HeyMeldService : Service() {
             when (mode) {
                 Mode.LISTEN -> {
                     val p = detector.process(chunk)
-                    if (p >= detector.threshold && System.currentTimeMillis() >= cooldownUntil) {
+                    above = if (p >= detector.threshold) above + 1 else 0
+                    if (above >= detector.consecutive && System.currentTimeMillis() >= cooldownUntil) {
+                        above = 0
                         Timber.tag(TAG).i("Wake word detected (%.2f)", p)
                         mode = Mode.COMMAND
                         val readEnd = openSink(history)
@@ -293,7 +296,8 @@ class HeyMeldService : Service() {
         return try {
             val (read, write) = ParcelFileDescriptor.createPipe()
             val out = ParcelFileDescriptor.AutoCloseOutputStream(write)
-            history.toList().takeLast(2).forEach { out.write(toBytes(it)) }
+            // include "Hey Meld" itself, so the transcript can confirm it was really said
+            history.forEach { out.write(toBytes(it)) }
             commandSink = out
             read
         } catch (e: IOException) {
@@ -344,6 +348,7 @@ class HeyMeldService : Service() {
             speaker.say("Il riconoscimento vocale non è disponibile su questo telefono")
             return
         }
+        var transcriptHasWakeWord = readEnd != null
         var outcome = if (readEnd != null) {
             recognizer.listen(readEnd).also {
                 runCatching { readEnd.close() }
@@ -356,6 +361,7 @@ class HeyMeldService : Service() {
         if (readEnd != null && outcome is CommandRecognizer.Outcome.Failed && outcome.error.isAudioSourceError()) {
             Timber.tag(TAG).w("Recognizer refused our audio stream (error %d), switching to its own microphone", outcome.error)
             HeyMeld.markAudioSourceBroken(this)
+            transcriptHasWakeWord = false
             mode = Mode.BUSY
             speaker.say("Scusa, ripeti il comando")
             outcome = listenWithOwnMic()
@@ -374,6 +380,12 @@ class HeyMeldService : Service() {
             is CommandRecognizer.Outcome.Text -> {
                 val command = VoiceCommandParser.parseBest(outcome.alternatives)
                 Timber.tag(TAG).i("Heard %s -> %s", outcome.alternatives.firstOrNull(), command)
+                if (command == VoiceCommand.Unknown && transcriptHasWakeWord &&
+                    !outcome.alternatives.any(VoiceCommandParser::startsWithWakeWord)
+                ) {
+                    // most likely a false trigger (a song lyric, the TV...): stay quiet
+                    return
+                }
                 val service = musicService?.takeIf { it.isPlayerReady.value }
                 if (service == null) {
                     speaker.say("Meld non è pronto, riprova tra un attimo")
@@ -475,7 +487,7 @@ class HeyMeldService : Service() {
         private const val TAG = "HeyMeld"
         private const val CHANNEL_ID = "hey_meld"
         private const val NOTIFICATION_ID = 0x4D45
-        private const val PREBUFFER_CHUNKS = 4
+        private const val PREBUFFER_CHUNKS = 15
         private const val DUCK_FACTOR = 0.15f
         const val ACTION_TOGGLE_MUTE = "com.metrolist.music.heymeld.TOGGLE_MUTE"
     }

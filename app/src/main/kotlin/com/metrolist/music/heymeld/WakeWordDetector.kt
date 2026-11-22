@@ -81,6 +81,9 @@ class WakeWordDetector private constructor(
 
     val threshold: Float get() = head.threshold
 
+    /** How many consecutive 80 ms chunks must score above [threshold] to trigger. */
+    val consecutive: Int get() = head.consecutive
+
     override fun close() {
         melspec.close()
         embedding.close()
@@ -91,7 +94,7 @@ class WakeWordDetector private constructor(
      * (Linear -> LayerNorm -> ReLU blocks, then Linear -> Sigmoid).
      * Binary layout, little endian: magic "HMW1", frames, dim, layerCount,
      * then per hidden layer: in, out, W[out][in], b[out], gamma[out], beta[out]; final: in, W[in], b;
-     * then the suggested detection threshold.
+     * then the suggested detection threshold and the number of consecutive chunks required.
      */
     class WakeHead(
         val frames: Int,
@@ -100,6 +103,7 @@ class WakeWordDetector private constructor(
         private val outW: FloatArray,
         private val outB: Float,
         val threshold: Float,
+        val consecutive: Int,
     ) {
         class Layer(val inSize: Int, val outSize: Int, val w: FloatArray, val b: FloatArray, val gamma: FloatArray, val beta: FloatArray)
 
@@ -147,7 +151,8 @@ class WakeWordDetector private constructor(
                 val outW = floats(lastIn)
                 val outB = buf.float
                 val threshold = if (buf.remaining() >= 4) buf.float else 0.5f
-                return WakeHead(frames, dim, layers, outW, outB, threshold)
+                val consecutive = if (buf.remaining() >= 4) buf.int.coerceIn(1, 5) else 1
+                return WakeHead(frames, dim, layers, outW, outB, threshold, consecutive)
             }
         }
     }

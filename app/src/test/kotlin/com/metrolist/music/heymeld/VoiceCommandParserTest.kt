@@ -81,6 +81,16 @@ class VoiceCommandParserTest {
     }
 
     @Test
+    fun recognizesWakeWordInTranscript() {
+        listOf("Hey Meld passa", "ehi Mel stop", "e-mail riproduci Vasco", "hey melt").forEach {
+            assertEquals(it, true, VoiceCommandParser.startsWithWakeWord(it))
+        }
+        listOf("metti la mia canzone", "hey you", "ciao a tutti", "melodia").forEach {
+            assertEquals(it, false, VoiceCommandParser.startsWithWakeWord(it))
+        }
+    }
+
+    @Test
     fun picksFirstUnderstoodAlternative() {
         assertEquals(
             VoiceCommand.Next,

@@ -6,7 +6,7 @@ on:
     inputs:
       positives:
         description: "Esempi positivi da sintetizzare"
-        default: "12000"
+        default: "16000"
       steps:
         description: "Passi di addestramento"
         default: "60000"
@@ -78,10 +78,10 @@ jobs:
           } 2>&1 | tee -a train.log
 
       - name: Restore cached clip features
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: clipfeats.npz
-          key: heymeld-clipfeats-v1-${{ inputs.positives || '12000' }}
+          key: heymeld-clipfeats-v2-${{ inputs.positives || '16000' }}
 
       - name: Train
         run: |
@@ -90,7 +90,14 @@ jobs:
             --negatives feats/openwakeword_features_ACAV100M_2000_hrs_16bit.npy \
             --validation feats/validation_set_features.npy \
             --cache clipfeats.npz \
-            --positives "${{ inputs.positives || '12000' }}" --steps "${{ inputs.steps || '60000' }}" 2>&1 | tee -a train.log
+            --positives "${{ inputs.positives || '16000' }}" --steps "${{ inputs.steps || '60000' }}" 2>&1 | tee -a train.log
+
+      - name: Save clip features for the next run
+        if: always() && hashFiles('clipfeats.npz') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: clipfeats.npz
+          key: heymeld-clipfeats-v2-${{ inputs.positives || '16000' }}
 
       - name: Commit model
         run: |
@@ -104,7 +111,7 @@ jobs:
             git config user.name "hey-meld-bot"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git status --short | head -20
-            git add app/src/main/assets/heymeld/hey_meld.bin app/src/test/resources/heymeld/vectors.txt heymeld/training/last_report.json
+            git add -f app/src/main/assets/heymeld/hey_meld.bin app/src/test/resources/heymeld/vectors.txt heymeld/training/last_report.json
             git commit -m "chore(heymeld): train wake word model (run ${{ github.run_number }})"
             git fetch origin "${{ github.ref_name }}"
             git rebase "origin/${{ github.ref_name }}"

@@ -94,6 +94,12 @@ object VoiceCommandParser {
         return null
     }
 
+    /** True when the transcript begins with something that sounds like "Hey Meld". */
+    fun startsWithWakeWord(raw: String): Boolean {
+        val t = raw.lowercase().replace(Regex("[,.!?;:]"), " ").trim()
+        return WAKE.find(t)?.let { it.value.isNotBlank() } == true
+    }
+
     internal fun clean(raw: String): String {
         var t = Normalizer.normalize(raw.lowercase(), Normalizer.Form.NFC)
             .replace('’', '\'')
@@ -115,7 +121,7 @@ object VoiceCommandParser {
 
     private fun r(p: String) = Regex(p)
 
-    private val WAKE = r("^(?:(?:hey|ehi|ei|hei|e|a|ok|okay)\\s*)?(?:meld|mel|meldi|melt|meld's|amel?d)\\b\\s*")
+    private val WAKE = r("^(?:(?:hey|ehi|ei|hei|e|a|ok|okay)\\s*)?(?:meld|mel|meldi|melt|meld's|amel?d|mell|melk|mail|email|e-mail|emeld|hemeld)\\b\\s*")
     private val POLITE_PREFIX = r("^(?:per favore|per piacere|perfavore|ti prego|dai|allora|ora|adesso|ehm|senti|puoi|potresti|riesci a|vorrei|voglio che|(?:mi|me|ce|ci)\\b(?! piac))\\b\\s*")
     private val POLITE_SUFFIX = r("\\s*\\b(?:per favore|per piacere|grazie|perfavore)$")
     private val INFINITIVES = mapOf(

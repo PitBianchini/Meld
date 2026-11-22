@@ -20,7 +20,8 @@ from pathlib import Path
 import numpy as np
 
 SR = 16_000
-CLIP = 32_000  # 2.0 s -> exactly 16 embedding frames
+CLIP = 35_840  # 2.24 s -> 19 embedding frames = 4 consecutive 16-frame windows
+WINDOWS = 4
 FRAMES = 16
 DIM = 96
 
@@ -253,7 +254,7 @@ def place(speech: np.ndarray, rng: np.random.Generator, end_at_tail: bool) -> np
     out = np.zeros(CLIP, np.float32)
     s = speech[-CLIP:]
     if end_at_tail:
-        end = CLIP - int(rng.integers(0, int(0.25 * SR)))
+        end = CLIP - int(rng.integers(0, int(0.12 * SR)))
     else:
         end = int(rng.integers(min(len(s), CLIP), CLIP + 1))
     start = max(0, end - len(s))
@@ -261,7 +262,7 @@ def place(speech: np.ndarray, rng: np.random.Generator, end_at_tail: bool) -> np
     return out
 
 
-def augment(clip: np.ndarray, rng: np.random.Generator, music, babble, rirs) -> np.ndarray:
+def augment(clip: np.ndarray, rng: np.random.Generator, music, babble, rirs, snr=(-3, 18)) -> np.ndarray:
     x = clip.copy()
     if rng.random() < 0.5:
         r = rirs[int(rng.integers(len(rirs)))]
@@ -286,7 +287,7 @@ def augment(clip: np.ndarray, rng: np.random.Generator, music, babble, rirs) -> 
         o = int(rng.integers(0, len(bg) - CLIP + 1))
         bg = bg[o:o + CLIP].astype(np.float32)
         bg /= np.abs(bg).max() + 1e-9
-        snr = rng.uniform(-3, 18)
+        snr = rng.uniform(*snr)
         ps = np.mean(x ** 2) + 1e-9
         pb = np.mean(bg ** 2) + 1e-9
         x = x + bg * np.sqrt(ps / (pb * 10 ** (snr / 10)))
@@ -301,7 +302,8 @@ def embed(features, clips: np.ndarray) -> np.ndarray:
     for i in range(0, len(clips), 512):
         out.append(features.embed_clips(clips[i:i + 512], batch_size=128, ncpu=os.cpu_count() or 2))
     e = np.concatenate(out).astype(np.float32)
-    return e[:, -FRAMES:, :]
+    # (N, WINDOWS, 16, 96): the last WINDOWS streaming windows of each clip, 80 ms apart
+    return np.stack([e[:, i:i + FRAMES, :] for i in range(e.shape[1] - FRAMES - WINDOWS + 1, e.shape[1] - FRAMES + 1)], axis=1)
 
 
 def windows_from(arr, n: int, rng: np.random.Generator) -> np.ndarray:
@@ -385,10 +387,30 @@ def predict(model, x: np.ndarray) -> np.ndarray:
     return np.concatenate(out) if out else np.zeros(0)
 
 
-def false_accepts(scores: np.ndarray, thr: float) -> int:
+def clip_scores(model, clips: np.ndarray) -> np.ndarray:
+    """(N, WINDOWS, 16, 96) -> (N, WINDOWS) scores."""
+    n = clips.shape[0]
+    return predict(model, clips.reshape(-1, FRAMES, DIM).astype(np.float32)).reshape(n, -1)
+
+
+def run_ok(scores: np.ndarray, thr: float, k: int) -> np.ndarray:
+    """True where the last k scores (ending at that index) are all >= thr — the app's trigger rule."""
+    hit = scores >= thr
+    out = hit.copy()
+    for j in range(1, k):
+        out[j:] &= hit[:-j]
+        out[:j] = False
+    return out
+
+
+def detected(clip_scores_: np.ndarray, thr: float, k: int) -> float:
+    return float(np.mean([run_ok(c, thr, k).any() for c in clip_scores_])) if len(clip_scores_) else 0.0
+
+
+def false_accepts(scores: np.ndarray, thr: float, k: int = 1) -> int:
     """Counts detections in a streaming score sequence, merging hits closer than 1.5 s (as the app's cooldown)."""
     hits, last = 0, -10_000
-    for i in np.where(scores >= thr)[0]:
+    for i in np.where(run_ok(scores, thr, k))[0]:
         if i - last > 19:
             hits += 1
         last = i
@@ -397,7 +419,7 @@ def false_accepts(scores: np.ndarray, thr: float) -> int:
 
 # --------------------------------------------------------------------------- export
 
-def export(model, threshold: float, path: Path):
+def export(model, threshold: float, consecutive: int, path: Path):
     import torch.nn as nn
     linears = [m for m in model if isinstance(m, nn.Linear)]
     norms = [m for m in model if isinstance(m, nn.LayerNorm)]
@@ -414,6 +436,7 @@ def export(model, threshold: float, path: Path):
         f.write(last.weight.detach().numpy().astype("<f4").reshape(-1).tobytes())
         f.write(last.bias.detach().numpy().astype("<f4").tobytes())
         f.write(struct.pack("<f", threshold))
+        f.write(struct.pack("<i", consecutive))
 
 
 def numpy_head(path: Path):
@@ -484,18 +507,18 @@ def main():
         for _ in range(60 if a.smoke else 400):
             babble.append(np.concatenate([tts.say(py.choice(SENTENCES_IT + SENTENCES_EN), py) for _ in range(3)]))
 
-        def make(n, texts_en, texts_it, tail):
+        def make(n, texts_en, texts_it, tail, snr=(-3, 18)):
             clips = np.zeros((n, CLIP), np.int16)
             for i in range(n):
                 italian = py.random() < 0.35
                 text = py.choice(texts_it if italian else texts_en)
-                clips[i] = augment(place(tts.say(text, py, italian), rng, tail), rng, music, babble, rirs)
+                clips[i] = augment(place(tts.say(text, py, italian), rng, tail), rng, music, babble, rirs, snr)
                 if i % 2000 == 0:
                     log(f"  {i}/{n}")
             return clips
 
         log("positive clips")
-        pos = embed(features, make(a.positives, POSITIVE_EN, POSITIVE_IT, tail=True))
+        pos = embed(features, make(a.positives, POSITIVE_EN, POSITIVE_IT, tail=True, snr=(0, 20)))
         log("confusable negative clips")
         hard = embed(features, make(a.confusables, CONFUSABLE_EN, CONFUSABLE_IT, tail=True))
         log("sentence negatives")
@@ -503,7 +526,7 @@ def main():
         log("pure background negatives")
         bg = np.stack([augment(rng.normal(0, 1e-4, CLIP).astype(np.float32), rng, music, babble, rirs)
                        for _ in range(a.confusables // 2)])
-        neg_local = np.concatenate([sent, embed(features, bg)])
+        neg_local = np.concatenate([sent, embed(features, bg)]).reshape(-1, FRAMES, DIM)
         if cache:
             np.savez(cache, pos=pos, hard=hard, neg=neg_local)
 
@@ -529,6 +552,8 @@ def main():
         return x[k:], x[:k]
     pos_tr, pos_te = split(pos)
     hard_tr, hard_te = split(hard)
+    pos_tr = pos_tr.reshape(-1, FRAMES, DIM)
+    hard_tr = hard_tr.reshape(-1, FRAMES, DIM)
 
     if a.validation and Path(a.validation).exists():
         raw_val = np.load(a.validation, mmap_mode="r")
@@ -541,11 +566,11 @@ def main():
     log(f"validation: {len(val)} windows = {hours:.1f} h")
 
     def evaluate(m):
-        pp, ph, pv = predict(m, pos_te), predict(m, hard_te), predict(m, val)
+        pp, ph, pv = clip_scores(m, pos_te), clip_scores(m, hard_te), predict(m, val)
         thr = 0.5
-        fa = false_accepts(pv, thr) / max(hours, 1e-6)
-        rec = float((pp >= thr).mean())
-        conf = float((ph >= thr).mean())
+        fa = false_accepts(pv, thr, 2) / max(hours, 1e-6)
+        rec = detected(pp, thr, 2)
+        conf = detected(ph, thr, 2)
         return rec - 0.15 * fa - 0.5 * conf, {"recall": round(rec, 3), "fa_per_h": round(fa, 2), "confusable": round(conf, 3)}
 
     import torch
@@ -553,31 +578,31 @@ def main():
     log(f"training on {len(pos_tr)} positives, {len(neg)} negatives, {len(hard_tr)} confusables")
     train(model, pos_tr, neg, hard_tr, a.steps, evaluate)
 
-    p_pos = predict(model, pos_te)
-    p_hard = predict(model, hard_te)
+    p_pos, p_hard = clip_scores(model, pos_te), clip_scores(model, hard_te)
     p_val = predict(model, val)
-
     report = {"hours_validation": hours, "candidates": []}
     best = None
-    for thr in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95]:
-        fa = false_accepts(p_val, thr)
-        row = {
-            "threshold": thr,
-            "recall": float((p_pos >= thr).mean()),
-            "confusable_accept": float((p_hard >= thr).mean()),
-            "false_accepts_per_hour": fa / max(hours, 1e-6),
-        }
-        report["candidates"].append(row)
-        log(row)
-        if best is None and row["false_accepts_per_hour"] <= 0.5 and row["confusable_accept"] <= 0.05:
-            best = row
-    best = best or report["candidates"][-1]
+    for k in (1, 2, 3):
+        for thr in [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.98]:
+            row = {
+                "consecutive": k,
+                "threshold": thr,
+                "recall": detected(p_pos, thr, k),
+                "confusable_accept": detected(p_hard, thr, k),
+                "false_accepts_per_hour": false_accepts(p_val, thr, k) / max(hours, 1e-6),
+            }
+            report["candidates"].append(row)
+            log(row)
+            ok = row["false_accepts_per_hour"] <= 1.0 and row["confusable_accept"] <= 0.06
+            if ok and (best is None or row["recall"] > best["recall"]):
+                best = row
+    best = best or min(report["candidates"], key=lambda r: r["false_accepts_per_hour"])
     report["chosen"] = best
 
     bin_path = out / "hey_meld.bin"
-    export(model, best["threshold"], bin_path)
+    export(model, best["threshold"], best["consecutive"], bin_path)
     run, thr = numpy_head(bin_path)
-    sample = pos_te[:64]
+    sample = pos_te[:64, -1]
     ref = predict(model, sample)
     mine = np.array([run(x) for x in sample])
     report["export_max_abs_diff"] = float(np.abs(ref - mine).max())
