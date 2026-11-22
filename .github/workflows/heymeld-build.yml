@@ -11,6 +11,8 @@ on:
       - "heymeld/training/**"
       - ".github/workflows/heymeld-train.yml"
       - "heymeld/ci/**"
+      - "ios-app/**"
+      - ".github/workflows/meld-ios*.yml"
       - "**.md"
   workflow_dispatch:
     inputs:
