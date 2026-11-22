@@ -28,6 +28,13 @@
             <action android:name="android.media.action.DISPLAY_AUDIO_EFFECT_CONTROL_PANEL" />
         </intent>
         <package android:name="com.google.android.projection.gearhead" />
+        <!-- Hey Meld: speech recognizer and text-to-speech engines -->
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
     </queries>
     <application
         android:name=".App"
