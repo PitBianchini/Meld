@@ -262,7 +262,7 @@ def place(speech: np.ndarray, rng: np.random.Generator, end_at_tail: bool) -> np
     return out
 
 
-def augment(clip: np.ndarray, rng: np.random.Generator, music, babble, rirs, snr=(-3, 18)) -> np.ndarray:
+def augment(clip: np.ndarray, rng: np.random.Generator, music, babble, rirs, snr=(-3, 18), music_p=0.45) -> np.ndarray:
     x = clip.copy()
     if rng.random() < 0.5:
         r = rirs[int(rng.integers(len(rirs)))]
@@ -273,11 +273,11 @@ def augment(clip: np.ndarray, rng: np.random.Generator, music, babble, rirs, snr
         x = sosfilt(sos, x).astype(np.float32)
     x /= np.abs(x).max() + 1e-9
     roll = rng.random()
-    if roll < 0.45:
+    if roll < music_p:
         bg = music[int(rng.integers(len(music)))]
-    elif roll < 0.65:
+    elif roll < music_p + 0.2:
         bg = babble[int(rng.integers(len(babble)))] if babble else colored_noise(rng, CLIP)
-    elif roll < 0.9:
+    elif roll < music_p + 0.45:
         bg = colored_noise(rng, CLIP)
     else:
         bg = None
@@ -507,18 +507,18 @@ def main():
         for _ in range(60 if a.smoke else 400):
             babble.append(np.concatenate([tts.say(py.choice(SENTENCES_IT + SENTENCES_EN), py) for _ in range(3)]))
 
-        def make(n, texts_en, texts_it, tail, snr=(-3, 18)):
+        def make(n, texts_en, texts_it, tail, snr=(-3, 18), music_p=0.45):
             clips = np.zeros((n, CLIP), np.int16)
             for i in range(n):
                 italian = py.random() < 0.35
                 text = py.choice(texts_it if italian else texts_en)
-                clips[i] = augment(place(tts.say(text, py, italian), rng, tail), rng, music, babble, rirs, snr)
+                clips[i] = augment(place(tts.say(text, py, italian), rng, tail), rng, music, babble, rirs, snr, music_p)
                 if i % 2000 == 0:
                     log(f"  {i}/{n}")
             return clips
 
         log("positive clips")
-        pos = embed(features, make(a.positives, POSITIVE_EN, POSITIVE_IT, tail=True, snr=(0, 20)))
+        pos = embed(features, make(a.positives, POSITIVE_EN, POSITIVE_IT, tail=True, snr=(-6, 20), music_p=0.5))
         log("confusable negative clips")
         hard = embed(features, make(a.confusables, CONFUSABLE_EN, CONFUSABLE_IT, tail=True))
         log("sentence negatives")

@@ -54,6 +54,9 @@ class HeyMeldService : Service() {
     private lateinit var speaker: Speaker
     private lateinit var recognizer: CommandRecognizer
     private lateinit var executor: CommandExecutor
+    private lateinit var wakeLearner: WakeLearner
+    private lateinit var commandLearner: CommandLearner
+    @Volatile private var musicPlaying = false
 
     private var musicService: MusicService? = null
     private val connection = object : ServiceConnection {
@@ -120,6 +123,28 @@ class HeyMeldService : Service() {
         speaker = Speaker(this)
         recognizer = CommandRecognizer(this)
         executor = CommandExecutor(this)
+        val learnedFile = java.io.File(filesDir, "heymeld/learned_phrases.txt").apply { parentFile?.mkdirs() }
+        commandLearner = CommandLearner(runCatching { learnedFile.readText() }.getOrNull()) { text ->
+            runCatching { learnedFile.writeText(text) }
+        }
+        wakeLearner = WakeLearner(this, scope)
+        wakeLearner.baseHead = detector.baseHead
+        wakeLearner.loadPersonal(detector.baseHead)?.let {
+            detector.useHead(it)
+            Timber.tag(TAG).i("Personalized Hey Meld model loaded (threshold %.2f)", it.threshold)
+        }
+        wakeLearner.currentHead = detector.head
+        wakeLearner.onNewModel = { head ->
+            detector.useHead(head)
+            wakeLearner.currentHead = head
+            Timber.tag(TAG).i("Using the personalized Hey Meld model (threshold %.2f)", head.threshold)
+        }
+        scope.launch {
+            while (true) {
+                musicPlaying = meldPlayer?.isPlaying == true
+                delay(1_000)
+            }
+        }
         bindService(Intent(this, MusicService::class.java), connection, BIND_AUTO_CREATE)
         audioManager.registerAudioDeviceCallback(deviceCallback, main)
         HeyMeld.setRunning(true)
@@ -171,6 +196,7 @@ class HeyMeldService : Service() {
         var inCall = false
         var lastPeriodicCheck = System.currentTimeMillis()
         var above = 0
+        var loudness = 0.0
 
         fun release() {
             effects.forEach { runCatching { it.release() } }
@@ -225,13 +251,23 @@ class HeyMeldService : Service() {
             when (mode) {
                 Mode.LISTEN -> {
                     val p = detector.process(chunk)
-                    above = if (p >= detector.threshold) above + 1 else 0
+                    wakeLearner.onChunk(detector, p, musicPlaying)
+                    var sum = 0.0
+                    for (v in chunk) sum += v.toDouble() * v
+                    loudness = 0.95 * loudness + 0.05 * kotlin.math.sqrt(sum / chunk.size)
+                    // with loud music the wake word scores lower: accept it more easily, the
+                    // transcript check below throws away the false triggers this causes
+                    val loud = musicPlaying && loudness > LOUD_RMS
+                    val threshold = if (loud) maxOf(LOUD_MIN_THRESHOLD, detector.threshold - LOUD_THRESHOLD_DROP) else detector.threshold
+                    above = if (p >= threshold) above + 1 else 0
                     if (above >= detector.consecutive && System.currentTimeMillis() >= cooldownUntil) {
                         above = 0
-                        Timber.tag(TAG).i("Wake word detected (%.2f)", p)
+                        Timber.tag(TAG).i("Wake word detected (%.2f, threshold %.2f)", p, threshold)
+                        val snapshot = wakeLearner.snapshot()
+                        val lenient = p < detector.threshold
                         mode = Mode.COMMAND
                         val readEnd = openSink(history)
-                        main.post { onWakeWord(readEnd) }
+                        main.post { onWakeWord(readEnd, snapshot, lenient) }
                     }
                 }
                 Mode.COMMAND -> commandSink?.let { sink ->
@@ -349,11 +385,11 @@ class HeyMeldService : Service() {
 
     // region command handling (main thread)
 
-    private fun onWakeWord(readEnd: ParcelFileDescriptor?) {
+    private fun onWakeWord(readEnd: ParcelFileDescriptor?, snapshot: WakeLearner.Snapshot, lenient: Boolean) {
         duck()
         scope.launch {
             try {
-                handleCommand(readEnd)
+                handleCommand(readEnd, snapshot, lenient)
             } catch (e: Exception) {
                 Timber.tag(TAG).e(e, "Voice command failed")
                 speaker.say("Qualcosa è andato storto")
@@ -367,7 +403,11 @@ class HeyMeldService : Service() {
         }
     }
 
-    private suspend fun handleCommand(readEnd: ParcelFileDescriptor?) {
+    /**
+     * @param lenient the wake word was accepted below the normal threshold (loud music), so an
+     * unintelligible result is treated as a false trigger and stays silent.
+     */
+    private suspend fun handleCommand(readEnd: ParcelFileDescriptor?, snapshot: WakeLearner.Snapshot, lenient: Boolean) {
         if (!recognizer.available) {
             speaker.say("Il riconoscimento vocale non è disponibile su questo telefono")
             return
@@ -392,7 +432,7 @@ class HeyMeldService : Service() {
         }
         mode = Mode.BUSY
 
-        if (transcriptHasWakeWord) {
+        if (transcriptHasWakeWord && !lenient) {
             if (outcome is CommandRecognizer.Outcome.NothingHeard) {
                 silentStreamAttempts++
                 if (silentStreamAttempts >= 2) {
@@ -406,7 +446,7 @@ class HeyMeldService : Service() {
         }
 
         when (outcome) {
-            CommandRecognizer.Outcome.NothingHeard -> speaker.say("Non ho sentito il comando, riprova")
+            CommandRecognizer.Outcome.NothingHeard -> if (!lenient) speaker.say("Non ho sentito il comando, riprova")
             is CommandRecognizer.Outcome.Failed -> speaker.say(
                 if (outcome.error == SpeechRecognizer.ERROR_NETWORK || outcome.error == SpeechRecognizer.ERROR_NETWORK_TIMEOUT) {
                     "Non riesco a collegarmi a internet"
@@ -415,27 +455,75 @@ class HeyMeldService : Service() {
                 },
             )
             is CommandRecognizer.Outcome.Text -> {
-                val command = VoiceCommandParser.parseBest(outcome.alternatives)
-                Timber.tag(TAG).i("Heard %s -> %s", outcome.alternatives.firstOrNull(), command)
-                if (command == VoiceCommand.Unknown && transcriptHasWakeWord &&
-                    !outcome.alternatives.any(VoiceCommandParser::startsWithWakeWord)
-                ) {
-                    // most likely a false trigger (a song lyric, the TV...): stay quiet
+                val alternatives = outcome.alternatives
+                CommandLearner.meta(alternatives)?.let { meta ->
+                    wakeLearner.confirmed(snapshot)
+                    speaker.say(forget(meta))
                     return
                 }
-                if (command == VoiceCommand.Unknown) {
-                    speaker.say("Non ho capito. Ho sentito: ${outcome.alternatives.first()}")
+                // what the user taught comes first: it is how they actually talk
+                val command = commandLearner.match(alternatives) ?: VoiceCommandParser.parseBest(alternatives)
+                Timber.tag(TAG).i("Heard %s -> %s", alternatives.firstOrNull(), command)
+                val saidWakeWord = alternatives.any(VoiceCommandParser::startsWithWakeWord)
+                if (command == VoiceCommand.Unknown && ((transcriptHasWakeWord && !saidWakeWord) || (!transcriptHasWakeWord && lenient))) {
+                    // most likely a false trigger (a song lyric, the TV...): stay quiet, and learn from it
+                    wakeLearner.falseTrigger(snapshot)
                     return
                 }
+                wakeLearner.confirmed(snapshot)
                 val service = musicService?.takeIf { it.isPlayerReady.value }
                 if (service == null) {
                     speaker.say("Meld non è pronto, riprova tra un attimo")
+                    return
+                }
+                if (command == VoiceCommand.Unknown) {
+                    teach(alternatives.first(), service)
                     return
                 }
                 val reply = executor.execute(service, command)
                 speaker.say(reply)
                 if (command == VoiceCommand.Pause) keepPaused(service)
             }
+        }
+    }
+
+    /** Asks what an unknown phrase means and remembers the answer for next time. */
+    private suspend fun teach(heard: String, service: MusicService) {
+        val shown = VoiceCommandParser.clean(heard).ifBlank { heard }
+        speaker.say("Non conosco «$shown». Dimmi cosa devo fare con un comando che conosco, oppure di' lascia perdere.")
+        val answer = listenWithOwnMic()
+        if (answer !is CommandRecognizer.Outcome.Text) {
+            speaker.say("Va bene, lascio perdere")
+            return
+        }
+        if (answer.alternatives.any { CANCEL.containsMatchIn(it.lowercase()) }) {
+            speaker.say("Va bene")
+            return
+        }
+        val meant = (commandLearner.match(answer.alternatives) ?: VoiceCommandParser.parseBest(answer.alternatives))
+            .takeIf { it != VoiceCommand.Unknown }
+        if (meant == null) {
+            speaker.say("Non ho capito neanche questo, lascio perdere")
+            return
+        }
+        commandLearner.learn(heard, meant)
+        val reply = executor.execute(service, meant)
+        speaker.say("Ok, d'ora in poi «$shown» vorrà dire questo. $reply")
+        if (meant == VoiceCommand.Pause) keepPaused(service)
+    }
+
+    private fun forget(meta: CommandLearner.Companion.Meta): String = when (meta) {
+        CommandLearner.Companion.Meta.FORGET_LAST ->
+            commandLearner.forgetLast()?.let { "Ho dimenticato «${it.phrase}»" } ?: "Non mi hai ancora insegnato niente"
+        CommandLearner.Companion.Meta.FORGET_ALL -> {
+            commandLearner.forgetAll()
+            "Ho dimenticato tutte le frasi che mi hai insegnato"
+        }
+        CommandLearner.Companion.Meta.FORGET_VOICE -> {
+            wakeLearner.reset()
+            detector.useHead(detector.baseHead)
+            wakeLearner.currentHead = detector.baseHead
+            "Ho dimenticato quello che avevo imparato della tua voce"
         }
     }
 
@@ -529,6 +617,10 @@ class HeyMeldService : Service() {
         private const val CHANNEL_ID = "hey_meld"
         private const val NOTIFICATION_ID = 0x4D45
         private const val PREBUFFER_CHUNKS = 15
+        private const val LOUD_RMS = 1000.0
+        private const val LOUD_THRESHOLD_DROP = 0.25f
+        private const val LOUD_MIN_THRESHOLD = 0.6f
+        private val CANCEL = Regex("lascia (?:perdere|stare)|niente|annulla|non importa|lascia\\b")
         private const val MAX_COMMAND_CHUNKS = 75 // 6 s
         private const val END_SILENCE_CHUNKS = 11 // ~0.9 s
         private const val DUCK_FACTOR = 0.15f

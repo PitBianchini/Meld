@@ -17,8 +17,18 @@ import kotlin.math.sqrt
 class WakeWordDetector private constructor(
     private val melspec: Interpreter,
     private val embedding: Interpreter,
-    private val head: WakeHead,
+    /** The model shipped with the app; [head] may be a version personalized on this phone. */
+    val baseHead: WakeHead,
 ) : Closeable {
+
+    @Volatile
+    var head: WakeHead = baseHead
+        private set
+
+    fun useHead(newHead: WakeHead) {
+        require(newHead.frames == baseHead.frames) { "incompatible model" }
+        head = newHead
+    }
 
     private val raw = ShortArray(RAW_WINDOW)
     private var rawFilled = 0
@@ -28,6 +38,14 @@ class WakeWordDetector private constructor(
     private val embInput = Array(1) { Array(EMB_WINDOW) { Array(MEL_BINS) { FloatArray(1) } } }
     private val embOutput = Array(1) { Array(1) { Array(1) { FloatArray(EMB_DIM) } } }
     private val features = ArrayDeque<FloatArray>()
+
+    /** The 16 x 96 embedding window of the last [process] call, flattened (a copy). */
+    @Synchronized
+    fun lastWindow(): FloatArray {
+        val out = FloatArray(features.size * EMB_DIM)
+        features.forEachIndexed { i, f -> System.arraycopy(f, 0, out, i * EMB_DIM, EMB_DIM) }
+        return out
+    }
     private var chunksSinceReset = 0
 
     init {
@@ -44,7 +62,7 @@ class WakeWordDetector private constructor(
         melFrames.clear()
         repeat(EMB_WINDOW) { melFrames.addLast(FloatArray(MEL_BINS) { 1f }) }
         features.clear()
-        repeat(head.frames) { features.addLast(FloatArray(EMB_DIM)) }
+        repeat(baseHead.frames) { features.addLast(FloatArray(EMB_DIM)) }
         chunksSinceReset = 0
     }
 
@@ -71,7 +89,7 @@ class WakeWordDetector private constructor(
         }
         embedding.run(embInput, embOutput)
         features.addLast(embOutput[0][0][0].copyOf())
-        while (features.size > head.frames) features.removeFirst()
+        while (features.size > baseHead.frames) features.removeFirst()
 
         chunksSinceReset++
         // openWakeWord ignores the first 5 predictions while buffers fill.
@@ -98,18 +116,23 @@ class WakeWordDetector private constructor(
      */
     class WakeHead(
         val frames: Int,
-        private val dim: Int,
-        private val layers: List<Layer>,
-        private val outW: FloatArray,
-        private val outB: Float,
+        val dim: Int,
+        val layers: List<Layer>,
+        val outW: FloatArray,
+        val outB: Float,
         val threshold: Float,
         val consecutive: Int,
     ) {
         class Layer(val inSize: Int, val outSize: Int, val w: FloatArray, val b: FloatArray, val gamma: FloatArray, val beta: FloatArray)
 
         fun predict(window: List<FloatArray>): Float {
-            var x = FloatArray(frames * dim)
+            val x = FloatArray(frames * dim)
             window.forEachIndexed { i, f -> System.arraycopy(f, 0, x, i * dim, dim) }
+            return predictFlat(x)
+        }
+
+        fun predictFlat(input: FloatArray): Float {
+            var x = input
             for (l in layers) {
                 val y = FloatArray(l.outSize)
                 for (o in 0 until l.outSize) {
@@ -131,6 +154,23 @@ class WakeWordDetector private constructor(
             var s = outB
             for (i in x.indices) s += outW[i] * x[i]
             return (1.0 / (1.0 + exp(-s.toDouble()))).toFloat()
+        }
+
+        fun withThreshold(t: Float) = WakeHead(frames, dim, layers, outW, outB, t, consecutive)
+
+        fun toBytes(): ByteArray {
+            val size = 16 + layers.sumOf { 8 + 4 * (it.inSize * it.outSize + 3 * it.outSize) } + 4 + 4 * outW.size + 4 + 8
+            val buf = ByteBuffer.allocate(size).order(ByteOrder.LITTLE_ENDIAN)
+            buf.put("HMW1".toByteArray())
+            buf.putInt(frames).putInt(dim).putInt(layers.size)
+            for (l in layers) {
+                buf.putInt(l.inSize).putInt(l.outSize)
+                for (a in listOf(l.w, l.b, l.gamma, l.beta)) a.forEach { buf.putFloat(it) }
+            }
+            buf.putInt(outW.size)
+            outW.forEach { buf.putFloat(it) }
+            buf.putFloat(outB).putFloat(threshold).putInt(consecutive)
+            return buf.array()
         }
 
         companion object {

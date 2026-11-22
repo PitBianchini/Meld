@@ -81,7 +81,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: clipfeats.npz
-          key: heymeld-clipfeats-v2-${{ inputs.positives || '16000' }}
+          key: heymeld-clipfeats-v3-${{ inputs.positives || '16000' }}
 
       - name: Train
         run: |
@@ -97,7 +97,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: clipfeats.npz
-          key: heymeld-clipfeats-v2-${{ inputs.positives || '16000' }}
+          key: heymeld-clipfeats-v3-${{ inputs.positives || '16000' }}
 
       - name: Commit model
         run: |
