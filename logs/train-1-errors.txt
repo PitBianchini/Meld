@@ -1,0 +1,11 @@
+281:Do you wish to run the custom code? [y/N] 10:05:42 music dataset unavailable, using synthetic music: ValueError('The repository for rudraml/fma contains custom code which must be executed to correctly load the dataset. You can inspect the repository content at https://hf.co/datasets/rudraml/fma.\nPle
+282:10:05:47 RIR dataset unavailable: ImportError("To support decoding audio files, please install 'librosa' and 'soundfile'.")
+283-10:05:47 synthesizing speech backgrounds
+284:Traceback (most recent call last):
+285-  File "/home/runner/work/Meld/Meld/heymeld/training/train.py", line 552, in <module>
+286-    sys.exit(main())
+287-             ^^^^^^
+288-  File "/home/runner/work/Meld/Meld/heymeld/training/train.py", line 461, in main
+--
+310:    raise ValueError(
+311:ValueError: Loading this dataset requires you to execute custom code contained in the dataset repository on your local machine. Please set the option `trust_remote_code=True` to permit loading of this dataset.

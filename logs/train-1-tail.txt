@@ -1,0 +1,311 @@
+Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (26.3)
+Looking in indexes: https://download.pytorch.org/whl/cpu
+Collecting torch
+  Downloading torch-2.15.0%2Bcpu-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (35 kB)
+Collecting filelock (from torch)
+  Downloading filelock-4.2.4-py3-none-any.whl.metadata (2.0 kB)
+Collecting typing-extensions>=4.13.0 (from torch)
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Requirement already satisfied: setuptools>=77.0.3 in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (from torch) (79.0.1)
+Collecting sympy>=1.13.3 (from torch)
+  Downloading sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+Collecting networkx>=2.5.1 (from torch)
+  Downloading networkx-3.6.1-py3-none-any.whl.metadata (6.8 kB)
+Collecting jinja2 (from torch)
+  Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting fsspec>=0.8.5 (from torch)
+  Downloading fsspec-2026.9.0-py3-none-any.whl.metadata (10 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy>=1.13.3->torch)
+  Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Collecting MarkupSafe>=2.0 (from jinja2->torch)
+  Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Downloading torch-2.15.0%2Bcpu-cp311-cp311-manylinux_2_28_x86_64.whl (209.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.5/209.5 MB 236.0 MB/s  0:00:00
+Downloading fsspec-2026.9.0-py3-none-any.whl (221 kB)
+Downloading networkx-3.6.1-py3-none-any.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 88.6 MB/s  0:00:00
+Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 282.4 MB/s  0:00:00
+Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 115.9 MB/s  0:00:00
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Downloading filelock-4.2.4-py3-none-any.whl (162 kB)
+Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Installing collected packages: mpmath, typing-extensions, sympy, networkx, MarkupSafe, fsspec, filelock, jinja2, torch
+
+Successfully installed MarkupSafe-3.0.3 filelock-4.2.4 fsspec-2026.9.0 jinja2-3.1.6 mpmath-1.3.0 networkx-3.6.1 sympy-1.14.0 torch-2.15.0+cpu typing-extensions-4.16.0
+Collecting piper-tts==1.8.0
+  Downloading piper_tts-1.8.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Collecting onnxruntime
+  Downloading onnxruntime-1.32.0-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (5.8 kB)
+Collecting numpy
+  Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting scipy
+  Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Collecting datasets<4
+  Downloading datasets-3.6.0-py3-none-any.whl.metadata (19 kB)
+Collecting soundfile
+  Downloading soundfile-0.14.0-py2.py3-none-manylinux_2_28_x86_64.whl.metadata (18 kB)
+Collecting huggingface_hub
+  Downloading huggingface_hub-2.4.0-py3-none-any.whl.metadata (16 kB)
+Collecting tqdm
+  Downloading tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+Collecting scikit-learn
+  Downloading scikit_learn-1.9.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.3 kB)
+Collecting requests
+  Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting pathvalidate<4,>=3 (from piper-tts==1.8.0)
+  Downloading pathvalidate-3.3.1-py3-none-any.whl.metadata (12 kB)
+Collecting flatbuffers (from onnxruntime)
+  Downloading flatbuffers-25.12.19-py2.py3-none-any.whl.metadata (1.0 kB)
+Collecting packaging (from onnxruntime)
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting protobuf>=4.25.8 (from onnxruntime)
+  Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Requirement already satisfied: filelock in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (from datasets<4) (4.2.4)
+Collecting pyarrow>=15.0.0 (from datasets<4)
+  Downloading pyarrow-26.0.1-cp311-cp311-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Collecting dill<0.3.9,>=0.3.0 (from datasets<4)
+  Downloading dill-0.3.8-py3-none-any.whl.metadata (10 kB)
+Collecting pandas (from datasets<4)
+  Downloading pandas-3.1.1-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (16 kB)
+Collecting xxhash (from datasets<4)
+  Downloading xxhash-4.1.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (18 kB)
+Collecting multiprocess<0.70.17 (from datasets<4)
+  Downloading multiprocess-0.70.16-py311-none-any.whl.metadata (7.2 kB)
+Collecting fsspec<=2025.3.0,>=2023.1.0 (from fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading fsspec-2025.3.0-py3-none-any.whl.metadata (11 kB)
+Collecting pyyaml>=5.1 (from datasets<4)
+  Downloading pyyaml-6.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.3 kB)
+Collecting aiohttp!=4.0.0a0,!=4.0.0a1 (from fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading aiohttp-3.14.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Collecting cffi>=1.0 (from soundfile)
+  Downloading cffi-2.1.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+Requirement already satisfied: typing-extensions in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (from soundfile) (4.16.0)
+Collecting click<9.0.0,>=8.4.2 (from huggingface_hub)
+  Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+Collecting hf-xet<2.0.0,>=1.6.0 (from huggingface_hub)
+  Downloading hf_xet-1.8.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Collecting httpx2<3,>=2.0.0 (from huggingface_hub)
+  Downloading httpx2-2.16.2-py3-none-any.whl.metadata (10.0 kB)
+Collecting anyio>=4.10 (from httpx2<3,>=2.0.0->huggingface_hub)
+  Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+Collecting httpcore2==2.16.2 (from httpx2<3,>=2.0.0->huggingface_hub)
+  Downloading httpcore2-2.16.2-py3-none-any.whl.metadata (28 kB)
+Collecting idna>=3.18 (from httpx2<3,>=2.0.0->huggingface_hub)
+  Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting truststore>=0.10 (from httpx2<3,>=2.0.0->huggingface_hub)
+  Downloading truststore-0.10.5-py3-none-any.whl.metadata (4.5 kB)
+Collecting h11>=0.16 (from httpcore2==2.16.2->httpx2<3,>=2.0.0->huggingface_hub)
+  Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting joblib>=1.4.0 (from scikit-learn)
+  Downloading joblib-1.6.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting narwhals>=2.0.1 (from scikit-learn)
+  Downloading narwhals-2.29.0-py3-none-any.whl.metadata (15 kB)
+Collecting threadpoolctl>=3.5.0 (from scikit-learn)
+  Downloading threadpoolctl-3.8.0-py3-none-any.whl.metadata (29 kB)
+Collecting charset_normalizer<4,>=2 (from requests)
+  Downloading charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+Collecting urllib3<3,>=1.26 (from requests)
+  Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting certifi>=2023.5.7 (from requests)
+  Downloading certifi-2026.11.20-py3-none-any.whl.metadata (2.5 kB)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting attrs>=17.3.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Collecting multidict<8.0,>=4.5 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading multidict-7.2.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (6.1 kB)
+Collecting propcache>=0.2.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading propcache-0.5.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (25 kB)
+Collecting yarl<2.0,>=1.25.1 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading yarl-1.25.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (111 kB)
+Collecting pycparser (from cffi>=1.0->soundfile)
+  Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+Collecting cloudpickle>=3.0 (from joblib>=1.4.0->scikit-learn)
+  Downloading cloudpickle-3.1.3-py3-none-any.whl.metadata (7.1 kB)
+Collecting python-dateutil>=2.9.0 (from pandas->datasets<4)
+  Downloading python_dateutil-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting tzdata (from python-dateutil>=2.9.0->pandas->datasets<4)
+  Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+Downloading piper_tts-1.8.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl (34.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 34.1/34.1 MB 34.9 MB/s  0:00:00
+Downloading onnxruntime-1.32.0-cp311-cp311-manylinux_2_28_x86_64.whl (27.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 27.8/27.8 MB 226.4 MB/s  0:00:00
+Downloading datasets-3.6.0-py3-none-any.whl (491 kB)
+Downloading dill-0.3.8-py3-none-any.whl (116 kB)
+Downloading fsspec-2025.3.0-py3-none-any.whl (193 kB)
+Downloading multiprocess-0.70.16-py311-none-any.whl (143 kB)
+Downloading pathvalidate-3.3.1-py3-none-any.whl (24 kB)
+Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 305.1 MB/s  0:00:00
+Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 204.6 MB/s  0:00:00
+Downloading soundfile-0.14.0-py2.py3-none-manylinux_2_28_x86_64.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 218.5 MB/s  0:00:00
+Downloading huggingface_hub-2.4.0-py3-none-any.whl (857 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 857.0/857.0 kB 185.2 MB/s  0:00:00
+Downloading click-8.5.1-py3-none-any.whl (126 kB)
+Downloading hf_xet-1.8.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 308.2 MB/s  0:00:00
+Downloading httpx2-2.16.2-py3-none-any.whl (97 kB)
+Downloading httpcore2-2.16.2-py3-none-any.whl (85 kB)
+Downloading tqdm-4.70.1-py3-none-any.whl (80 kB)
+Downloading scikit_learn-1.9.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.3/9.3 MB 212.3 MB/s  0:00:00
+Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Downloading charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (269 kB)
+Downloading idna-3.20-py3-none-any.whl (69 kB)
+Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+Downloading aiohttp-3.14.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 298.3 MB/s  0:00:00
+Downloading multidict-7.2.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (510 kB)
+Downloading yarl-1.25.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (117 kB)
+Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+Downloading certifi-2026.11.20-py3-none-any.whl (127 kB)
+Downloading cffi-2.1.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (217 kB)
+Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (231 kB)
+Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading joblib-1.6.0-py3-none-any.whl (306 kB)
+Downloading cloudpickle-3.1.3-py3-none-any.whl (22 kB)
+Downloading narwhals-2.29.0-py3-none-any.whl (501 kB)
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading propcache-0.5.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (235 kB)
+Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+Downloading pyarrow-26.0.1-cp311-cp311-manylinux_2_28_x86_64.whl (55.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 55.0/55.0 MB 150.5 MB/s  0:00:00
+Downloading pyyaml-6.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (828 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 828.0/828.0 kB 175.3 MB/s  0:00:00
+Downloading threadpoolctl-3.8.0-py3-none-any.whl (32 kB)
+Downloading truststore-0.10.5-py3-none-any.whl (19 kB)
+Downloading flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
+Downloading pandas-3.1.1-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.4/12.4 MB 207.9 MB/s  0:00:00
+Downloading python_dateutil-4.0.0-py3-none-any.whl (92 kB)
+Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+Downloading xxhash-4.1.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (471 kB)
+Installing collected packages: flatbuffers, xxhash, urllib3, tzdata, truststore, tqdm, threadpoolctl, pyyaml, pycparser, pyarrow, protobuf, propcache, pathvalidate, packaging, numpy, narwhals, multidict, idna, hf-xet, h11, fsspec, frozenlist, dill, cloudpickle, click, charset_normalizer, certifi, attrs, aiohappyeyeballs, yarl, scipy, requests, python-dateutil, onnxruntime, multiprocess, joblib, httpcore2, cffi, anyio, aiosignal, soundfile, scikit-learn, piper-tts, pandas, httpx2, aiohttp, huggingface_hub, datasets
+  Attempting uninstall: fsspec
+    Found existing installation: fsspec 2026.9.0
+    Uninstalling fsspec-2026.9.0:
+      Successfully uninstalled fsspec-2026.9.0
+
+Successfully installed aiohappyeyeballs-2.7.1 aiohttp-3.14.5 aiosignal-1.4.0 anyio-4.16.0 attrs-26.1.0 certifi-2026.11.20 cffi-2.1.1 charset_normalizer-3.5.2 click-8.5.1 cloudpickle-3.1.3 datasets-3.6.0 dill-0.3.8 flatbuffers-25.12.19 frozenlist-1.8.0 fsspec-2025.3.0 h11-0.16.0 hf-xet-1.8.0 httpcore2-2.16.2 httpx2-2.16.2 huggingface_hub-2.4.0 idna-3.20 joblib-1.6.0 multidict-7.2.1 multiprocess-0.70.16 narwhals-2.29.0 numpy-2.4.6 onnxruntime-1.32.0 packaging-26.3 pandas-3.1.1 pathvalidate-3.3.1 piper-tts-1.8.0 propcache-0.5.4 protobuf-7.36.2 pyarrow-26.0.1 pycparser-3.12 python-dateutil-4.0.0 pyyaml-6.0.4 requests-2.34.2 scikit-learn-1.9.1 scipy-1.17.1 soundfile-0.14.0 threadpoolctl-3.8.0 tqdm-4.70.1 truststore-0.10.5 tzdata-2026.6 urllib3-2.8.0 xxhash-4.1.0 yarl-1.25.1
+Collecting openwakeword==0.5.1
+  Downloading openwakeword-0.5.1-py3-none-any.whl.metadata (25 kB)
+Downloading openwakeword-0.5.1-py3-none-any.whl (16.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 8.4 MB/s  0:00:01
+Installing collected packages: openwakeword
+Successfully installed openwakeword-0.5.1
+[0;93m2026-11-22 10:01:12.185669122 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+10:01:16 synthesizing speech backgrounds
+10:01:16 positive clips
+10:01:16   0/300
+10:01:19 confusable negative clips
+10:01:19   0/300
+10:01:22 sentence negatives
+10:01:22   0/150
+10:01:24 pure background negatives
+10:01:25 embedding
+10:01:41 training on 270 positives, 300 negatives, 270 confusables
+10:01:42 step 0/300 loss 1.0066
+10:01:43 {'threshold': 0.3, 'recall': 0.6666666666666666, 'confusable_accept': 0.16666666666666666, 'false_accepts_per_hour': 0.0}
+10:01:43 {'threshold': 0.4, 'recall': 0.6666666666666666, 'confusable_accept': 0.16666666666666666, 'false_accepts_per_hour': 0.0}
+10:01:43 {'threshold': 0.5, 'recall': 0.6666666666666666, 'confusable_accept': 0.16666666666666666, 'false_accepts_per_hour': 0.0}
+10:01:43 {'threshold': 0.6, 'recall': 0.6666666666666666, 'confusable_accept': 0.13333333333333333, 'false_accepts_per_hour': 0.0}
+10:01:43 {'threshold': 0.7, 'recall': 0.6333333333333333, 'confusable_accept': 0.1, 'false_accepts_per_hour': 0.0}
+10:01:43 {'threshold': 0.8, 'recall': 0.6, 'confusable_accept': 0.03333333333333333, 'false_accepts_per_hour': 0.0}
+10:01:43 {'threshold': 0.9, 'recall': 0.4666666666666667, 'confusable_accept': 0.03333333333333333, 'false_accepts_per_hour': 0.0}
+10:01:43 {'threshold': 0.95, 'recall': 0.26666666666666666, 'confusable_accept': 0.0, 'false_accepts_per_hour': 0.0}
+10:01:43 done: {"threshold": 0.8, "recall": 0.6, "confusable_accept": 0.03333333333333333, "false_accepts_per_hour": 0.0}
+[0;93m2026-11-22 10:01:44.342241378 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+INFO:__main__:Downloaded: en_US-libritts_r-medium
+INFO:__main__:Downloaded: en_GB-vctk-medium
+INFO:__main__:Downloaded: en_US-lessac-medium
+INFO:__main__:Downloaded: en_US-ryan-high
+INFO:__main__:Downloaded: en_GB-alan-medium
+INFO:__main__:Downloaded: it_IT-paola-medium
+INFO:__main__:Downloaded: it_IT-riccardo-x_low
+INFO:__main__:Downloaded: es_ES-davefx-medium
+INFO:__main__:Downloaded: de_DE-thorsten-medium
+INFO:__main__:Downloaded: fr_FR-siwis-medium
+total 667864
+drwxr-xr-x  2 runner runner      4096 Nov 22 10:01 .
+drwxr-xr-x 14 runner runner      4096 Nov 22 10:01 ..
+-rw-r--r--  1 runner runner  63221984 Nov 22 10:01 de_DE-thorsten-medium.onnx
+-rw-r--r--  1 runner runner      6455 Nov 22 10:01 de_DE-thorsten-medium.onnx.json
+-rw-r--r--  1 runner runner  63201294 Nov 22 10:01 en_GB-alan-medium.onnx
+-rw-r--r--  1 runner runner      4888 Nov 22 10:01 en_GB-alan-medium.onnx.json
+-rw-r--r--  1 runner runner  76972979 Nov 22 10:01 en_GB-vctk-medium.onnx
+-rw-r--r--  1 runner runner      8061 Nov 22 10:01 en_GB-vctk-medium.onnx.json
+-rw-r--r--  1 runner runner  63201294 Nov 22 10:01 en_US-lessac-medium.onnx
+-rw-r--r--  1 runner runner      4885 Nov 22 10:01 en_US-lessac-medium.onnx.json
+-rw-r--r--  1 runner runner  78580914 Nov 22 10:01 en_US-libritts_r-medium.onnx
+-rw-r--r--  1 runner runner     20123 Nov 22 10:01 en_US-libritts_r-medium.onnx.json
+-rw-r--r--  1 runner runner 120786792 Nov 22 10:01 en_US-ryan-high.onnx
+-rw-r--r--  1 runner runner      4166 Nov 22 10:01 en_US-ryan-high.onnx.json
+-rw-r--r--  1 runner runner  63221984 Nov 22 10:01 es_ES-davefx-medium.onnx
+-rw-r--r--  1 runner runner      6175 Nov 22 10:01 es_ES-davefx-medium.onnx.json
+-rw-r--r--  1 runner runner  63221984 Nov 22 10:01 fr_FR-siwis-medium.onnx
+-rw-r--r--  1 runner runner      6369 Nov 22 10:01 fr_FR-siwis-medium.onnx.json
+-rw-r--r--  1 runner runner  63221984 Nov 22 10:01 it_IT-paola-medium.onnx
+-rw-r--r--  1 runner runner      6114 Nov 22 10:01 it_IT-paola-medium.onnx.json
+-rw-r--r--  1 runner runner  28130791 Nov 22 10:01 it_IT-riccardo-x_low.onnx
+-rw-r--r--  1 runner runner      4161 Nov 22 10:01 it_IT-riccardo-x_low.onnx.json
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/home/runner/work/Meld/Meld/feats/validation_set_features.npy
+/home/runner/work/Meld/Meld/feats/openwakeword_features_ACAV100M_2000_hrs_16bit.npy
+total 17055528
+drwxr-xr-x  3 runner runner        4096 Nov 22 10:05 .
+drwxr-xr-x 15 runner runner        4096 Nov 22 10:02 ..
+drwxr-xr-x  3 runner runner        4096 Nov 22 10:02 .cache
+-rw-r--r--  1 runner runner 17280000128 Nov 22 10:05 openwakeword_features_ACAV100M_2000_hrs_16bit.npy
+-rw-r--r--  1 runner runner   184836608 Nov 22 10:02 validation_set_features.npy
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       145G   54G   91G  38% /
+[0;93m2026-11-22 10:05:36.014329201 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+10:05:40 TTS voices: en_US-libritts_r-medium, en_GB-vctk-medium, en_US-lessac-medium, en_US-ryan-high, en_GB-alan-medium, it_IT-paola-medium, it_IT-riccardo-x_low, es_ES-davefx-medium, de_DE-thorsten-medium, fr_FR-siwis-medium
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+The repository for rudraml/fma contains custom code which must be executed to correctly load the dataset. You can inspect the repository content at https://hf.co/datasets/rudraml/fma.
+You can avoid this prompt in future by passing the argument `trust_remote_code=True`.
+
+Do you wish to run the custom code? [y/N] 10:05:42 music dataset unavailable, using synthetic music: ValueError('The repository for rudraml/fma contains custom code which must be executed to correctly load the dataset. You can inspect the repository content at https://hf.co/datasets/rudraml/fma.\nPle
+10:05:47 RIR dataset unavailable: ImportError("To support decoding audio files, please install 'librosa' and 'soundfile'.")
+10:05:47 synthesizing speech backgrounds
+Traceback (most recent call last):
+  File "/home/runner/work/Meld/Meld/heymeld/training/train.py", line 552, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/runner/work/Meld/Meld/heymeld/training/train.py", line 461, in main
+    s = [tts.say(py.choice(SENTENCES_IT + SENTENCES_EN), py) for _ in range(3)]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/Meld/Meld/heymeld/training/train.py", line 461, in <listcomp>
+    s = [tts.say(py.choice(SENTENCES_IT + SENTENCES_EN), py) for _ in range(3)]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/Meld/Meld/heymeld/training/train.py", line 138, in say
+    audio = np.concatenate([c.audio_float_array for c in voice.synthesize(text, cfg)] or [np.zeros(1600, np.float32)])
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/Meld/Meld/heymeld/training/train.py", line 138, in <listcomp>
+    audio = np.concatenate([c.audio_float_array for c in voice.synthesize(text, cfg)] or [np.zeros(1600, np.float32)])
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/piper/voice.py", line 359, in synthesize
+    audio_result = self.phoneme_ids_to_audio(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/piper/voice.py", line 547, in phoneme_ids_to_audio
+    result = self.session.run(
+             ^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/onnxruntime/capi/onnxruntime_inference_collection.py", line 406, in run
+    return self._sess.run(output_names, input_feed, run_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/datasets/load.py", line 106, in _raise_timeout_error
+    raise ValueError(
+ValueError: Loading this dataset requires you to execute custom code contained in the dataset repository on your local machine. Please set the option `trust_remote_code=True` to permit loading of this dataset.
