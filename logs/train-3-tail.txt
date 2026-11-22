@@ -1,0 +1,400 @@
+Collecting msgpack>=1.0 (from librosa)
+  Downloading msgpack-1.2.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Collecting click<9.0.0,>=8.4.2 (from huggingface_hub)
+  Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+Collecting hf-xet<2.0.0,>=1.6.0 (from huggingface_hub)
+  Downloading hf_xet-1.8.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Collecting httpx2<3,>=2.0.0 (from huggingface_hub)
+  Downloading httpx2-2.16.2-py3-none-any.whl.metadata (10.0 kB)
+Collecting anyio>=4.10 (from httpx2<3,>=2.0.0->huggingface_hub)
+  Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+Collecting httpcore2==2.16.2 (from httpx2<3,>=2.0.0->huggingface_hub)
+  Downloading httpcore2-2.16.2-py3-none-any.whl.metadata (28 kB)
+Collecting idna>=3.18 (from httpx2<3,>=2.0.0->huggingface_hub)
+  Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting truststore>=0.10 (from httpx2<3,>=2.0.0->huggingface_hub)
+  Downloading truststore-0.10.5-py3-none-any.whl.metadata (4.5 kB)
+Collecting h11>=0.16 (from httpcore2==2.16.2->httpx2<3,>=2.0.0->huggingface_hub)
+  Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting narwhals>=2.0.1 (from scikit-learn)
+  Downloading narwhals-2.29.0-py3-none-any.whl.metadata (15 kB)
+Collecting threadpoolctl>=3.5.0 (from scikit-learn)
+  Downloading threadpoolctl-3.8.0-py3-none-any.whl.metadata (29 kB)
+Collecting charset_normalizer<4,>=2 (from requests)
+  Downloading charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+Collecting urllib3<3,>=1.26 (from requests)
+  Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting certifi>=2023.5.7 (from requests)
+  Downloading certifi-2026.11.20-py3-none-any.whl.metadata (2.5 kB)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting attrs>=17.3.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Collecting multidict<8.0,>=4.5 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading multidict-7.2.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (6.1 kB)
+Collecting propcache>=0.2.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading propcache-0.5.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (25 kB)
+Collecting yarl<2.0,>=1.25.1 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]<=2025.3.0,>=2023.1.0->datasets<4)
+  Downloading yarl-1.25.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (111 kB)
+Collecting pycparser (from cffi>=1.0->soundfile)
+  Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+Collecting cloudpickle>=3.0 (from joblib>=1.0->librosa)
+  Downloading cloudpickle-3.1.3-py3-none-any.whl.metadata (7.1 kB)
+Collecting llvmlite<0.51,>=0.50.0dev0 (from numba>=0.51.0->librosa)
+  Downloading llvmlite-0.50.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+Collecting platformdirs>=2.5.0 (from pooch>=1.1->librosa)
+  Downloading platformdirs-4.14.8-py3-none-any.whl.metadata (5.7 kB)
+Collecting python-dateutil>=2.9.0 (from pandas->datasets<4)
+  Downloading python_dateutil-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting tzdata (from python-dateutil>=2.9.0->pandas->datasets<4)
+  Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+Downloading piper_tts-1.8.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_28_x86_64.whl (34.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 34.1/34.1 MB 246.7 MB/s  0:00:00
+Downloading onnxruntime-1.32.0-cp311-cp311-manylinux_2_28_x86_64.whl (27.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 27.8/27.8 MB 279.2 MB/s  0:00:00
+Downloading datasets-3.6.0-py3-none-any.whl (491 kB)
+Downloading dill-0.3.8-py3-none-any.whl (116 kB)
+Downloading fsspec-2025.3.0-py3-none-any.whl (193 kB)
+Downloading multiprocess-0.70.16-py311-none-any.whl (143 kB)
+Downloading pathvalidate-3.3.1-py3-none-any.whl (24 kB)
+Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 304.7 MB/s  0:00:00
+Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 386.9 MB/s  0:00:00
+Downloading soundfile-0.14.0-py2.py3-none-manylinux_2_28_x86_64.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 219.8 MB/s  0:00:00
+Downloading librosa-0.11.0-py3-none-any.whl (260 kB)
+Downloading huggingface_hub-2.4.0-py3-none-any.whl (857 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 857.0/857.0 kB 150.6 MB/s  0:00:00
+Downloading click-8.5.1-py3-none-any.whl (126 kB)
+Downloading hf_xet-1.8.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 362.3 MB/s  0:00:00
+Downloading httpx2-2.16.2-py3-none-any.whl (97 kB)
+Downloading httpcore2-2.16.2-py3-none-any.whl (85 kB)
+Downloading tqdm-4.70.1-py3-none-any.whl (80 kB)
+Downloading scikit_learn-1.9.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.3/9.3 MB 309.2 MB/s  0:00:00
+Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Downloading charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (269 kB)
+Downloading idna-3.20-py3-none-any.whl (69 kB)
+Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+Downloading aiohttp-3.14.5-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 292.0 MB/s  0:00:00
+Downloading multidict-7.2.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (510 kB)
+Downloading yarl-1.25.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (117 kB)
+Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+Downloading audioread-3.1.0-py3-none-any.whl (23 kB)
+Downloading certifi-2026.11.20-py3-none-any.whl (127 kB)
+Downloading cffi-2.1.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (217 kB)
+Downloading decorator-5.3.2-py3-none-any.whl (11 kB)
+Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (231 kB)
+Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading joblib-1.6.0-py3-none-any.whl (306 kB)
+Downloading cloudpickle-3.1.3-py3-none-any.whl (22 kB)
+Downloading lazy_loader-0.6-py3-none-any.whl (8.8 kB)
+Downloading msgpack-1.2.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (480 kB)
+Downloading narwhals-2.29.0-py3-none-any.whl (501 kB)
+Downloading numba-0.68.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (3.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.8/3.8 MB 332.7 MB/s  0:00:00
+Downloading llvmlite-0.50.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (59.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.7/59.7 MB 307.5 MB/s  0:00:00
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading pooch-1.9.0-py3-none-any.whl (67 kB)
+Downloading platformdirs-4.14.8-py3-none-any.whl (94 kB)
+Downloading propcache-0.5.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (235 kB)
+Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+Downloading pyarrow-26.0.1-cp311-cp311-manylinux_2_28_x86_64.whl (55.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 55.0/55.0 MB 282.1 MB/s  0:00:00
+Downloading pyyaml-6.0.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (828 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 828.0/828.0 kB 184.3 MB/s  0:00:00
+Downloading soxr-1.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (245 kB)
+Downloading threadpoolctl-3.8.0-py3-none-any.whl (32 kB)
+Downloading truststore-0.10.5-py3-none-any.whl (19 kB)
+Downloading flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
+Downloading pandas-3.1.1-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.4/12.4 MB 361.9 MB/s  0:00:00
+Downloading python_dateutil-4.0.0-py3-none-any.whl (92 kB)
+Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+Downloading xxhash-4.1.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (471 kB)
+Installing collected packages: flatbuffers, xxhash, urllib3, tzdata, truststore, tqdm, threadpoolctl, pyyaml, pycparser, pyarrow, protobuf, propcache, platformdirs, pathvalidate, packaging, numpy, narwhals, multidict, msgpack, llvmlite, idna, hf-xet, h11, fsspec, frozenlist, dill, decorator, cloudpickle, click, charset_normalizer, certifi, audioread, attrs, aiohappyeyeballs, yarl, soxr, scipy, requests, python-dateutil, onnxruntime, numba, multiprocess, lazy_loader, joblib, httpcore2, cffi, anyio, aiosignal, soundfile, scikit-learn, pooch, piper-tts, pandas, httpx2, aiohttp, librosa, huggingface_hub, datasets
+  Attempting uninstall: fsspec
+    Found existing installation: fsspec 2026.9.0
+    Uninstalling fsspec-2026.9.0:
+      Successfully uninstalled fsspec-2026.9.0
+
+Successfully installed aiohappyeyeballs-2.7.1 aiohttp-3.14.5 aiosignal-1.4.0 anyio-4.16.0 attrs-26.1.0 audioread-3.1.0 certifi-2026.11.20 cffi-2.1.1 charset_normalizer-3.5.2 click-8.5.1 cloudpickle-3.1.3 datasets-3.6.0 decorator-5.3.2 dill-0.3.8 flatbuffers-25.12.19 frozenlist-1.8.0 fsspec-2025.3.0 h11-0.16.0 hf-xet-1.8.0 httpcore2-2.16.2 httpx2-2.16.2 huggingface_hub-2.4.0 idna-3.20 joblib-1.6.0 lazy_loader-0.6 librosa-0.11.0 llvmlite-0.50.0 msgpack-1.2.4 multidict-7.2.1 multiprocess-0.70.16 narwhals-2.29.0 numba-0.68.1 numpy-2.4.6 onnxruntime-1.32.0 packaging-26.3 pandas-3.1.1 pathvalidate-3.3.1 piper-tts-1.8.0 platformdirs-4.14.8 pooch-1.9.0 propcache-0.5.4 protobuf-7.36.2 pyarrow-26.0.1 pycparser-3.12 python-dateutil-4.0.0 pyyaml-6.0.4 requests-2.34.2 scikit-learn-1.9.1 scipy-1.17.1 soundfile-0.14.0 soxr-1.1.0 threadpoolctl-3.8.0 tqdm-4.70.1 truststore-0.10.5 tzdata-2026.6 urllib3-2.8.0 xxhash-4.1.0 yarl-1.25.1
+Collecting openwakeword==0.5.1
+  Downloading openwakeword-0.5.1-py3-none-any.whl.metadata (25 kB)
+Downloading openwakeword-0.5.1-py3-none-any.whl (16.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 14.5 MB/s  0:00:01
+Installing collected packages: openwakeword
+Successfully installed openwakeword-0.5.1
+[0;93m2026-11-22 11:04:47.576403031 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+11:04:51 synthesizing speech backgrounds
+11:04:51 positive clips
+11:04:51   0/300
+11:04:59 confusable negative clips
+11:04:59   0/300
+11:05:07 sentence negatives
+11:05:07   0/150
+11:05:11 pure background negatives
+11:05:16 negatives in memory: (300, 16, 96) 0.0 GB
+11:05:16 validation: 60 windows = 0.0 h
+11:05:17 training on 270 positives, 300 negatives, 270 confusables
+11:05:18 step 0/900 loss 0.6284
+11:05:26   eval step 899: {'recall': 0.533, 'fa_per_h': 0.0, 'confusable': 0.0}
+11:05:26 {'threshold': 0.3, 'recall': 0.5666666666666667, 'confusable_accept': 0.03333333333333333, 'false_accepts_per_hour': 0.0}
+11:05:26 {'threshold': 0.4, 'recall': 0.5333333333333333, 'confusable_accept': 0.03333333333333333, 'false_accepts_per_hour': 0.0}
+11:05:26 {'threshold': 0.5, 'recall': 0.5333333333333333, 'confusable_accept': 0.0, 'false_accepts_per_hour': 0.0}
+11:05:26 {'threshold': 0.6, 'recall': 0.5, 'confusable_accept': 0.0, 'false_accepts_per_hour': 0.0}
+11:05:26 {'threshold': 0.7, 'recall': 0.5, 'confusable_accept': 0.0, 'false_accepts_per_hour': 0.0}
+11:05:26 {'threshold': 0.8, 'recall': 0.4666666666666667, 'confusable_accept': 0.0, 'false_accepts_per_hour': 0.0}
+11:05:26 {'threshold': 0.9, 'recall': 0.43333333333333335, 'confusable_accept': 0.0, 'false_accepts_per_hour': 0.0}
+11:05:26 {'threshold': 0.95, 'recall': 0.43333333333333335, 'confusable_accept': 0.0, 'false_accepts_per_hour': 0.0}
+11:05:26 done: {"threshold": 0.3, "recall": 0.5666666666666667, "confusable_accept": 0.03333333333333333, "false_accepts_per_hour": 0.0}
+[0;93m2026-11-22 11:05:26.910153766 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+INFO:__main__:Downloaded: en_US-libritts_r-medium
+INFO:__main__:Downloaded: en_GB-vctk-medium
+INFO:__main__:Downloaded: en_US-lessac-medium
+INFO:__main__:Downloaded: en_US-ryan-high
+INFO:__main__:Downloaded: en_GB-alan-medium
+INFO:__main__:Downloaded: it_IT-paola-medium
+INFO:__main__:Downloaded: it_IT-riccardo-x_low
+INFO:__main__:Downloaded: es_ES-davefx-medium
+INFO:__main__:Downloaded: de_DE-thorsten-medium
+INFO:__main__:Downloaded: fr_FR-siwis-medium
+total 667864
+drwxr-xr-x  2 runner runner      4096 Nov 22 11:05 .
+drwxr-xr-x 14 runner runner      4096 Nov 22 11:05 ..
+-rw-r--r--  1 runner runner  63221984 Nov 22 11:05 de_DE-thorsten-medium.onnx
+-rw-r--r--  1 runner runner      6455 Nov 22 11:05 de_DE-thorsten-medium.onnx.json
+-rw-r--r--  1 runner runner  63201294 Nov 22 11:05 en_GB-alan-medium.onnx
+-rw-r--r--  1 runner runner      4888 Nov 22 11:05 en_GB-alan-medium.onnx.json
+-rw-r--r--  1 runner runner  76972979 Nov 22 11:05 en_GB-vctk-medium.onnx
+-rw-r--r--  1 runner runner      8061 Nov 22 11:05 en_GB-vctk-medium.onnx.json
+-rw-r--r--  1 runner runner  63201294 Nov 22 11:05 en_US-lessac-medium.onnx
+-rw-r--r--  1 runner runner      4885 Nov 22 11:05 en_US-lessac-medium.onnx.json
+-rw-r--r--  1 runner runner  78580914 Nov 22 11:05 en_US-libritts_r-medium.onnx
+-rw-r--r--  1 runner runner     20123 Nov 22 11:05 en_US-libritts_r-medium.onnx.json
+-rw-r--r--  1 runner runner 120786792 Nov 22 11:05 en_US-ryan-high.onnx
+-rw-r--r--  1 runner runner      4166 Nov 22 11:05 en_US-ryan-high.onnx.json
+-rw-r--r--  1 runner runner  63221984 Nov 22 11:05 es_ES-davefx-medium.onnx
+-rw-r--r--  1 runner runner      6175 Nov 22 11:05 es_ES-davefx-medium.onnx.json
+-rw-r--r--  1 runner runner  63221984 Nov 22 11:05 fr_FR-siwis-medium.onnx
+-rw-r--r--  1 runner runner      6369 Nov 22 11:05 fr_FR-siwis-medium.onnx.json
+-rw-r--r--  1 runner runner  63221984 Nov 22 11:05 it_IT-paola-medium.onnx
+-rw-r--r--  1 runner runner      6114 Nov 22 11:05 it_IT-paola-medium.onnx.json
+-rw-r--r--  1 runner runner  28130791 Nov 22 11:05 it_IT-riccardo-x_low.onnx
+-rw-r--r--  1 runner runner      4161 Nov 22 11:05 it_IT-riccardo-x_low.onnx.json
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/home/runner/work/Meld/Meld/feats/validation_set_features.npy
+/home/runner/work/Meld/Meld/feats/openwakeword_features_ACAV100M_2000_hrs_16bit.npy
+total 17055528
+drwxr-xr-x  3 runner runner        4096 Nov 22 11:07 .
+drwxr-xr-x 15 runner runner        4096 Nov 22 11:05 ..
+drwxr-xr-x  3 runner runner        4096 Nov 22 11:05 .cache
+-rw-r--r--  1 runner runner 17280000128 Nov 22 11:07 openwakeword_features_ACAV100M_2000_hrs_16bit.npy
+-rw-r--r--  1 runner runner   184836608 Nov 22 11:05 validation_set_features.npy
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       145G   55G   91G  38% /
+[0;93m2026-11-22 11:07:29.416101292 [W:onnxruntime:Default, device_discovery.cc:95 GetPciBusId] Skipping pci_bus_id for PCI path at "/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0004:00/MSFT1000:00/5620e0c7-8062-4dce-aeb7-520c7ef76171" because filename "5620e0c7-8062-4dce-aeb7-520c7ef76171" did not match expected pattern of [0-9a-f]+:[0-9a-f]+:[0-9a-f]+[.][0-9a-f]+[m
+11:07:34 TTS voices: en_US-libritts_r-medium, en_GB-vctk-medium, en_US-lessac-medium, en_US-ryan-high, en_GB-alan-medium, it_IT-paola-medium, it_IT-riccardo-x_low, es_ES-davefx-medium, de_DE-thorsten-medium, fr_FR-siwis-medium
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+11:08:31 music: 361 real clips, 180 min
+11:09:20 room impulse responses: 270
+11:09:20 synthesizing speech backgrounds
+11:13:43 positive clips
+11:13:43   0/12000
+11:17:33   2000/12000
+11:21:20   4000/12000
+11:25:06   6000/12000
+11:28:53   8000/12000
+11:32:43   10000/12000
+11:39:43 confusable negative clips
+11:39:43   0/9000
+11:43:16   2000/9000
+11:46:55   4000/9000
+11:50:33   6000/9000
+11:54:08   8000/9000
+11:58:26 sentence negatives
+11:58:26   0/4500
+12:04:32   2000/4500
+12:10:52   4000/4500
+12:13:35 pure background negatives
+12:15:53 ACAV negatives (5625000, 16, 96) float16
+12:16:47 negatives in memory: (2009000, 16, 96) 6.2 GB
+12:16:47 validation features (481345, 96) float32
+12:16:59 validation: 481329 windows = 10.7 h
+12:16:59 training on 10800 positives, 2009000 negatives, 8100 confusables
+12:17:01 step 0/60000 loss 0.6577
+12:17:18 step 1000/60000 loss 0.0501
+12:17:30 step 2000/60000 loss 0.0159
+12:17:41 step 3000/60000 loss 0.0066
+12:17:52 step 4000/60000 loss 0.0971
+12:18:03 step 5000/60000 loss 0.0383
+12:18:14 step 6000/60000 loss 0.0676
+12:18:25 step 7000/60000 loss 0.0479
+12:18:35 step 8000/60000 loss 0.0941
+12:18:46 step 9000/60000 loss 0.0779
+12:18:57 step 10000/60000 loss 0.0569
+12:19:08 step 11000/60000 loss 0.0655
+12:19:19 step 12000/60000 loss 0.0429
+12:19:29 step 13000/60000 loss 0.3743
+12:19:40 step 14000/60000 loss 0.0274
+12:19:51 step 15000/60000 loss 0.0368
+12:20:02 step 16000/60000 loss 0.0351
+12:20:12 step 17000/60000 loss 0.0386
+12:20:23 step 18000/60000 loss 0.0423
+12:20:34 step 19000/60000 loss 0.0219
+12:20:45 step 20000/60000 loss 0.0116
+12:20:45   eval step 20000: {'recall': 0.423, 'fa_per_h': 5.89, 'confusable': 0.022}
+12:20:56 step 21000/60000 loss 0.0383
+12:21:07 step 22000/60000 loss 0.0467
+12:21:13   eval step 22500: {'recall': 0.802, 'fa_per_h': 44.5, 'confusable': 0.092}
+12:21:18 step 23000/60000 loss 0.0545
+12:21:29 step 24000/60000 loss 0.0094
+12:21:40 step 25000/60000 loss 0.0256
+12:21:40   eval step 25000: {'recall': 0.749, 'fa_per_h': 32.91, 'confusable': 0.077}
+12:21:51 step 26000/60000 loss 0.0610
+12:22:02 step 27000/60000 loss 0.0863
+12:22:08   eval step 27500: {'recall': 0.757, 'fa_per_h': 23.75, 'confusable': 0.073}
+12:22:13 step 28000/60000 loss 0.0125
+12:22:24 step 29000/60000 loss 0.0595
+12:22:35 step 30000/60000 loss 0.0136
+12:22:35   eval step 30000: {'recall': 0.804, 'fa_per_h': 50.49, 'confusable': 0.092}
+12:22:46 step 31000/60000 loss 0.0186
+12:22:57 step 32000/60000 loss 0.0396
+12:23:03   eval step 32500: {'recall': 0.778, 'fa_per_h': 29.36, 'confusable': 0.098}
+12:23:08 step 33000/60000 loss 0.0079
+12:23:19 step 34000/60000 loss 0.0064
+12:23:30 step 35000/60000 loss 0.0103
+12:23:30   eval step 35000: {'recall': 0.805, 'fa_per_h': 46.28, 'confusable': 0.097}
+12:23:41 step 36000/60000 loss 0.0187
+12:23:52 step 37000/60000 loss 0.0096
+12:23:58   eval step 37500: {'recall': 0.814, 'fa_per_h': 76.01, 'confusable': 0.096}
+12:24:03 step 38000/60000 loss 0.0053
+12:24:14 step 39000/60000 loss 0.0194
+12:24:25 step 40000/60000 loss 0.0119
+12:24:25   eval step 40000: {'recall': 0.817, 'fa_per_h': 58.24, 'confusable': 0.1}
+12:24:36 step 41000/60000 loss 0.0069
+12:24:47 step 42000/60000 loss 0.0021
+12:24:53   eval step 42500: {'recall': 0.822, 'fa_per_h': 56.94, 'confusable': 0.099}
+12:24:58 step 43000/60000 loss 0.0020
+12:25:09 step 44000/60000 loss 0.0027
+12:25:20 step 45000/60000 loss 0.0016
+12:25:20   eval step 45000: {'recall': 0.807, 'fa_per_h': 56.38, 'confusable': 0.09}
+12:25:31 step 46000/60000 loss 0.0072
+12:25:42 step 47000/60000 loss 0.0012
+12:25:48   eval step 47500: {'recall': 0.853, 'fa_per_h': 110.13, 'confusable': 0.138}
+12:25:53 step 48000/60000 loss 0.1125
+12:26:04 step 49000/60000 loss 0.0018
+12:26:15 step 50000/60000 loss 0.0137
+12:26:15   eval step 50000: {'recall': 0.815, 'fa_per_h': 61.33, 'confusable': 0.1}
+12:26:26 step 51000/60000 loss 0.0022
+12:26:37 step 52000/60000 loss 0.0114
+12:26:43   eval step 52500: {'recall': 0.807, 'fa_per_h': 52.17, 'confusable': 0.099}
+12:26:48 step 53000/60000 loss 0.0052
+12:26:59 step 54000/60000 loss 0.0064
+12:27:10 step 55000/60000 loss 0.0016
+12:27:10   eval step 55000: {'recall': 0.825, 'fa_per_h': 69.28, 'confusable': 0.11}
+12:27:21 step 56000/60000 loss 0.0015
+12:27:32 step 57000/60000 loss 0.0018
+12:27:38   eval step 57500: {'recall': 0.818, 'fa_per_h': 68.16, 'confusable': 0.103}
+12:27:43 step 58000/60000 loss 0.0044
+12:27:54 step 59000/60000 loss 0.0015
+12:28:06   eval step 59999: {'recall': 0.816, 'fa_per_h': 67.41, 'confusable': 0.101}
+12:28:06 {'threshold': 0.3, 'recall': 0.49333333333333335, 'confusable_accept': 0.03222222222222222, 'false_accepts_per_hour': 11.499411005777754}
+12:28:06 {'threshold': 0.4, 'recall': 0.44916666666666666, 'confusable_accept': 0.028888888888888888, 'false_accepts_per_hour': 8.040238589405584}
+12:28:06 {'threshold': 0.5, 'recall': 0.42333333333333334, 'confusable_accept': 0.022222222222222223, 'false_accepts_per_hour': 5.889942222471532}
+12:28:06 {'threshold': 0.6, 'recall': 0.38333333333333336, 'confusable_accept': 0.017777777777777778, 'false_accepts_per_hour': 4.207101587479666}
+12:28:06 {'threshold': 0.7, 'recall': 0.35, 'confusable_accept': 0.017777777777777778, 'false_accepts_per_hour': 3.178698977206859}
+12:28:06 {'threshold': 0.8, 'recall': 0.2975, 'confusable_accept': 0.014444444444444444, 'false_accepts_per_hour': 1.4958583422149923}
+12:28:06 {'threshold': 0.9, 'recall': 0.23666666666666666, 'confusable_accept': 0.013333333333333334, 'false_accepts_per_hour': 1.0284026102728072}
+12:28:06 {'threshold': 0.95, 'recall': 0.18416666666666667, 'confusable_accept': 0.0077777777777777776, 'false_accepts_per_hour': 0.5609468783306222}
+12:28:06 done: {"threshold": 0.95, "recall": 0.18416666666666667, "confusable_accept": 0.0077777777777777776, "false_accepts_per_hour": 0.5609468783306222}
++ mkdir -p app/src/main/assets/heymeld app/src/test/resources/heymeld
++ cp out/hey_meld.bin app/src/main/assets/heymeld/hey_meld.bin
++ cp out/vectors.txt app/src/test/resources/heymeld/vectors.txt
++ cp out/report.json heymeld/training/last_report.json
++ cat out/report.json
+{
+  "hours_validation": 10.6962,
+  "candidates": [
+    {
+      "threshold": 0.3,
+      "recall": 0.49333333333333335,
+      "confusable_accept": 0.03222222222222222,
+      "false_accepts_per_hour": 11.499411005777754
+    },
+    {
+      "threshold": 0.4,
+      "recall": 0.44916666666666666,
+      "confusable_accept": 0.028888888888888888,
+      "false_accepts_per_hour": 8.040238589405584
+    },
+    {
+      "threshold": 0.5,
+      "recall": 0.42333333333333334,
+      "confusable_accept": 0.022222222222222223,
+      "false_accepts_per_hour": 5.889942222471532
+    },
+    {
+      "threshold": 0.6,
+      "recall": 0.38333333333333336,
+      "confusable_accept": 0.017777777777777778,
+      "false_accepts_per_hour": 4.207101587479666
+    },
+    {
+      "threshold": 0.7,
+      "recall": 0.35,
+      "confusable_accept": 0.017777777777777778,
+      "false_accepts_per_hour": 3.178698977206859
+    },
+    {
+      "threshold": 0.8,
+      "recall": 0.2975,
+      "confusable_accept": 0.014444444444444444,
+      "false_accepts_per_hour": 1.4958583422149923
+    },
+    {
+      "threshold": 0.9,
+      "recall": 0.23666666666666666,
+      "confusable_accept": 0.013333333333333334,
+      "false_accepts_per_hour": 1.0284026102728072
+    },
+    {
+      "threshold": 0.95,
+      "recall": 0.18416666666666667,
+      "confusable_accept": 0.0077777777777777776,
+      "false_accepts_per_hour": 0.5609468783306222
+    }
+  ],
+  "chosen": {
+    "threshold": 0.95,
+    "recall": 0.18416666666666667,
+    "confusable_accept": 0.0077777777777777776,
+    "false_accepts_per_hour": 0.5609468783306222
+  },
+  "export_max_abs_diff": 8.940696716308594e-07
+}+ git config user.name hey-meld-bot
++ git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
++ git status --short
++ head -20
+?? app/src/test/resources/
+?? clipfeats.npz
+?? feats/
+?? heymeld/training/last_report.json
+?? voices/
++ git add app/src/main/assets/heymeld/hey_meld.bin app/src/test/resources/heymeld/vectors.txt heymeld/training/last_report.json
+The following paths are ignored by one of your .gitignore files:
+app/src/main/assets/heymeld/hey_meld.bin
+hint: Use -f if you really want to add them.
+hint: Disable this message with "git config set advice.addIgnoredFile false"
