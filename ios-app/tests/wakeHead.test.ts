@@ -13,6 +13,6 @@ test('matches the PyTorch outputs written by the training workflow', () => {
     for (let i = 0; i < 16; i++) window.push(Float32Array.from(v.slice(1 + i * 96, 1 + (i + 1) * 96)));
     assert.ok(Math.abs(head.predict(window) - v[0]) < 1e-4, `${head.predict(window)} vs ${v[0]}`);
   }
-  assert.equal(head.consecutive, 1);
-  assert.ok(Math.abs(head.threshold - 0.95) < 1e-6);
+  assert.ok(head.consecutive >= 1 && head.consecutive <= 5);
+  assert.ok(head.threshold > 0 && head.threshold < 1);
 });

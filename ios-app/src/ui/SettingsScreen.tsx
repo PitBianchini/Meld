@@ -70,6 +70,10 @@ export function SettingsScreen() {
         )}
         {heyError && <Text style={{ color: C.danger }}>{heyError}</Text>}
         {!!hey.lastHeard && <Text style={S.small}>Ultimo comando sentito: «{hey.lastHeard}»</Text>}
+        <Text style={S.small}>
+          Frasi che mi hai insegnato: {hey.learnedPhrases} · esempi della tua voce: {hey.voiceExamples}
+          {hey.personalized ? ' · uso il modello adattato a te' : ''}
+        </Text>
         <Text style={[S.small, { color: C.faint }]}>
           Su iPhone ascolta mentre l'app è aperta o sta suonando. Se la chiudi dal multitasking smette.
         </Text>

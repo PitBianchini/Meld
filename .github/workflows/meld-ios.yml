@@ -7,6 +7,10 @@ on:
   push:
     branches: [main]
     paths: ["ios-app/**", ".github/workflows/meld-ios.yml"]
+  # a newly trained "Hey Meld" model is committed by the training workflow (its push doesn't trigger this)
+  workflow_run:
+    workflows: ["Hey Meld - addestra la parola di attivazione"]
+    types: [completed]
 
 permissions:
   contents: write
@@ -17,6 +21,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: macos-26
     timeout-minutes: 90
     steps:
@@ -27,6 +32,9 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: ios-app/package-lock.json
+
+      - name: Same wake word model as Android
+        run: cp app/src/main/assets/heymeld/hey_meld.bin ios-app/assets/hey_meld.bin
 
       - name: Install
         working-directory: ios-app

@@ -1,5 +1,6 @@
 import { Directory, File, Paths } from 'expo-file-system';
 import type { Track } from '../player/types';
+import type { Learned } from '../voice/commandLearner';
 
 /** Small JSON store in the app's Documents folder (no extra native dependency). */
 type Data = {
@@ -8,9 +9,11 @@ type Data = {
   likes: Track[];
   recent: Track[];
   settings: { heyMeld: boolean; heyMeldMuted: boolean };
+  /** phrases taught to Hey Meld */
+  learned: Learned[];
 };
 
-const EMPTY: Data = { matches: {}, downloads: {}, likes: [], recent: [], settings: { heyMeld: true, heyMeldMuted: false } };
+const EMPTY: Data = { matches: {}, downloads: {}, likes: [], recent: [], settings: { heyMeld: true, heyMeldMuted: false }, learned: [] };
 const file = new File(Paths.document, 'meld-store.json');
 let data: Data | null = null;
 let saveTimer: ReturnType<typeof setTimeout> | null = null;
@@ -78,6 +81,10 @@ export const store = {
   },
   removeDownload(id: string) {
     delete load().downloads[id];
+    changed();
+  },
+  setLearned(items: Learned[]) {
+    load().learned = items;
     changed();
   },
   setSetting<K extends keyof Data['settings']>(k: K, v: Data['settings'][K]) {

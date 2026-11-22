@@ -6,9 +6,9 @@ export class WakeHead {
   readonly dim: number;
   readonly threshold: number;
   readonly consecutive: number;
-  private readonly layers: Layer[];
-  private readonly outW: Float32Array;
-  private readonly outB: number;
+  readonly layers: Layer[];
+  readonly outW: Float32Array;
+  readonly outB: number;
 
   constructor(frames: number, dim: number, layers: Layer[], outW: Float32Array, outB: number, threshold: number, consecutive: number) {
     this.frames = frames;
@@ -55,8 +55,14 @@ export class WakeHead {
 
   /** @param window `frames` embeddings of `dim` floats each, oldest first. */
   predict(window: Float32Array[]): number {
-    let x = new Float32Array(this.frames * this.dim);
+    const x = new Float32Array(this.frames * this.dim);
     window.forEach((f, i) => x.set(f, i * this.dim));
+    return this.predictFlat(x);
+  }
+
+  /** @param input the window flattened to `frames * dim` floats. */
+  predictFlat(input: Float32Array): number {
+    let x = input;
     for (const l of this.layers) {
       const y = new Float32Array(l.outSize);
       for (let j = 0; j < l.outSize; j++) {
@@ -78,5 +84,40 @@ export class WakeHead {
     let s = this.outB;
     for (let i = 0; i < x.length; i++) s += this.outW[i] * x[i];
     return 1 / (1 + Math.exp(-s));
+  }
+
+  withThreshold(t: number): WakeHead {
+    return new WakeHead(this.frames, this.dim, this.layers, this.outW, this.outB, t, this.consecutive);
+  }
+
+  /** Same layout that [parse] reads (and WakeHead.toBytes() on Android writes). */
+  toBytes(): Uint8Array {
+    const size = 16 + this.layers.reduce((n, l) => n + 8 + 4 * (l.inSize * l.outSize + 3 * l.outSize), 0) + 4 + 4 * this.outW.length + 12;
+    const buf = new ArrayBuffer(size);
+    const v = new DataView(buf);
+    let o = 0;
+    for (const c of 'HMW1') v.setUint8(o++, c.charCodeAt(0));
+    const int = (x: number) => {
+      v.setInt32(o, x, true);
+      o += 4;
+    };
+    const float = (x: number) => {
+      v.setFloat32(o, x, true);
+      o += 4;
+    };
+    int(this.frames);
+    int(this.dim);
+    int(this.layers.length);
+    for (const l of this.layers) {
+      int(l.inSize);
+      int(l.outSize);
+      for (const a of [l.w, l.b, l.gamma, l.beta]) a.forEach(float);
+    }
+    int(this.outW.length);
+    this.outW.forEach(float);
+    float(this.outB);
+    float(this.threshold);
+    int(this.consecutive);
+    return new Uint8Array(buf);
   }
 }

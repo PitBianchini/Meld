@@ -23,8 +23,24 @@ export class WakeWordDetector {
   private chunks = 0;
   private embInput = new Float32Array(EMB_WINDOW * MEL_BINS);
 
-  private constructor(private melspec: TfliteModel, private embedding: TfliteModel, readonly head: WakeHead) {
+  /** The model in use: the shipped one ([baseHead]) or a version personalized on this phone. */
+  head: WakeHead;
+
+  private constructor(private melspec: TfliteModel, private embedding: TfliteModel, readonly baseHead: WakeHead) {
+    this.head = baseHead;
     this.reset();
+  }
+
+  useHead(h: WakeHead) {
+    if (h.frames !== this.baseHead.frames || h.dim !== this.baseHead.dim) throw new Error('incompatible model');
+    this.head = h;
+  }
+
+  /** The embedding window of the last [process] call, flattened (a copy). */
+  lastWindow(): Float32Array {
+    const out = new Float32Array(this.features.length * EMB_DIM);
+    this.features.forEach((f, i) => out.set(f, i * EMB_DIM));
+    return out;
   }
 
   static async load(): Promise<WakeWordDetector> {
@@ -39,7 +55,7 @@ export class WakeWordDetector {
   reset() {
     this.raw.fill(0);
     this.mel = Array.from({ length: EMB_WINDOW }, () => new Float32Array(MEL_BINS).fill(1));
-    this.features = Array.from({ length: this.head.frames }, () => new Float32Array(EMB_DIM));
+    this.features = Array.from({ length: this.baseHead.frames }, () => new Float32Array(EMB_DIM));
     this.chunks = 0;
   }
 
@@ -57,7 +73,7 @@ export class WakeWordDetector {
     for (let f = 0; f < EMB_WINDOW; f++) this.embInput.set(this.mel[f], f * MEL_BINS);
     const emb = new Float32Array(this.embedding.runSync([this.embInput.slice().buffer])[0]);
     this.features.push(emb.slice(0, EMB_DIM));
-    if (this.features.length > this.head.frames) this.features.shift();
+    if (this.features.length > this.baseHead.frames) this.features.shift();
     this.chunks++;
     if (this.chunks < WARMUP_CHUNKS) return 0;
     return this.head.predict(this.features);
