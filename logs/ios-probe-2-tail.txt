@@ -1,0 +1,48 @@
+music search ok: [
+  'Bohemian Rhapsody / BSTsnWoslP4',
+  'Bohemian Rhapsody / r4BYQMyPqR8'
+]
+RESULT IOS: no streaming data, playability=LOGIN_REQUIRED Sign in to confirm you’re not a bot
+RESULT ANDROID_VR: no streaming data, playability=LOGIN_REQUIRED Sign in to confirm you’re not a bot
+[YOUTUBEJS][Parser]: InnertubeError: PlayerErrorCommand not found!
+This is a bug, want to help us fix it? Follow the instructions at https://github.com/LuanRT/YouTube.js/blob/main/docs/updating-the-parser.md or report it at https://github.com/LuanRT/YouTube.js/issues!
+Introspected and JIT generated this class in the meantime:
+class PlayerErrorCommand extends YTNode {
+  static type = 'PlayerErrorCommand';
+
+  command: {
+    click_tracking_params: string,
+    auth_required_command: NavigationEndpoint
+  };
+
+  constructor(data: RawNode) {
+    super();
+    this.command = {
+      click_tracking_params: data.command.clickTrackingParams,
+      auth_required_command: new NavigationEndpoint(data.command.authRequiredCommand)
+    };
+  }
+}
+
+    at ERROR_HANDLER (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/parser.js:71:27)
+    at createRuntimeClass (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/generator.js:320:5)
+    at generateRuntimeClass (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/generator.js:371:21)
+    at parseItem (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/parser.js:427:17)
+    at Module.parseResponse (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/parser.js:277:27)
+    at new MediaInfo (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/core/mixins/MediaInfo.js:25:29)
+    at new VideoInfo (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/parser/youtube/VideoInfo.js:46:9)
+    at Innertube.getBasicInfo (file:///Users/runner/work/Meld/Meld/ios-app/probe/node_modules/youtubei.js/dist/src/Innertube.js:102:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async file:///Users/runner/work/Meld/Meld/ios-app/probe/yt-probe.mjs:19:18 {
+  date: 2026-11-22T16:30:47.987Z,
+  version: '18.3.0',
+  info: undefined
+}
+RESULT TV: no streaming data, playability=LOGIN_REQUIRED Sign in to confirm you’re not a bot
+RESULT TV_SIMPLY: no streaming data, playability=UNPLAYABLE Sign in to confirm you’re not a bot
+RESULT WEB_EMBEDDED: ERROR This video is unavailable
+RESULT MWEB: no streaming data, playability=LOGIN_REQUIRED Sign in to confirm you’re not a bot
+RESULT YTMUSIC: no streaming data, playability=LOGIN_REQUIRED Sign in to confirm you’re not a bot
+RESULT WEB: no streaming data, playability=LOGIN_REQUIRED Sign in to confirm you’re not a bot
+RESULT VISIONOS: no streaming data, playability=LOGIN_REQUIRED Sign in to confirm you’re not a bot
+RESULT ANDROID: no streaming data, playability=LOGIN_REQUIRED Sign in to confirm you’re not a bot
