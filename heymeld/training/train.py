@@ -593,7 +593,8 @@ def main():
             }
             report["candidates"].append(row)
             log(row)
-            ok = row["false_accepts_per_hour"] <= 1.0 and row["confusable_accept"] <= 0.06
+            # false triggers are cheap in the app (a short volume dip, then silence), missed commands are not
+            ok = row["false_accepts_per_hour"] <= 3.0 and row["confusable_accept"] <= 0.07
             if ok and (best is None or row["recall"] > best["recall"]):
                 best = row
     best = best or min(report["candidates"], key=lambda r: r["false_accepts_per_hour"])
